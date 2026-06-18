@@ -723,9 +723,21 @@
                     showToast('Access Authorized. Welcome back, Operator!');
                 } else {
                     errorMsg.style.display = 'block';
+                    errorMsg.textContent = '🚫 Invalid credentials. Access denied.';
                 }
             } catch(e) {
-                alert('Connection to backend CMS offline. Please ensure your backend is started with "npm start" on port 5001!');
+                // Offline fallback login check
+                if (password === '777artours') {
+                    localStorage.setItem('ar_admin_token', 'offline-access-token');
+                    document.getElementById('admin-login-overlay').style.setProperty('display', 'none', 'important');
+                    populateModalExperiences();
+                    renderAdminTourList();
+                    loadAdminPricing();
+                    showToast('Offline Access Authorized.');
+                } else {
+                    errorMsg.style.display = 'block';
+                    errorMsg.textContent = '🚫 Invalid credentials. Access denied.';
+                }
             }
         }
 
