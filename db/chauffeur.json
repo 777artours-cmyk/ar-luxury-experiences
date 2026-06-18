@@ -2,10 +2,10 @@
   {
     "id": "airport-transfer",
     "name": "Premium Airport Transfer",
-    "price": 150,
+    "price": 180,
     "type": "chauffeur",
     "emoji": "✈️",
-    "vehicle": "Luxury Sedan / SUV",
+    "vehicle": "Toyota Vellfire / Sedan",
     "description": "One-way premium chauffeur collection to or from Melbourne Airport."
   },
   {
@@ -14,13 +14,13 @@
     "price": 195,
     "type": "chauffeur",
     "emoji": "⏱️",
-    "vehicle": "Luxury Sedan / SUV",
+    "vehicle": "Toyota Vellfire / Sedan",
     "description": "Hourly executive driver service (minimum 3 hour charter)."
   },
   {
     "id": "corporate",
     "name": "Corporate Business Travel",
-    "price": 250,
+    "price": 195,
     "type": "chauffeur",
     "emoji": "💼",
     "vehicle": "Premium Executive Vehicle",
@@ -29,19 +29,46 @@
   {
     "id": "wedding",
     "name": "Wedding Chauffeur Service",
-    "price": 890,
+    "price": 1490,
     "type": "chauffeur",
     "emoji": "💍",
-    "vehicle": "Mercedes V-Class or S-Class",
+    "vehicle": "Toyota Vellfire or Limo",
     "description": "Elite chauffeured luxury for your special day. Red carpet setup."
   },
   {
     "id": "vip-event",
-    "name": "VIP Event Private Transfer",
-    "price": 350,
+    "name": "VIP Event Service",
+    "price": 590,
     "type": "chauffeur",
-    "emoji": "⭐",
-    "vehicle": "Luxury SUV",
-    "description": "Bespoke red carpet arrival and premium transfers for events."
+    "emoji": "🎭",
+    "vehicle": "Premium Executive Vehicle",
+    "description": "Grand Prix, AFL Grand Final, concerts and galas transfers."
+  },
+  {
+    "id": "school-excursion",
+    "name": "School & Group Excursions",
+    "price": 890,
+    "type": "chauffeur",
+    "emoji": "🎓",
+    "vehicle": "Toyota Coaster / Bus",
+    "description": "Safe, licensed transport for school trips and community groups."
+  },
+  {
+    "id": "party-transport",
+    "name": "Bucks/Hens Party Transport",
+    "price": 990,
+    "type": "chauffeur",
+    "emoji": "🎉",
+    "vehicle": "Toyota HiAce / Coaster",
+    "description": "Winery crawls, bar hopping, themed party transport with the fun factor."
+  },
+  {
+    "id": "snow-trip",
+    "name": "Snow Trip Shuttle (Mt Buller)",
+    "price": 1490,
+    "type": "chauffeur",
+    "emoji": "🏔️",
+    "vehicle": "Toyota HiAce / Coaster",
+    "description": "Seasonal winter snow day trips with experienced mountain drivers."
   }
 ]

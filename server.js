@@ -63,11 +63,11 @@ function seedInitialData() {
         id: 'great-ocean-road-private',
         name: 'Great Ocean Road Private Tour',
         duration: '14 Hours',
-        price: 1500,
+        price: 1590,
         type: 'private',
-        vehicle: 'Luxury Vehicle',
-        paxLimit: 5,
-        description: 'Bespoke reverse coastal route on a luxury vehicle. Fits up to 5 people flat-rate.',
+        vehicle: 'Toyota Vellfire (up to 6 pax)',
+        paxLimit: 22,
+        description: 'Bespoke reverse coastal route on a luxury vehicle. Tiered pricing based on vehicle size.',
         emoji: '🌊',
         image: '',
         itinerary: '08:00 Departure | 10:30 Memorial Arch | 12:00 Apollo Bay Lunch | 14:30 12 Apostles | 16:30 Loch Ard Gorge | 21:00 Return'
@@ -76,11 +76,11 @@ function seedInitialData() {
         id: 'phillip-island-private',
         name: 'Phillip Island Private Tour',
         duration: '9 Hours',
-        price: 1500,
+        price: 1290,
         type: 'private',
-        vehicle: 'Luxury Vehicle',
-        paxLimit: 5,
-        description: 'Private sunset Little Penguin parade twilight tour. Fits up to 5 people flat-rate.',
+        vehicle: 'Toyota Vellfire (up to 6 pax)',
+        paxLimit: 22,
+        description: 'Private sunset Little Penguin parade twilight tour. Tiered pricing based on vehicle size.',
         emoji: '🐧',
         image: '',
         itinerary: '13:00 Departure | 14:30 Wildlife Park | 16:30 Nobbies Boardwalk | 18:30 Penguin Parade | 21:30 Return'
@@ -89,11 +89,11 @@ function seedInitialData() {
         id: 'yarra-valley-private',
         name: 'Yarra Valley Wine Private Tour',
         duration: '7 Hours',
-        price: 1500,
+        price: 1190,
         type: 'private',
-        vehicle: 'Luxury Vehicle',
-        paxLimit: 5,
-        description: 'Bespoke wine tasting and estate lunch charter. Fits up to 5 people flat-rate.',
+        vehicle: 'Toyota Vellfire (up to 6 pax)',
+        paxLimit: 22,
+        description: 'Bespoke wine tasting and estate lunch charter. Tiered pricing based on vehicle size.',
         emoji: '🍷',
         image: '',
         itinerary: '09:30 Departure | 10:30 Boutique Winery | 12:30 2-Course Estate Lunch | 14:30 Gin Distillery | 16:30 Return'
@@ -102,46 +102,46 @@ function seedInitialData() {
         id: 'mornington-peninsula-private',
         name: 'Mornington Peninsula Private Tour',
         duration: '8 Hours',
-        price: 1500,
+        price: 1190,
         type: 'private',
-        vehicle: 'Luxury Vehicle',
-        paxLimit: 5,
-        description: 'Thermal hot springs and scenic clifftop sights. Fits up to 5 people flat-rate.',
+        vehicle: 'Toyota Vellfire (up to 6 pax)',
+        paxLimit: 11,
+        description: 'Hot springs, boutique wineries and stunning bay beaches. Tiered pricing based on vehicle size.',
         emoji: '🌺',
         image: '',
-        itinerary: '08:30 Departure | 10:00 Peninsula Hot Springs | 13:00 Winery Lunch | 15:30 Arthurs Seat Gondola | 17:30 Return'
+        itinerary: '09:00 Departure | 10:30 Hot Springs | 13:00 Winery Lunch | 15:30 Bay Views | 17:00 Return'
       },
       {
         id: 'puffing-billy-private',
-        name: 'Puffing Billy Steam Train Private Tour',
+        name: 'Puffing Billy Private Tour',
         duration: '7 Hours',
-        price: 1500,
+        price: 1290,
         type: 'private',
-        vehicle: 'Luxury Vehicle',
-        paxLimit: 5,
-        description: 'Temperate rainforest hikes and heritage train rides. Fits up to 5 people flat-rate.',
+        vehicle: 'Toyota Vellfire (up to 6 pax)',
+        paxLimit: 11,
+        description: 'Ride the iconic heritage steam train through ancient fern gullies. Tiered pricing based on vehicle size.',
         emoji: '🚂',
         image: '',
-        itinerary: '09:00 Departure | 10:30 Puffing Billy Train Ride | 12:30 Sassafras Village | 14:30 Sherbrooke Forest | 16:00 Return'
+        itinerary: '09:00 Departure | 10:30 Steam Train Ride | 12:30 Sassafras Village | 14:30 Wildlife Park | 16:00 Return'
       },
       {
         id: 'melbourne-discovery-private',
-        name: 'Melbourne City Discovery Private Tour',
+        name: 'Melbourne City Private Tour',
         duration: '4-6 Hours',
-        price: 1500,
+        price: 890,
         type: 'private',
-        vehicle: 'Luxury Vehicle',
-        paxLimit: 5,
-        description: 'Bespoke laneway art, culture, and beach boxes. Fits up to 5 people flat-rate.',
-        emoji: '🏙',
+        vehicle: 'Toyota Vellfire (up to 6 pax)',
+        paxLimit: 11,
+        description: 'Hidden laneways, world-class cuisine, street art and cultural icons.',
+        emoji: '🏙️',
         image: '',
-        itinerary: '09:00 Departure | 09:30 Laneway Coffee tour | 11:00 Shrine of Remembrance | 12:30 St Kilda Beach boxes | 14:00 Return'
+        itinerary: '10:00 Departure | 10:30 Laneways | 12:30 Lunch | 14:00 Shrine of Remembrance | 15:30 Return'
       },
       {
         id: 'great-ocean-road-group',
         name: 'Great Ocean Road Group Tour',
         duration: '14 Hours',
-        price: 149,
+        price: 169,
         type: 'group',
         vehicle: 'Toyota Hiace 11-seater',
         paxLimit: 11,
@@ -152,16 +152,16 @@ function seedInitialData() {
       },
       {
         id: 'phillip-island-group',
-        name: 'Phillip Island Penguin Group Tour',
+        name: 'Phillip Island Group Tour',
         duration: '9 Hours',
-        price: 250,
+        price: 199,
         type: 'group',
-        vehicle: '11-seater Vehicle',
+        vehicle: 'Toyota Hiace 11-seater',
         paxLimit: 11,
-        description: 'Twilight Little Penguin migration experience per person on our comfortable 11-seater.',
+        description: 'Small group sunset Little Penguin parade twilight tour per person.',
         emoji: '🐧',
         image: '',
-        itinerary: '12:30 Departure | 14:00 Maru Koala Park | 16:00 Nobbies Center | 18:00 Penguin Parade Premium | 21:00 Return'
+        itinerary: '13:00 Departure | 14:30 Wildlife Park | 16:30 Nobbies Boardwalk | 18:30 Penguin Parade | 21:30 Return'
       }
     ];
     writeJSON(TOURS_FILE, defaultTours);
@@ -170,11 +170,14 @@ function seedInitialData() {
   // 2. Seed Chauffeur Services
   if (!fs.existsSync(CHAUFFEUR_FILE) || readJSON(CHAUFFEUR_FILE).length === 0) {
     const defaultChauffeur = [
-      { id: 'airport-transfer', name: 'Premium Airport Transfer', price: 150, type: 'chauffeur', emoji: '✈️', vehicle: 'Luxury Sedan / SUV', description: 'One-way premium chauffeur collection to or from Melbourne Airport.' },
-      { id: 'hourly-hire', name: 'Hourly Chauffeur Hire (Min 3 hrs)', price: 195, type: 'chauffeur', emoji: '⏱️', vehicle: 'Luxury Sedan / SUV', description: 'Hourly executive driver service (minimum 3 hour charter).' },
-      { id: 'corporate', name: 'Corporate Business Travel', price: 250, type: 'chauffeur', emoji: '💼', vehicle: 'Premium Executive Vehicle', description: 'Premium business events, meetings, and corporate transfers.' },
-      { id: 'wedding', name: 'Wedding Chauffeur Service', price: 890, type: 'chauffeur', emoji: '💍', vehicle: 'Mercedes V-Class or S-Class', description: 'Elite chauffeured luxury for your special day. Red carpet setup.' },
-      { id: 'vip-event', name: 'VIP Event Private Transfer', price: 350, type: 'chauffeur', emoji: '⭐', vehicle: 'Luxury SUV', description: 'Bespoke red carpet arrival and premium transfers for events.' }
+      { id: 'airport-transfer', name: 'Premium Airport Transfer', price: 180, type: 'chauffeur', emoji: '✈️', vehicle: 'Toyota Vellfire / Sedan', description: 'One-way premium chauffeur collection to or from Melbourne Airport.' },
+      { id: 'hourly-hire', name: 'Hourly Chauffeur Hire (Min 3 hrs)', price: 195, type: 'chauffeur', emoji: '⏱️', vehicle: 'Toyota Vellfire / Sedan', description: 'Hourly executive driver service (minimum 3 hour charter).' },
+      { id: 'corporate', name: 'Corporate Business Travel', price: 195, type: 'chauffeur', emoji: '💼', vehicle: 'Premium Executive Vehicle', description: 'Premium business events, meetings, and corporate transfers.' },
+      { id: 'wedding', name: 'Wedding Chauffeur Service', price: 1490, type: 'chauffeur', emoji: '💍', vehicle: 'Toyota Vellfire or Limo', description: 'Elite chauffeured luxury for your special day. Red carpet setup.' },
+      { id: 'vip-event', name: 'VIP Event Service', price: 590, type: 'chauffeur', emoji: '🎭', vehicle: 'Premium Executive Vehicle', description: 'Grand Prix, AFL Grand Final, concerts and galas transfers.' },
+      { id: 'school-excursion', name: 'School & Group Excursions', price: 890, type: 'chauffeur', emoji: '🎓', vehicle: 'Toyota Coaster / Bus', description: 'Safe, licensed transport for school trips and community groups.' },
+      { id: 'party-transport', name: 'Bucks/Hens Party Transport', price: 990, type: 'chauffeur', emoji: '🎉', vehicle: 'Toyota HiAce / Coaster', description: 'Winery crawls, bar hopping, themed party transport with the fun factor.' },
+      { id: 'snow-trip', name: 'Snow Trip Shuttle (Mt Buller)', price: 1490, type: 'chauffeur', emoji: '🏔️', vehicle: 'Toyota HiAce / Coaster', description: 'Seasonal winter snow day trips with experienced mountain drivers.' }
     ];
     writeJSON(CHAUFFEUR_FILE, defaultChauffeur);
   }
