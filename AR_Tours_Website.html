@@ -296,15 +296,11 @@
       overflow: hidden; padding: 120px 0 80px;
     }
 
-    /* Animated gradient background */
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(212,175,55,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 80% 80%, rgba(16,185,129,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(20,30,60,0.8) 0%, transparent 100%),
-        linear-gradient(160deg, #080C14 0%, #0D1825 40%, #080C14 100%);
-      animation: heroGradientShift 12s ease-in-out infinite alternate;
+      background: 
+        linear-gradient(rgba(8,12,20,0.7), rgba(8,12,20,0.85)),
+        url('images/hero-bg.jpg') center/cover no-repeat;
     }
     @keyframes heroGradientShift {
       0%   { filter: hue-rotate(0deg) brightness(1); }
@@ -539,17 +535,16 @@
     }
     .tour-card:hover .tour-img-inner { transform: scale(1.06); }
 
-    /* Destination gradient "photos" */
-    .tour-img--ocean-road .tour-img-inner    { background: linear-gradient(135deg, #0a2a4a 0%, #1a5276 35%, #1a8cbc 65%, #0d5a85 100%); }
-    .tour-img--phillip-island .tour-img-inner { background: linear-gradient(135deg, #0a2a1a 0%, #0d6b3a 40%, #1a8c5f 65%, #0a4a2e 100%); }
-    .tour-img--yarra-valley .tour-img-inner   { background: linear-gradient(135deg, #2a0a1a 0%, #6b1a3a 40%, #8b2252 65%, #4a0a28 100%); }
-    .tour-img--mornington .tour-img-inner     { background: linear-gradient(135deg, #1a0a2a 0%, #4a1a6b 40%, #6b2a8c 65%, #3a0a5a 100%); }
-    .tour-img--puffing-billy .tour-img-inner  { background: linear-gradient(135deg, #1a1a0a 0%, #4a4a1a 40%, #6b6b2a 65%, #3a3a0a 100%); }
-    .tour-img--melbourne .tour-img-inner      { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a4a 40%, #2a2a6b 65%, #0a0a3a 100%); }
+    /* Destination "photos" */
+    .tour-img--ocean-road .tour-img-inner    { background: url('images/tour-gor.jpg') center/cover no-repeat; }
+    .tour-img--phillip-island .tour-img-inner { background: url('images/tour-phillip.jpg') center/cover no-repeat; }
+    .tour-img--yarra-valley .tour-img-inner   { background: url('images/tour-yarra.jpg') center/cover no-repeat; }
+    .tour-img--mornington .tour-img-inner     { background: url('images/tour-mornington.jpg') center/cover no-repeat; }
+    .tour-img--puffing-billy .tour-img-inner  { background: url('images/tour-puffing.jpg') center/cover no-repeat; }
+    .tour-img--melbourne .tour-img-inner      { background: url('images/tour-melbourne.jpg') center/cover no-repeat; }
 
     .tour-img-emoji {
-      position: absolute; top: 20px; right: 20px;
-      font-size: 2.5rem; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+      display: none;
     }
     .tour-img-overlay {
       position: absolute; inset: 0;
@@ -708,16 +703,14 @@
     .fleet-img-inner { width: 100%; height: 100%; transition: transform 0.6s ease; }
     .fleet-card:hover .fleet-img-inner { transform: scale(1.05); }
 
-    /* Vehicle gradient "photos" */
-    .fleet-img--vclass   .fleet-img-inner { background: linear-gradient(140deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%); }
-    .fleet-img--sprinter .fleet-img-inner { background: linear-gradient(140deg, #1a1a1a 0%, #2d2d2d 40%, #404040 70%, #1a1a1a 100%); }
-    .fleet-img--bmw      .fleet-img-inner { background: linear-gradient(140deg, #0a0a1a 0%, #1a1a3e 40%, #0a2a5e 70%, #0a0a1a 100%); }
-    .fleet-img--suv      .fleet-img-inner { background: linear-gradient(140deg, #1a0a0a 0%, #3e1a1a 40%, #5e2a0a 70%, #1a0a0a 100%); }
+    /* Vehicle "photos" */
+    .fleet-img--vellfire .fleet-img-inner { background: url('images/fleet-vellfire.jpg') center/cover no-repeat; }
+    .fleet-img--hiace    .fleet-img-inner { background: url('images/fleet-hiace.jpg') center/cover no-repeat; }
+    .fleet-img--coaster  .fleet-img-inner { background: url('images/fleet-coaster.jpg') center/cover no-repeat; }
+    .fleet-img--bus      .fleet-img-inner { background: url('images/fleet-coach.jpg') center/cover no-repeat; }
 
     .fleet-img-emoji {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      font-size: 4rem; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.7));
-      opacity: 0.6;
+      display: none;
     }
     .fleet-img-brand {
       position: absolute; bottom: 14px; left: 14px;
@@ -1750,31 +1743,49 @@
        CONTACT US
   ============================================================ -->
   <section id="contact" style="padding: 80px 0; background: var(--bg-card); border-top: 1px solid var(--border-glass);">
-    <div class="container" style="max-width: 800px; text-align: center;">
-      <h2 style="font-family: var(--font-head); font-size: 2.2rem; color: #fff; margin-bottom: 20px;">Weddings &amp; Large Events</h2>
-      <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">
-        Planning a wedding, corporate event, or a large group excursion? Need our 28 or 57 seater luxury coach? 
-        Contact us directly to discuss bespoke arrangements and custom pricing.
-      </p>
-      <div data-fs-success style="display: none; padding: 15px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: var(--radius-sm); color: var(--gold); text-align: center; margin-bottom: 20px; font-family: var(--font-head); letter-spacing: 1px;">
-        ✦ Thank you! Your enquiry has been received. Our concierge team will contact you shortly.
+    <div class="container" style="max-width: 1000px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center;">
+        
+        <!-- Luxury Event Showcase -->
+        <div style="border-radius: var(--radius-md); overflow: hidden; height: 450px; position: relative; border: 1px solid var(--border-glass);">
+          <img src="images/event-wedding.jpg" alt="Luxury Weddings and Corporate Events" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,12,20,0.9) 20%, rgba(8,12,20,0.2) 100%);"></div>
+          <div style="position: absolute; bottom: 30px; left: 30px; right: 30px;">
+            <h3 style="font-family: var(--font-head); font-size: 1.6rem; color: #fff; margin-bottom: 10px;">Bespoke Events</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">From corporate transportation in our luxury coaches to elite chauffeur drives for weddings, we curate seamless luxury travel.</p>
+          </div>
+        </div>
+
+        <!-- Enquiry Form -->
+        <div style="text-align: left;">
+          <h2 style="font-family: var(--font-head); font-size: 2.2rem; color: #fff; margin-bottom: 15px;">Weddings &amp; Large Events</h2>
+          <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem; line-height: 1.6;">
+            Planning a wedding, corporate event, or a large group excursion? Need our 28 or 57 seater luxury coach? 
+            Contact us directly to discuss bespoke arrangements and custom pricing.
+          </p>
+          
+          <div data-fs-success style="display: none; padding: 15px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: var(--radius-sm); color: var(--gold); text-align: center; margin-bottom: 20px; font-family: var(--font-head); letter-spacing: 1px;">
+            ✦ Thank you! Your enquiry has been received. Our concierge team will contact you shortly.
+          </div>
+          <div data-fs-error style="display: none; padding: 15px; background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; border-radius: var(--radius-sm); color: #ff4d4d; text-align: center; margin-bottom: 20px;">
+            An error occurred. Please try again or contact us directly.
+          </div>
+
+          <form id="contact-form" style="display:flex; flex-direction: column; gap: 15px;">
+            <input type="text" name="name" placeholder="Your Name" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff;" required>
+            <span data-fs-error="name" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
+
+            <input type="email" name="email" placeholder="Your Email" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff;" required>
+            <span data-fs-error="email" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
+
+            <textarea name="message" placeholder="Tell us about your event..." rows="4" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff; resize: none;" required></textarea>
+            <span data-fs-error="message" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
+
+            <button type="submit" data-fs-submit-btn class="btn btn--gold" style="width: 100%;">Send Enquiry</button>
+          </form>
+        </div>
+
       </div>
-      <div data-fs-error style="display: none; padding: 15px; background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; border-radius: var(--radius-sm); color: #ff4d4d; text-align: center; margin-bottom: 20px;">
-        An error occurred. Please try again or contact us directly.
-      </div>
-
-      <form id="contact-form" style="display:flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; text-align: left;">
-        <input type="text" name="name" placeholder="Your Name" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff;" required>
-        <span data-fs-error="name" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
-
-        <input type="email" name="email" placeholder="Your Email" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff;" required>
-        <span data-fs-error="email" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
-
-        <textarea name="message" placeholder="Tell us about your event..." rows="4" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff; resize: none;" required></textarea>
-        <span data-fs-error="message" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
-
-        <button type="submit" data-fs-submit-btn class="btn btn--gold">Send Enquiry</button>
-      </form>
     </div>
   </section>
 
