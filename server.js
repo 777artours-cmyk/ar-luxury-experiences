@@ -7,8 +7,12 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const JWT_SECRET = process.env.JWT_SECRET || 'ar-luxury-secure-token-secret-777';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '777artours'; // Default premium secure password
+const JWT_SECRET = process.env.JWT_SECRET;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+if (!JWT_SECRET || !ADMIN_PASSWORD) {
+  console.warn("WARNING: JWT_SECRET or ADMIN_PASSWORD environment variables are not set. Admin portal will be disabled.");
+}
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
