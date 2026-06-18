@@ -730,6 +730,7 @@
                 if (password === '777artours') {
                     localStorage.setItem('ar_admin_token', 'offline-access-token');
                     document.getElementById('admin-login-overlay').style.setProperty('display', 'none', 'important');
+                    await BookingEngine.loadFromBackend();
                     populateModalExperiences();
                     renderAdminTourList();
                     loadAdminPricing();

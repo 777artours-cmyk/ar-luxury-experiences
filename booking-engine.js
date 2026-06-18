@@ -56,8 +56,39 @@ const BookingEngine = {
       clearTimeout(id);
       return true;
     } catch(e) {
-      console.warn('Backend API connection offline, utilizing offline caching modes.', e);
-      return false;
+      console.warn('Backend API connection offline, loading static DB files from repository.', e);
+      try {
+        const toursRes = await fetch('db/tours.json');
+        if (toursRes.ok) {
+          const toursData = await toursRes.json();
+          if (toursData) localStorage.setItem('ar_luxury_tours', JSON.stringify(toursData));
+        }
+        
+        const chauffeurRes = await fetch('db/chauffeur.json');
+        if (chauffeurRes.ok) {
+          const chauffeurData = await chauffeurRes.json();
+          localStorage.setItem('ar_luxury_chauffeur', JSON.stringify(chauffeurData));
+        }
+
+        const bookingsRes = await fetch('db/bookings.json');
+        if (bookingsRes.ok) {
+          const bookingsData = await bookingsRes.json();
+          localStorage.setItem('ar_luxury_bookings', JSON.stringify(bookingsData));
+        }
+
+        const settingsRes = await fetch('db/settings.json');
+        if (settingsRes.ok) {
+          const settingsData = await settingsRes.json();
+          localStorage.setItem('ar_luxury_settings', JSON.stringify(settingsData));
+          if (settingsData.googleWebhookUrl) {
+            localStorage.setItem('ar_google_webhook_url', settingsData.googleWebhookUrl);
+          }
+        }
+        return true;
+      } catch (staticErr) {
+        console.error('Failed to load static DB fallback files:', staticErr);
+        return false;
+      }
     }
   },
 
