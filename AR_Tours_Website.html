@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR Luxury Experiences | Private Tours & Chauffeur Services Melbourne</title>
+  <meta name="description" content="AR Luxury Experiences offers private luxury tours and chauffeur services across Victoria. Great Ocean Road, Phillip Island, Yarra Valley and more. Book from Melbourne CBD." />
+  <meta name="keywords" content="luxury tours Melbourne, private chauffeur Melbourne, Great Ocean Road tour, Phillip Island tour, Yarra Valley wine tour, Melbourne CBD" />
+  <link rel="canonical" href="https://toursau.com" />
+  
+  <!-- JSON-LD SEO Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "AR Luxury Experiences",
+    "description": "Premium private tours, bespoke group tours, and elite chauffeur services across Melbourne and Victoria.",
+    "url": "https://toursau.com",
+    "logo": "https://toursau.com/assets/logo.png",
+    "telephone": "+61400044004",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Melbourne",
+      "addressRegion": "VIC",
+      "postalCode": "3000",
+      "addressCountry": "AU"
+    },
+    "priceRange": "$$$$"
+  }
+  </script>
+
+  <meta property="og:title" content="AR Luxury Experiences | Private Tours & Chauffeur Services Melbourne" />
+  <meta property="og:description" content="Premium private tours, bespoke group tours, and elite chauffeur services across Melbourne and Victoria." />
+  <meta property="og:image" content="https://toursau.com/assets/og-image.jpg" />
+  <meta property="og:url" content="https://toursau.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- Google Analytics Placeholder -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script> -->
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Luxury CSS (already built) -->
+  <link rel="stylesheet" href="luxury.css" />
+
+  <!-- Fallback fonts in case luxury.css doesn't load them -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       SITE-LEVEL VARIABLES & RESETS
+    ============================================================ */
+    :root {
+      --gold:        #D4AF37;
+      --gold-light:  #F0D060;
+      --gold-dark:   #A8892A;
+      --emerald:     #10b981;
+      --emerald-dark:#059669;
+      --bg-deep:     #080C14;
+      --bg-dark:     #0D1220;
+      --bg-card:     rgba(255,255,255,0.04);
+      --bg-glass:    rgba(255,255,255,0.06);
+      --border-glass:rgba(255,255,255,0.10);
+      --border-gold: rgba(212,175,55,0.30);
+      --text-primary:#F8F8F8;
+      --text-muted:  #9AA3B4;
+      --text-dim:    #5A6375;
+      --font-head:   'Plus Jakarta Sans', sans-serif;
+      --font-body:   'Outfit', sans-serif;
+      --radius-sm:   8px;
+      --radius-md:   16px;
+      --radius-lg:   24px;
+      --radius-xl:   32px;
+      --shadow-gold: 0 0 40px rgba(212,175,55,0.15);
+      --shadow-card: 0 8px 40px rgba(0,0,0,0.5);
+      --trans:       all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ============================================================
+       UTILITY CLASSES
+    ============================================================ */
+    .container        { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow{ max-width: 860px;  margin: 0 auto; padding: 0 24px; }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(212,175,55,0.10);
+      border: 1px solid rgba(212,175,55,0.25);
+      padding: 6px 16px; border-radius: 50px;
+      margin-bottom: 20px;
+    }
+    .section-tag::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .section-title span { color: var(--gold); }
+
+    .section-subtitle {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 560px; margin: 16px 0 0;
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+      letter-spacing: 0.02em; transition: var(--trans); cursor: pointer;
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .btn--gold {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+      color: #080C14; border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.35);
+    }
+    .btn--gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(212,175,55,0.55);
+      filter: brightness(1.08);
+    }
+    .btn--ghost {
+      background: transparent; color: var(--text-primary);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .btn--ghost:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.45);
+      transform: translateY(-2px);
+    }
+    .btn--emerald {
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+      color: #fff; border-color: var(--emerald);
+      box-shadow: 0 4px 20px rgba(16,185,129,0.30);
+    }
+    .btn--emerald:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(16,185,129,0.50);
+    }
+    .btn--outline-gold {
+      background: transparent; color: var(--gold);
+      border-color: var(--gold);
+    }
+    .btn--outline-gold:hover {
+      background: rgba(212,175,55,0.10);
+      transform: translateY(-2px);
+    }
+    .btn--sm { padding: 10px 20px; font-size: 0.82rem; }
+
+    .glass-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .fade-up {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .gold-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px; margin: 20px 0;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #main-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 0;
+      transition: var(--trans);
+    }
+    #main-nav.scrolled {
+      padding: 12px 0;
+      background: rgba(8,12,20,0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border-glass);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    }
+
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font-head); font-weight: 800;
+      font-size: 1.1rem; letter-spacing: -0.01em;
+      color: var(--text-primary); flex-shrink: 0;
+      transition: var(--trans);
+    }
+    .nav-logo:hover { color: var(--gold); }
+    .nav-logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(212,175,55,0.4);
+    }
+    .nav-logo-text { line-height: 1.1; }
+    .nav-logo-sub { font-size: 0.65rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; display: block; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--text-muted); padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      transition: var(--trans);
+    }
+    .nav-links a:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      padding: 8px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text-primary); border-radius: 2px;
+      transition: var(--trans);
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(8,12,20,0.97);
+      backdrop-filter: blur(24px);
+      z-index: 999; padding: 100px 40px 40px;
+      flex-direction: column; gap: 8px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-head); font-size: 1.5rem; font-weight: 700;
+      color: var(--text-muted); padding: 16px 0;
+      border-bottom: 1px solid var(--border-glass);
+      transition: var(--trans);
+    }
+    .mobile-menu a:hover { color: var(--gold); padding-left: 8px; }
+    .mobile-menu .btn { margin-top: 24px; justify-content: center; font-size: 1rem; padding: 16px; }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      overflow: hidden; padding: 120px 0 80px;
+    }
+
+    /* Animated gradient background */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(212,175,55,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 80%, rgba(16,185,129,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(20,30,60,0.8) 0%, transparent 100%),
+        linear-gradient(160deg, #080C14 0%, #0D1825 40%, #080C14 100%);
+      animation: heroGradientShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes heroGradientShift {
+      0%   { filter: hue-rotate(0deg) brightness(1); }
+      50%  { filter: hue-rotate(8deg) brightness(1.04); }
+      100% { filter: hue-rotate(-4deg) brightness(0.97); }
+    }
+
+    /* Grid overlay */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1; opacity: 0.04;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    /* Animated particles */
+    .hero-particles { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: var(--gold); opacity: 0;
+      animation: floatParticle linear infinite;
+    }
+    .particle:nth-child(1)  { width:3px; height:3px; left:10%; animation-duration:18s; animation-delay:0s;   opacity:0.4; }
+    .particle:nth-child(2)  { width:2px; height:2px; left:22%; animation-duration:22s; animation-delay:3s;   opacity:0.3; }
+    .particle:nth-child(3)  { width:4px; height:4px; left:35%; animation-duration:16s; animation-delay:6s;   opacity:0.5; }
+    .particle:nth-child(4)  { width:2px; height:2px; left:48%; animation-duration:20s; animation-delay:1s;   opacity:0.35; }
+    .particle:nth-child(5)  { width:3px; height:3px; left:60%; animation-duration:14s; animation-delay:8s;   opacity:0.4; background: var(--emerald); }
+    .particle:nth-child(6)  { width:2px; height:2px; left:72%; animation-duration:25s; animation-delay:4s;   opacity:0.3; }
+    .particle:nth-child(7)  { width:5px; height:5px; left:85%; animation-duration:19s; animation-delay:2s;   opacity:0.25; }
+    .particle:nth-child(8)  { width:2px; height:2px; left:15%; animation-duration:23s; animation-delay:10s;  opacity:0.4; background: var(--emerald); }
+    .particle:nth-child(9)  { width:3px; height:3px; left:55%; animation-duration:17s; animation-delay:5s;   opacity:0.3; }
+    .particle:nth-child(10) { width:2px; height:2px; left:92%; animation-duration:21s; animation-delay:7s;   opacity:0.35; }
+    @keyframes floatParticle {
+      0%   { bottom: -20px; opacity: 0; transform: translateX(0) scale(0.5); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { bottom: 105%; opacity: 0; transform: translateX(40px) scale(1.2); }
+    }
+
+    /* Gold line accents */
+    .hero-line-left {
+      position: absolute; left: 60px; top: 20%; bottom: 20%; z-index: 1;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.2;
+    }
+    .hero-line-right {
+      position: absolute; right: 60px; top: 30%; bottom: 30%; z-index: 1;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--emerald), transparent);
+      opacity: 0.2;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.5);opacity:0.6;} }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+    }
+    .hero-title .gold-word { color: var(--gold); }
+    .hero-title .break { display: block; }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted); line-height: 1.75;
+      max-width: 580px; margin-bottom: 44px;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 56px;
+    }
+    .hero-ctas .btn { font-size: 0.96rem; padding: 16px 32px; }
+
+    .trust-badges {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.03);
+      width: fit-content;
+    }
+    .trust-badge {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--text-muted);
+    }
+    .trust-badge:last-child { border-right: none; }
+    .trust-badge-icon { font-size: 1rem; }
+    .trust-badge-stars { color: var(--gold); font-size: 0.85rem; }
+    .trust-badge strong { color: var(--text-primary); }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-dim); animation: scrollBounce 2.4s ease-in-out infinite;
+    }
+    @keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+    .scroll-bar {
+      width: 2px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       BOOKING WIDGET
+    ============================================================ */
+    #booking-widget {
+      position: relative; z-index: 10;
+      margin-top: -60px; padding-bottom: 80px;
+    }
+
+    .widget-card {
+      padding: 36px 40px;
+      background: rgba(13,18,32,0.90);
+      border: 1px solid rgba(212,175,55,0.20);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(30px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.05), var(--shadow-gold);
+    }
+
+    .widget-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
+    }
+    .widget-title {
+      font-family: var(--font-head); font-size: 1.2rem; font-weight: 700;
+      color: var(--text-primary);
+    }
+    .widget-subtitle { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+    .widget-badge {
+      background: rgba(16,185,129,0.15); color: var(--emerald);
+      border: 1px solid rgba(16,185,129,0.25);
+      padding: 4px 12px; border-radius: 50px; font-size: 0.72rem; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .widget-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); animation: pulse 1.5s infinite; }
+
+    .widget-form {
+      display: grid; grid-template-columns: repeat(4, 1fr) auto;
+      gap: 14px; align-items: end;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .form-input, .form-select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary); font-family: var(--font-body);
+      font-size: 0.9rem; padding: 12px 14px;
+      transition: var(--trans); outline: none;
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--text-dim); }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+    }
+    .form-select option { background: #0D1220; color: var(--text-primary); }
+
+    .widget-price-preview {
+      margin-top: 16px; padding: 14px 20px;
+      background: rgba(212,175,55,0.07); border: 1px solid rgba(212,175,55,0.18);
+      border-radius: var(--radius-sm); display: none;
+      align-items: center; justify-content: space-between;
+    }
+    .widget-price-preview.show { display: flex; }
+    .wp-label { font-size: 0.8rem; color: var(--text-muted); }
+    .wp-price { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; color: var(--gold); }
+    .wp-note  { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ============================================================
+       EXPERIENCES / TOURS
+    ============================================================ */
+    #experiences { padding: 100px 0; }
+
+    .section-header { margin-bottom: 60px; }
+    .section-header--center { text-align: center; }
+    .section-header--center .section-subtitle { margin: 16px auto 0; }
+
+    .tours-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .tour-card {
+      position: relative; overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      transition: var(--trans);
+      group: true;
+    }
+    .tour-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212,175,55,0.30);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--shadow-gold);
+    }
+
+    .tour-img {
+      position: relative; height: 220px; overflow: hidden;
+    }
+    .tour-img-inner {
+      width: 100%; height: 100%;
+      transition: transform 0.6s ease;
+    }
+    .tour-card:hover .tour-img-inner { transform: scale(1.06); }
+
+    /* Destination gradient "photos" */
+    .tour-img--ocean-road .tour-img-inner    { background: linear-gradient(135deg, #0a2a4a 0%, #1a5276 35%, #1a8cbc 65%, #0d5a85 100%); }
+    .tour-img--phillip-island .tour-img-inner { background: linear-gradient(135deg, #0a2a1a 0%, #0d6b3a 40%, #1a8c5f 65%, #0a4a2e 100%); }
+    .tour-img--yarra-valley .tour-img-inner   { background: linear-gradient(135deg, #2a0a1a 0%, #6b1a3a 40%, #8b2252 65%, #4a0a28 100%); }
+    .tour-img--mornington .tour-img-inner     { background: linear-gradient(135deg, #1a0a2a 0%, #4a1a6b 40%, #6b2a8c 65%, #3a0a5a 100%); }
+    .tour-img--puffing-billy .tour-img-inner  { background: linear-gradient(135deg, #1a1a0a 0%, #4a4a1a 40%, #6b6b2a 65%, #3a3a0a 100%); }
+    .tour-img--melbourne .tour-img-inner      { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a4a 40%, #2a2a6b 65%, #0a0a3a 100%); }
+
+    .tour-img-emoji {
+      position: absolute; top: 20px; right: 20px;
+      font-size: 2.5rem; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+    }
+    .tour-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,12,20,0.7) 0%, transparent 60%);
+    }
+    .tour-duration-badge {
+      position: absolute; bottom: 14px; left: 14px;
+      background: rgba(8,12,20,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 5px 12px; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+      backdrop-filter: blur(8px);
+    }
+
+    .tour-body { padding: 24px; }
+    .tour-name {
+      font-family: var(--font-head); font-size: 1.1rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 8px; line-height: 1.2;
+    }
+    .tour-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+    .tour-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 16px; border-top: 1px solid var(--border-glass);
+    }
+    .tour-price { font-family: var(--font-head); }
+    .tour-price-label { font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+    .tour-price-value { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+
+    /* ============================================================
+       WHY CHOOSE US
+    ============================================================ */
+    #why-us { padding: 100px 0; background: linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.03) 50%, transparent 100%); }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      padding: 32px; border-radius: var(--radius-lg);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      transition: var(--trans);
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0; transition: var(--trans);
+    }
+    .feature-card:hover { border-color: rgba(212,175,55,0.25); transform: translateY(-4px); }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-sm);
+      background: rgba(212,175,55,0.10);
+      border: 1px solid rgba(212,175,55,0.20);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 20px;
+    }
+    .feature-title {
+      font-family: var(--font-head); font-size: 1rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 10px;
+    }
+    .feature-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ============================================================
+       STATS BAR
+    ============================================================ */
+    #stats {
+      padding: 60px 0;
+      background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(16,185,129,0.05) 100%);
+      border-top: 1px solid rgba(212,175,55,0.12);
+      border-bottom: 1px solid rgba(212,175,55,0.12);
+    }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center; padding: 20px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900; color: var(--gold); line-height: 1;
+      letter-spacing: -0.02em; display: block;
+    }
+    .stat-label {
+      font-size: 0.84rem; color: var(--text-muted); margin-top: 8px;
+      font-weight: 500; letter-spacing: 0.02em;
+    }
+
+    /* ============================================================
+       CHAUFFEUR SERVICES
+    ============================================================ */
+    #chauffeur { padding: 100px 0; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 60px;
+    }
+
+    .service-card {
+      padding: 32px; border-radius: var(--radius-lg);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      transition: var(--trans);
+      display: flex; flex-direction: column;
+    }
+    .service-card:hover {
+      border-color: rgba(212,175,55,0.30);
+      background: rgba(212,175,55,0.04);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+    }
+    .service-icon { font-size: 2.2rem; margin-bottom: 18px; }
+    .service-name {
+      font-family: var(--font-head); font-size: 1.05rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 8px;
+    }
+    .service-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; flex: 1; }
+    .service-price {
+      font-size: 0.9rem; font-weight: 700; color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    /* ============================================================
+       FLEET
+    ============================================================ */
+    #fleet { padding: 100px 0; background: linear-gradient(180deg, transparent 0%, rgba(16,185,129,0.03) 50%, transparent 100%); }
+
+    .fleet-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px; margin-top: 60px;
+    }
+
+    .fleet-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      overflow: hidden; transition: var(--trans);
+    }
+    .fleet-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(16,185,129,0.25);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .fleet-img {
+      height: 180px; position: relative; overflow: hidden;
+    }
+    .fleet-img-inner { width: 100%; height: 100%; transition: transform 0.6s ease; }
+    .fleet-card:hover .fleet-img-inner { transform: scale(1.05); }
+
+    /* Vehicle gradient "photos" */
+    .fleet-img--vclass   .fleet-img-inner { background: linear-gradient(140deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%); }
+    .fleet-img--sprinter .fleet-img-inner { background: linear-gradient(140deg, #1a1a1a 0%, #2d2d2d 40%, #404040 70%, #1a1a1a 100%); }
+    .fleet-img--bmw      .fleet-img-inner { background: linear-gradient(140deg, #0a0a1a 0%, #1a1a3e 40%, #0a2a5e 70%, #0a0a1a 100%); }
+    .fleet-img--suv      .fleet-img-inner { background: linear-gradient(140deg, #1a0a0a 0%, #3e1a1a 40%, #5e2a0a 70%, #1a0a0a 100%); }
+
+    .fleet-img-emoji {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.7));
+      opacity: 0.6;
+    }
+    .fleet-img-brand {
+      position: absolute; bottom: 14px; left: 14px;
+      font-family: var(--font-head); font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+      background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 4px;
+    }
+
+    .fleet-body { padding: 22px; }
+    .fleet-name {
+      font-family: var(--font-head); font-size: 1rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 14px;
+    }
+    .fleet-spec {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .fleet-spec-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--emerald); flex-shrink: 0; }
+    .fleet-book { margin-top: 18px; width: 100%; justify-content: center; }
+
+    /* ============================================================
+       REVIEWS
+    ============================================================ */
+    #reviews { padding: 100px 0; }
+
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 60px;
+    }
+
+    .review-card {
+      padding: 32px; border-radius: var(--radius-lg);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      transition: var(--trans); position: relative;
+    }
+    .review-card:hover { border-color: rgba(212,175,55,0.20); transform: translateY(-3px); }
+
+    .review-quote-icon {
+      font-size: 3rem; line-height: 1; color: var(--gold); opacity: 0.2;
+      font-family: Georgia, serif; position: absolute; top: 24px; right: 24px;
+    }
+
+    .review-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 16px; }
+    .review-text {
+      font-size: 0.92rem; color: var(--text-muted); line-height: 1.75;
+      margin-bottom: 24px; font-style: italic;
+    }
+    .review-footer { display: flex; align-items: center; justify-content: space-between; }
+    .reviewer-info {}
+    .reviewer-name { font-weight: 700; color: var(--text-primary); font-size: 0.92rem; }
+    .reviewer-detail { font-size: 0.76rem; color: var(--text-dim); margin-top: 2px; }
+    .review-source {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 50px;
+    }
+    .review-source--google    { background: rgba(66,133,244,0.12); color: #4285F4; border: 1px solid rgba(66,133,244,0.20); }
+    .review-source--tripadvisor { background: rgba(52,168,83,0.12); color: #34a853; border: 1px solid rgba(52,168,83,0.20); }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact { padding: 100px 0; }
+
+    .contact-wrapper {
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+
+    .contact-card {
+      padding: 56px 48px;
+      background: rgba(13,18,32,0.90);
+      border: 1px solid rgba(212,175,55,0.20);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(30px);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5), var(--shadow-gold);
+      margin-top: 48px;
+    }
+
+    .contact-items {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; margin: 36px 0;
+    }
+    .contact-item {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      padding: 24px 16px; border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-glass);
+      transition: var(--trans);
+    }
+    .contact-item:hover { border-color: rgba(212,175,55,0.25); background: rgba(212,175,55,0.04); }
+    .contact-item a { color: var(--text-primary); transition: var(--trans); }
+    .contact-item a:hover { color: var(--gold); }
+    .contact-icon { font-size: 1.6rem; }
+    .contact-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-dim); }
+    .contact-value { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+
+    .contact-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: rgba(5,8,14,0.95);
+      border-top: 1px solid var(--border-glass);
+      padding: 60px 0 32px;
+    }
+
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+
+    .footer-brand {}
+    .footer-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font-head); font-weight: 800; font-size: 1.05rem;
+      color: var(--text-primary); margin-bottom: 16px;
+    }
+    .footer-logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .footer-tagline { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; max-width: 280px; }
+
+    .footer-col-title {
+      font-family: var(--font-head); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 0.86rem; color: var(--text-muted); transition: var(--trans);
+    }
+    .footer-links a:hover { color: var(--text-primary); padding-left: 4px; }
+
+    .footer-divider {
+      border: none; border-top: 1px solid var(--border-glass); margin: 0 0 28px;
+    }
+
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-legal { font-size: 0.78rem; color: var(--text-dim); }
+    .footer-legal span { color: var(--text-muted); }
+
+    /* ============================================================
+       SECTION SEPARATOR
+    ============================================================ */
+    .section-sep {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1100px) {
+      .tours-grid   { grid-template-columns: repeat(2, 1fr); }
+      .fleet-grid   { grid-template-columns: repeat(2, 1fr); }
+      .widget-form  { grid-template-columns: repeat(2, 1fr); }
+      .footer-top   { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .features-grid  { grid-template-columns: repeat(2, 1fr); }
+      .services-grid  { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid     { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid .stat-item:nth-child(2) { border-right: none; }
+      .reviews-grid   { grid-template-columns: 1fr; }
+      .contact-items  { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-right .btn { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+      .trust-badges { flex-direction: column; width: 100%; }
+      .trust-badge { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .trust-badge:last-child { border-bottom: none; }
+
+      .widget-card { padding: 24px; }
+      .widget-form { grid-template-columns: 1fr; }
+
+      .tours-grid   { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .fleet-grid   { grid-template-columns: 1fr; }
+      .footer-top   { grid-template-columns: 1fr; }
+      .contact-card { padding: 32px 24px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-line-left, .hero-line-right { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="main-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+
+        <a href="#hero" class="nav-logo" aria-label="AR Luxury Experiences Home">
+          <div class="nav-logo-icon" aria-hidden="true">✦</div>
+          <div class="nav-logo-text">
+            AR Luxury Experiences
+            <span class="nav-logo-sub">Melbourne CBD</span>
+          </div>
+        </a>
+
+        <ul class="nav-links" role="list">
+          <li><a href="#experiences">Tours</a></li>
+          <li><a href="#chauffeur">Services</a></li>
+          <li><a href="#fleet">Fleet</a></li>
+          <li><a href="#why-us">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <a href="booking.html" class="btn btn--gold" id="nav-book-btn">Book Now</a>
+          <button
+            class="nav-hamburger"
+            id="hamburger-btn"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <a href="#experiences" class="mobile-link">Tours</a>
+    <a href="#chauffeur" class="mobile-link">Services</a>
+    <a href="#fleet" class="mobile-link">Fleet</a>
+    <a href="#why-us" class="mobile-link">About</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="booking.html" class="btn btn--gold">Book Now ✦</a>
+  </div>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" aria-labelledby="hero-title">
+
+    <!-- Layered background -->
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-particles" aria-hidden="true">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    <div class="hero-line-left" aria-hidden="true"></div>
+    <div class="hero-line-right" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="hero-content">
+
+        <div class="hero-eyebrow" aria-label="Melbourne CBD — Est. 2018">
+          <span class="hero-eyebrow-dot"></span>
+          Melbourne CBD &nbsp;·&nbsp; Est. 2018
+        </div>
+
+        <h1 class="hero-title" id="hero-title">
+          <span class="break">Private <span class="gold-word">Luxury</span> Tours</span>
+          <span class="break">&amp; Chauffeur Services</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Experience Victoria through personalised journeys, luxury vehicles
+          and exceptional service. Every detail crafted for the discerning traveller.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="booking.html" class="btn btn--gold" id="hero-book-btn">
+            ✦ Book Your Experience
+          </a>
+          <a href="tel:0400044004" class="btn btn--ghost" id="hero-quote-btn">
+            📞 Request Custom Quote
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="trust-badges" role="list" aria-label="Trust indicators">
+          <div class="trust-badge" role="listitem">
+            <span class="trust-badge-stars" aria-hidden="true">★★★★★</span>
+            <strong>5-Star Rated</strong>
+          </div>
+          <div class="trust-badge" role="listitem">
+            <span class="trust-badge-icon" aria-hidden="true">🗺️</span>
+            <span><strong>500+</strong> Tours</span>
+          </div>
+          <div class="trust-badge" role="listitem">
+            <span class="trust-badge-icon" aria-hidden="true">📍</span>
+            <span>Melbourne <strong>CBD</strong></span>
+          </div>
+          <div class="trust-badge" role="listitem">
+            <span class="trust-badge-icon" aria-hidden="true">🏅</span>
+            <span>Est. <strong>2018</strong></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-bar"></div>
+      Scroll
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       INSTANT BOOKING WIDGET
+  ============================================================ -->
+  <section id="booking-widget" aria-label="Instant booking quote">
+    <div class="container">
+      <div class="widget-card glass-card">
+
+        <div class="widget-header">
+          <div>
+            <div class="widget-title">Get an Instant Quote</div>
+            <div class="widget-subtitle">Select your experience and we'll calculate your price in seconds</div>
+          </div>
+          <div class="widget-badge">Available Now</div>
+        </div>
+
+        <form class="widget-form" id="booking-form" onsubmit="handleWidgetSubmit(event)" novalidate>
+
+          <div class="form-field">
+            <label class="form-label" for="widget-service">Experience</label>
+            <select class="form-select" id="widget-service" name="service" onchange="updatePricePreview()">
+              <option value="">Select a tour…</option>
+              <optgroup label="Direct Private Tours ($1,500 Flat Rate)">
+                <option value="great-ocean-road-private" data-price="1500">Great Ocean Road Private — 14 hrs</option>
+                <option value="phillip-island-private" data-price="1500">Phillip Island Private — 9 hrs</option>
+                <option value="yarra-valley-private" data-price="1500" >Yarra Valley Wine Private — 7 hrs</option>
+                <option value="mornington-peninsula-private" data-price="1500" >Mornington Peninsula Private — 8 hrs</option>
+                <option value="puffing-billy-private" data-price="1500">Puffing Billy Private — 7 hrs</option>
+                <option value="melbourne-discovery-private" data-price="1500" >Melbourne City Private — 4–6 hrs</option>
+              </optgroup>
+              <optgroup label="Direct Group Tours (Per Person)">
+                <option value="great-ocean-road-group" data-price="149">Great Ocean Road Group — $149/person</option>
+                <option value="phillip-island-group" data-price="250">Phillip Island Group — $250/person</option>
+              </optgroup>
+              <optgroup label="Premium Chauffeur Services">
+                <option value="airport-transfer" data-price="150" >Airport Transfer</option>
+                <option value="hourly-hire" data-price="195" >Hourly Chauffeur</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="widget-date">Preferred Date</label>
+            <input class="form-input" type="date" id="widget-date" name="date" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="widget-passengers">Passengers</label>
+            <select class="form-select" id="widget-passengers" name="passengers" onchange="updatePricePreview()">
+              <option value="1">1 passenger</option>
+              <option value="2" selected>2 passengers</option>
+              <script>
+                for(let i=3; i<=57; i++){
+                  document.write('<option value="'+i+'">'+i+' passengers</option>');
+                }
+              </script>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="widget-pickup">Pickup Location</label>
+            <input class="form-input" type="text" id="widget-pickup" name="pickup" placeholder="Hotel, suburb or address…" />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" style="visibility:hidden">Action</label>
+            <button type="submit" class="btn btn--gold" id="widget-submit-btn" style="white-space:nowrap; height:48px; padding: 0 24px;">
+              Get Instant Quote →
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Price preview -->
+        <div class="widget-price-preview" id="price-preview">
+          <div>
+            <div class="wp-label">Estimated Price (per vehicle)</div>
+            <div class="wp-note">Final price confirmed at booking</div>
+          </div>
+          <div style="text-align:right">
+            <div class="wp-price" id="price-preview-amount">$0</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURED EXPERIENCES
+  ============================================================ -->
+  <section id="experiences" aria-labelledby="experiences-title">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <div class="section-tag">Curated Experiences</div>
+        <h2 class="section-title" id="experiences-title">Curated <span>Luxury</span> Experiences</h2>
+        <p class="section-subtitle">
+          Bespoke private tours across Victoria's most spectacular destinations.
+          Every journey tailored to you — no crowds, no compromises.
+        </p>
+      </div>
+
+      <div class="tours-grid">
+
+        <!-- Great Ocean Road -->
+        <article class="tour-card fade-up" aria-label="Great Ocean Road Tour">
+          <div class="tour-img tour-img--ocean-road">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🌊</div>
+            <div class="tour-duration-badge">14 hours</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Great Ocean Road</h3>
+            <p class="tour-desc">Victoria's iconic coastal drive — Twelve Apostles, Loch Ard Gorge, and the wild Southern Ocean. A world-class journey from your door.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$1,290<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
+              </div>
+              <a href="tours/great-ocean-road.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Phillip Island -->
+        <article class="tour-card fade-up" aria-label="Phillip Island Tour" style="transition-delay:0.08s">
+          <div class="tour-img tour-img--phillip-island">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🐧</div>
+            <div class="tour-duration-badge">9 hours</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Phillip Island</h3>
+            <p class="tour-desc">Witness the world-famous Penguin Parade at dusk. Koalas, seals, and pristine beaches make this an unforgettable full-day escape.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$1,190<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
+              </div>
+              <a href="tours/phillip-island.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Yarra Valley -->
+        <article class="tour-card fade-up" aria-label="Yarra Valley Wine Tour" style="transition-delay:0.16s">
+          <div class="tour-img tour-img--yarra-valley">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🍷</div>
+            <div class="tour-duration-badge">7 hours</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Yarra Valley Wine Tour</h3>
+            <p class="tour-desc">Award-winning wineries, artisan cheese, and breathtaking valley views. A sophisticated day among Victoria's finest producers.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$990<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
+              </div>
+              <a href="tours/yarra-valley.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mornington Peninsula -->
+        <article class="tour-card fade-up" aria-label="Mornington Peninsula Tour" style="transition-delay:0.08s">
+          <div class="tour-img tour-img--mornington">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🌺</div>
+            <div class="tour-duration-badge">8 hours</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Mornington Peninsula</h3>
+            <p class="tour-desc">Hot springs, boutique wineries and stunning bay beaches. The Peninsula's best kept secrets revealed by your private guide.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$990<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
+              </div>
+              <a href="tours/mornington-peninsula.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Puffing Billy -->
+        <article class="tour-card fade-up" aria-label="Puffing Billy and Dandenong Ranges Tour" style="transition-delay:0.16s">
+          <div class="tour-img tour-img--puffing-billy">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🚂</div>
+            <div class="tour-duration-badge">7 hours</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Puffing Billy &amp; Dandenong</h3>
+            <p class="tour-desc">Ride the iconic heritage steam train through ancient fern gullies and towering mountain ash forests of the Dandenong Ranges.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$1,090<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
+              </div>
+              <a href="tours/puffing-billy.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Melbourne City Discovery -->
+        <article class="tour-card fade-up" aria-label="Melbourne City Discovery Tour" style="transition-delay:0.24s">
+          <div class="tour-img tour-img--melbourne">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🏙️</div>
+            <div class="tour-duration-badge">4–6 hours</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Melbourne City Discovery</h3>
+            <p class="tour-desc">Hidden laneways, world-class cuisine, street art and cultural icons. Discover Melbourne like a local with your private chauffeur-guide.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$790<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
+              </div>
+              <a href="tours/melbourne-discovery.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- CTA below tours grid -->
+      <div style="text-align:center; margin-top: 52px;" class="fade-up">
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Don't see the perfect experience? We create fully bespoke itineraries.</p>
+        <a href="tel:0400044004" class="btn btn--ghost">📞 Request a Custom Itinerary</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       WHY CHOOSE US
+  ============================================================ -->
+  <section id="why-us" aria-labelledby="why-us-title">
+    <div class="container">
+
+      <div class="section-header section-header--center fade-up">
+        <div class="section-tag">Why AR Luxury</div>
+        <h2 class="section-title" id="why-us-title">Why Choose <span>AR Luxury</span> Experiences</h2>
+        <p class="section-subtitle">
+          We don't just drive you places. We craft experiences that become memories you'll cherish for a lifetime.
+        </p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon" aria-hidden="true">🎯</div>
+          <h3 class="feature-title">Private Experiences, Always</h3>
+          <p class="feature-desc">Solo travellers, couples, families and groups — every tour is exclusively yours. No shared coaches, no strangers, no compromises on your experience.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.08s">
+          <div class="feature-icon" aria-hidden="true">🚗</div>
+          <h3 class="feature-title">Elite Fleet</h3>
+          <p class="feature-desc">Toyota Vellfire, HiAce, Coaster, and premium charter buses. Every vehicle immaculate, climate-controlled and equipped for exceptional comfort.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.16s">
+          <div class="feature-icon" aria-hidden="true">🗺️</div>
+          <h3 class="feature-title">Fully Flexible Itineraries</h3>
+          <p class="feature-desc">Your journey, your pace. Pause for a longer lunch, add a detour, skip ahead — our itineraries flex around your preferences, not ours.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.08s">
+          <div class="feature-icon" aria-hidden="true">👤</div>
+          <h3 class="feature-title">Professional Chauffeurs</h3>
+          <p class="feature-desc">Fully licensed, CPV-accredited and immaculately presented. Our chauffeurs are Victoria's finest — knowledgeable, discreet and always professional.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.16s">
+          <div class="feature-icon" aria-hidden="true">🦘</div>
+          <h3 class="feature-title">True Local Experts</h3>
+          <p class="feature-desc">Deep knowledge of Victoria's hidden gems, best photo spots, secret lookouts and finest restaurants. We share the places only locals know.</p>
+        </div>
+
+        <div class="feature-card fade-up" style="transition-delay:0.24s">
+          <div class="feature-icon" aria-hidden="true">🏠</div>
+          <h3 class="feature-title">Door-to-Door Service</h3>
+          <p class="feature-desc">Hotel, Airbnb or private residence — we pick you up and drop you home across Greater Melbourne. No car parks, no taxis, no stress.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       STATS BAR
+  ============================================================ -->
+  <section id="stats" aria-label="Company statistics">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-up">
+          <span class="stat-number" aria-label="500 plus tours completed">500+</span>
+          <div class="stat-label">Tours Completed</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:0.1s">
+          <span class="stat-number" aria-label="98 percent 5 star rating">98%</span>
+          <div class="stat-label">5-Star Rating</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:0.2s">
+          <span class="stat-number" aria-label="8 years experience">8</span>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:0.3s">
+          <span class="stat-number" aria-label="24 slash 7 support">24/7</span>
+          <div class="stat-label">Support Available</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       CHAUFFEUR SERVICES
+  ============================================================ -->
+  <section id="chauffeur" aria-labelledby="chauffeur-title">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <div class="section-tag">Chauffeur Services</div>
+        <h2 class="section-title" id="chauffeur-title">Chauffeur &amp; <span>Transfer</span> Services</h2>
+        <p class="section-subtitle">
+          From airport pickups to VIP corporate travel, our professional chauffeur services deliver
+          precision, luxury and peace of mind for every journey.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card fade-up">
+          <div class="service-icon" aria-hidden="true">✈️</div>
+          <h3 class="service-name">Airport Transfers</h3>
+          <p class="service-desc">Punctual, professional pickups and drop-offs at Melbourne Airport. Flight monitoring, meet-and-greet and luggage assistance included.</p>
+          <div class="service-price">From $150 per transfer</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-airport-btn">Book Transfer →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.08s">
+          <div class="service-icon" aria-hidden="true">⏰</div>
+          <h3 class="service-name">Hourly Chauffeur Hire</h3>
+          <p class="service-desc">Retain your personal chauffeur by the hour for meetings, events, shopping or city exploration. Total flexibility at your disposal.</p>
+          <div class="service-price">From $195 per hour</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-hourly-btn">Book by the Hour →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.16s">
+          <div class="service-icon" aria-hidden="true">💼</div>
+          <h3 class="service-name">Corporate Travel</h3>
+          <p class="service-desc">Tailored corporate accounts, executive transfers and roadshows. Confidential, reliable and configured to your company's standards.</p>
+          <div class="service-price">Custom quote on enquiry</div>
+          <a href="booking.html" class="btn btn--outline-gold btn--sm" id="book-corporate-btn">Request Quote →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.08s">
+          <div class="service-icon" aria-hidden="true">💍</div>
+          <h3 class="service-name">Wedding Chauffeur</h3>
+          <p class="service-desc">Make your special day truly unforgettable. Luxurious vehicles, decorations, champagne service and immaculate presentation guaranteed.</p>
+          <div class="service-price">From $1,490 per booking</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-wedding-btn">Book for My Wedding →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.16s">
+          <div class="service-icon" aria-hidden="true">🎭</div>
+          <h3 class="service-name">VIP Events</h3>
+          <p class="service-desc">Grand Prix, AFL Grand Final, concerts and galas. Arrive and depart in style with professional logistics handled entirely by our team.</p>
+          <div class="service-price">From $590 per event</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-vip-btn">Book Event Transfer →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.24s">
+          <div class="service-icon" aria-hidden="true">🎓</div>
+          <h3 class="service-name">School & Group Excursions</h3>
+          <p class="service-desc">Safe, reliable, and licensed transport for school trips, sports teams, and community groups. Comfortably seats up to 57 passengers.</p>
+          <div class="service-price">From $890 per excursion</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-school-btn">Book Excursion →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.32s">
+          <div class="service-icon" aria-hidden="true">🎉</div>
+          <h3 class="service-name">Bucks & Hens Parties</h3>
+          <p class="service-desc">Winery crawls, bar hopping, and themed party transport with the fun factor. Safe luxury group transport so everyone can celebrate.</p>
+          <div class="service-price">From $990 per booking</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-party-btn">Book Party Bus →</a>
+        </div>
+
+        <div class="service-card fade-up" style="transition-delay:0.40s">
+          <div class="service-icon" aria-hidden="true">🏔️</div>
+          <h3 class="service-name">Snow Trips (Mt Buller)</h3>
+          <p class="service-desc">Seasonal winter snow day trips with experienced mountain drivers. Spacious buses with plenty of room for all your snow gear.</p>
+          <div class="service-price">From $1,490 per charter</div>
+          <a href="booking.html" class="btn btn--gold btn--sm" id="book-snow-btn">Book Snow Trip →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       FLEET PREVIEW
+  ============================================================ -->
+  <section id="fleet" aria-labelledby="fleet-title">
+    <div class="container">
+
+      <div class="section-header section-header--center fade-up">
+        <div class="section-tag">Our Fleet</div>
+        <h2 class="section-title" id="fleet-title">The <span>Luxury</span> Fleet</h2>
+        <p class="section-subtitle">
+          Every vehicle in our fleet is meticulously maintained, professionally presented
+          and equipped to exceed the expectations of the world's most discerning travellers.
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+
+        <!-- Toyota Vellfire -->
+        <div class="fleet-card fade-up">
+          <div class="fleet-img fleet-img--vellfire" style="background: var(--bg-card);">
+            <div class="fleet-img-inner"></div>
+            <div class="fleet-img-emoji" aria-hidden="true" style="font-size:3rem;text-align:center;padding:40px 0;">🚐</div>
+            <div class="fleet-img-brand">Toyota</div>
+          </div>
+          <div class="fleet-body">
+            <h3 class="fleet-name">Toyota Vellfire</h3>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Up to 6 passengers</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Executive captain seats</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Dual sunroofs &amp; ambient lighting</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Supreme privacy &amp; quiet ride</div>
+            <a href="booking.html" class="btn btn--gold btn--sm fleet-book" id="book-vellfire-btn">Book This Vehicle</a>
+          </div>
+        </div>
+
+        <!-- Toyota HiAce -->
+        <div class="fleet-card fade-up" style="transition-delay:0.08s">
+          <div class="fleet-img fleet-img--hiace" style="background: var(--bg-card);">
+            <div class="fleet-img-inner"></div>
+            <div class="fleet-img-emoji" aria-hidden="true" style="font-size:3rem;text-align:center;padding:40px 0;">🚌</div>
+            <div class="fleet-img-brand">Toyota</div>
+          </div>
+          <div class="fleet-body">
+            <h3 class="fleet-name">Toyota HiAce</h3>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Up to 11 passengers</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Spacious legroom &amp; headroom</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Dual climate control zones</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Perfect for small groups</div>
+            <a href="booking.html" class="btn btn--gold btn--sm fleet-book" id="book-hiace-btn">Book This Vehicle</a>
+          </div>
+        </div>
+
+        <!-- Toyota Coaster -->
+        <div class="fleet-card fade-up" style="transition-delay:0.16s">
+          <div class="fleet-img fleet-img--coaster" style="background: var(--bg-card);">
+            <div class="fleet-img-inner"></div>
+            <div class="fleet-img-emoji" aria-hidden="true" style="font-size:3rem;text-align:center;padding:40px 0;">🚍</div>
+            <div class="fleet-img-brand">Toyota</div>
+          </div>
+          <div class="fleet-body">
+            <h3 class="fleet-name">Toyota Coaster</h3>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Up to 22 passengers</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Reclining seats &amp; seatbelts</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Air conditioning throughout</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>PA system for tours</div>
+            <a href="booking.html" class="btn btn--gold btn--sm fleet-book" id="book-coaster-btn">Book This Vehicle</a>
+          </div>
+        </div>
+
+        <!-- Charter Bus -->
+        <div class="fleet-card fade-up" style="transition-delay:0.24s">
+          <div class="fleet-img fleet-img--bus" style="background: var(--bg-card);">
+            <div class="fleet-img-inner"></div>
+            <div class="fleet-img-emoji" aria-hidden="true" style="font-size:3rem;text-align:center;padding:40px 0;">🚌</div>
+            <div class="fleet-img-brand">Premium Coach</div>
+          </div>
+          <div class="fleet-body">
+            <h3 class="fleet-name">Charter Bus</h3>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Up to 28 or 57 passengers</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Underneath luggage storage</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>On-board restroom (57 seater)</div>
+            <div class="fleet-spec"><div class="fleet-spec-dot"></div>Ideal for large events</div>
+            <a href="booking.html" class="btn btn--gold btn--sm fleet-book" id="book-bus-btn">Book This Vehicle</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       REVIEWS
+  ============================================================ -->
+  <section id="reviews" aria-labelledby="reviews-title">
+    <div class="container">
+
+      <div class="section-header section-header--center fade-up">
+        <div class="section-tag">Guest Reviews</div>
+        <h2 class="section-title" id="reviews-title">Trusted by Thousands of <span>Travellers</span></h2>
+        <p class="section-subtitle">
+          Don't just take our word for it. Here's what guests say about their AR Luxury Experiences.
+        </p>
+      </div>
+
+      <div class="reviews-grid">
+
+        <blockquote class="review-card fade-up" aria-label="Review by Sarah M.">
+          <div class="review-quote-icon" aria-hidden="true">"</div>
+          <div class="review-stars" aria-label="5 stars">★★★★★</div>
+          <p class="review-text">
+            "Absolutely world-class. Our Great Ocean Road tour was the highlight of our entire Australian trip. 
+            Our chauffeur knew every spectacular lookout, the best spots for photos, and even arranged a 
+            picnic lunch at the most stunning clifftop location. Pure luxury from start to finish."
+          </p>
+          <footer class="review-footer">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Sarah M.</div>
+              <div class="reviewer-detail">Great Ocean Road Tour · Melbourne, 2025</div>
+            </div>
+            <span class="review-source review-source--google" aria-label="Google review">Google</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="review-card fade-up" aria-label="Review by James T." style="transition-delay:0.1s">
+          <div class="review-quote-icon" aria-hidden="true">"</div>
+          <div class="review-stars" aria-label="5 stars">★★★★★</div>
+          <p class="review-text">
+            "A completely flawless experience from start to finish. 
+            The vehicle was immaculate, our guide's knowledge of the wineries was exceptional, 
+            and the whole day felt completely personalised. Already planning our next tour!"
+          </p>
+          <footer class="review-footer">
+            <div class="reviewer-info">
+              <div class="reviewer-name">James T.</div>
+              <div class="reviewer-detail">Yarra Valley Wine Tour · Sydney, 2025</div>
+            </div>
+            <span class="review-source review-source--tripadvisor" aria-label="TripAdvisor review">TripAdvisor</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="review-card fade-up" aria-label="Review by Priya &amp; Raj K." style="transition-delay:0.15s">
+          <div class="review-quote-icon" aria-hidden="true">"</div>
+          <div class="review-stars" aria-label="5 stars">★★★★★</div>
+          <p class="review-text">
+            "We had 8 people in our group and the Sprinter was perfect — spacious, luxurious and spotlessly 
+            clean. Our Phillip Island tour including the Penguin Parade was magical. The chauffeur was 
+            professional, punctual and incredibly knowledgeable. Couldn't recommend more highly."
+          </p>
+          <footer class="review-footer">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Priya &amp; Raj K.</div>
+              <div class="reviewer-detail">Phillip Island Tour · Family group, 2025</div>
+            </div>
+            <span class="review-source review-source--google" aria-label="Google review">Google</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="review-card fade-up" aria-label="Review by Emma L." style="transition-delay:0.2s">
+          <div class="review-quote-icon" aria-hidden="true">"</div>
+          <div class="review-stars" aria-label="5 stars">★★★★★</div>
+          <p class="review-text">
+            "Used AR Luxury for corporate airport transfers for our entire executive team visiting Melbourne. 
+            The coordination was flawless, vehicles arrived ahead of schedule, and the service was so 
+            impressive that our CEO specifically asked us to use them again for next year's conference."
+          </p>
+          <footer class="review-footer">
+            <div class="reviewer-info">
+              <div class="reviewer-name">Emma L.</div>
+              <div class="reviewer-detail">Corporate Airport Transfer · Melbourne, 2025</div>
+            </div>
+            <span class="review-source review-source--tripadvisor" aria-label="TripAdvisor review">TripAdvisor</span>
+          </footer>
+        </blockquote>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CUSTOMER PHOTO GALLERY SLIDESHOW
+  ============================================================ -->
+  <section id="customer-gallery" class="section" style="background: rgba(255,255,255,0.01); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 80px 0;">
+    <div class="container" style="text-align: center;">
+      <div class="section-header section-header--center fade-up">
+        <div class="section-tag">Memories</div>
+        <h2 class="section-title">Happy Customers <span>Slideshow</span></h2>
+        <p class="section-subtitle">Real moments captured by our guests during their luxury Victorian journeys.</p>
+      </div>
+
+      <div class="glass-card" style="max-width: 800px; margin: 40px auto; padding: 20px; border-radius: var(--radius-lg); position: relative; overflow: hidden;">
+        <div id="slideshow-container" style="height: 450px; display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Slides loaded dynamically -->
+          <div class="slide" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: var(--radius-md); padding: 40px;">
+            <div style="font-size: 5rem; margin-bottom: 20px;">📸</div>
+            <h3 style="font-family: var(--font-head); font-size: 1.5rem; margin-bottom: 10px; color: var(--gold);">Our Guest Moments</h3>
+            <p style="color: var(--text-secondary); max-width: 450px; font-size: 0.95rem; line-height: 1.6;">No photos uploaded yet! Upload regular customer photos in the Operations Hub Admin tab to populate this premium live slideshow.</p>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn--ghost" onclick="prevSlide()" style="position: absolute; left: 30px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; font-size: 1.5rem;">‹</button>
+        <button type="button" class="btn btn--ghost" onclick="nextSlide()" style="position: absolute; right: 30px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; font-size: 1.5rem;">›</button>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-wrapper">
+
+        <div class="section-header section-header--center fade-up">
+          <div class="section-tag">Get In Touch</div>
+          <h2 class="section-title" id="contact-title">Ready to <span>Experience</span> Luxury?</h2>
+          <p class="section-subtitle">
+            Our team is available 24/7 to craft your perfect Victorian journey.
+            Call, email or book instantly online.
+          </p>
+        </div>
+
+        <div class="contact-card fade-up">
+
+          <div class="contact-items">
+
+            <div class="contact-item">
+              <span class="contact-icon" aria-hidden="true">📱</span>
+              <span class="contact-label">Phone</span>
+              <a href="tel:0400044004" class="contact-value" id="contact-phone-link">0400 044 004</a>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-icon" aria-hidden="true">✉️</span>
+              <span class="contact-label">Email</span>
+              <a href="mailto:777artours@gmail.com" class="contact-value" id="contact-email-link">777artours@gmail.com</a>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-icon" aria-hidden="true">🌐</span>
+              <span class="contact-label">Website</span>
+              <a href="https://www.toursau.com" class="contact-value" target="_blank" rel="noopener" id="contact-web-link">www.toursau.com</a>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-icon" aria-hidden="true">📍</span>
+              <span class="contact-label">Location</span>
+              <span class="contact-value">Melbourne CBD, Victoria</span>
+            </div>
+
+          </div>
+
+          <div class="contact-ctas">
+            <a href="booking.html" class="btn btn--gold" id="contact-book-btn">
+              ✦ Book Now
+            </a>
+            <a href="mailto:777artours@gmail.com" class="btn btn--ghost" id="contact-enquiry-btn">
+              ✉️ Send Enquiry
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT US
+  ============================================================ -->
+  <section id="contact" style="padding: 80px 0; background: var(--bg-card); border-top: 1px solid var(--border-glass);">
+    <div class="container" style="max-width: 800px; text-align: center;">
+      <h2 style="font-family: var(--font-head); font-size: 2.2rem; color: #fff; margin-bottom: 20px;">Weddings &amp; Large Events</h2>
+      <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">
+        Planning a wedding, corporate event, or a large group excursion? Need our 28 or 57 seater luxury coach? 
+        Contact us directly to discuss bespoke arrangements and custom pricing.
+      </p>
+      <div data-fs-success style="display: none; padding: 15px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: var(--radius-sm); color: var(--gold); text-align: center; margin-bottom: 20px; font-family: var(--font-head); letter-spacing: 1px;">
+        ✦ Thank you! Your enquiry has been received. Our concierge team will contact you shortly.
+      </div>
+      <div data-fs-error style="display: none; padding: 15px; background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; border-radius: var(--radius-sm); color: #ff4d4d; text-align: center; margin-bottom: 20px;">
+        An error occurred. Please try again or contact us directly.
+      </div>
+
+      <form id="contact-form" style="display:flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; text-align: left;">
+        <input type="text" name="name" placeholder="Your Name" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff;" required>
+        <span data-fs-error="name" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
+
+        <input type="email" name="email" placeholder="Your Email" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff;" required>
+        <span data-fs-error="email" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
+
+        <textarea name="message" placeholder="Tell us about your event..." rows="4" data-fs-field style="padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff; resize: none;" required></textarea>
+        <span data-fs-error="message" style="color: #ff4d4d; font-size: 0.85rem; margin-top: -10px; display: block;"></span>
+
+        <button type="submit" data-fs-submit-btn class="btn btn--gold">Send Enquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Formspree AJAX Integration Script -->
+  <script>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contact-form', formId: 'xdavrove' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <div class="footer-logo" aria-label="AR Luxury Experiences">
+            <div class="footer-logo-icon" aria-hidden="true">✦</div>
+            AR Luxury Experiences
+          </div>
+          <p class="footer-tagline">
+            Victoria's premier private tour and chauffeur service. 
+            Crafting unforgettable journeys from Melbourne CBD since 2018.
+          </p>
+          <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="tel:+61400044004" style="font-size:0.82rem; color:var(--text-muted); display:flex; align-items:center; gap:6px; transition:var(--trans);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+              📱 +61 400 044 004
+            </a>
+            <span style="color:var(--text-dim)">·</span>
+            <a href="mailto:777artours@gmail.com" style="font-size:0.82rem; color:var(--text-muted); display:flex; align-items:center; gap:6px; transition:var(--trans);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+              ✉️ 777artours@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#experiences">Private Tours</a></li>
+            <li><a href="#chauffeur">Chauffeur Services</a></li>
+            <li><a href="#fleet">Our Fleet</a></li>
+            <li><a href="#why-us">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="booking.html" style="color:var(--gold); font-weight:600;">Book Now ✦</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Our Tours</div>
+          <ul class="footer-links" role="list">
+            <li><a href="tours/great-ocean-road.html">Great Ocean Road</a></li>
+            <li><a href="tours/phillip-island.html">Phillip Island</a></li>
+            <li><a href="tours/yarra-valley.html">Yarra Valley Wine Tour</a></li>
+            <li><a href="tours/mornington-peninsula.html">Mornington Peninsula</a></li>
+            <li><a href="tours/puffing-billy.html">Puffing Billy &amp; Dandenong</a></li>
+            <li><a href="tours/melbourne-discovery.html">Melbourne City Discovery</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="footer-divider" />
+
+      <div class="footer-bottom">
+        <p class="footer-legal">
+          © 2026 <span>AR Luxury Experiences</span>. All rights reserved. 
+          Melbourne CBD, Victoria, Australia.
+        </p>
+        <p class="footer-legal">
+          <span>www.toursau.com</span> &nbsp;·&nbsp; 
+          <a href="tel:+61400044004" style="color:var(--text-muted); transition:var(--trans);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">+61 400 044 004</a>
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script src="booking-engine.js"></script>
+  <script>
+    'use strict';
+
+    // ── Tour price data ──────────────────────────────────────────
+    const TOUR_DATA = {
+      'great-ocean-road-private':    { price: 1500, name: 'Great Ocean Road Private',         duration: '14 hrs' },
+      'phillip-island-private':      { price: 1500, name: 'Phillip Island Private',           duration: '9 hrs'  },
+      'yarra-valley-private':        { price: 1500, name: 'Yarra Valley Wine Private',        duration: '7 hrs'  },
+      'mornington-peninsula-private':{ price: 1500, name: 'Mornington Peninsula Private',     duration: '8 hrs'  },
+      'puffing-billy-private':       { price: 1500, name: 'Puffing Billy Private',           duration: '7 hrs'  },
+      'melbourne-discovery-private': { price: 1500, name: 'Melbourne City Private',           duration: '4–6 hrs'},
+      'great-ocean-road-group':      { price: 149,  name: 'Great Ocean Road Group',           duration: '14 hrs' },
+      'phillip-island-group':        { price: 250,  name: 'Phillip Island Group',             duration: '9 hrs'  },
+      'airport-transfer':            { price: 150,  name: 'Airport Transfer',                 duration: 'One way'},
+      'hourly-hire':                 { price: 195,  name: 'Hourly Chauffeur',                 duration: 'Per hr' },
+    };
+
+    if (window.BookingEngine) {
+      window.BookingEngine.getTours().forEach(t => {
+        if (TOUR_DATA[t.id]) {
+          TOUR_DATA[t.id].price = t.price;
+          TOUR_DATA[t.id].name = t.name;
+        } else {
+          TOUR_DATA[t.id] = { price: t.price, name: t.name, duration: t.duration };
+        }
+      });
+      window.BookingEngine.getChauffeurServices().forEach(c => {
+        if (TOUR_DATA[c.id]) {
+          TOUR_DATA[c.id].price = c.price;
+          TOUR_DATA[c.id].name = c.name;
+        } else {
+          TOUR_DATA[c.id] = { price: c.price, name: c.name, duration: 'Flexible' };
+        }
+      });
+    }
+
+    // ── Sticky nav ───────────────────────────────────────────────
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ── Mobile hamburger menu ────────────────────────────────────
+    const hamburger   = document.getElementById('hamburger-btn');
+    const mobileMenu  = document.getElementById('mobile-menu');
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-link, .btn');
+
+    function closeMobileMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    // ── Smooth scroll for internal anchor links ──────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          closeMobileMenu();
+          const navH = nav.offsetHeight;
+          const top  = target.getBoundingClientRect().top + window.scrollY - navH - 24;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ── Booking widget price calculator ─────────────────────────
+    function updatePricePreview() {
+      const serviceEl    = document.getElementById('widget-service');
+      const passengersEl = document.getElementById('widget-passengers');
+      const previewEl    = document.getElementById('price-preview');
+      const amountEl     = document.getElementById('price-preview-amount');
+
+      const serviceKey = serviceEl.value;
+      if (!serviceKey || !TOUR_DATA[serviceKey]) {
+        previewEl.classList.remove('show');
+        return;
+      }
+
+      const basePrice = TOUR_DATA[serviceKey].price;
+      const passengers = parseInt(passengersEl.value, 10) || 1;
+
+      let estimatedPrice = basePrice;
+      if (serviceKey.endsWith('-group')) {
+        estimatedPrice = basePrice * passengers;
+      } else if (serviceKey.endsWith('-private')) {
+        if (passengers >= 12) estimatedPrice = basePrice + 700;
+        else if (passengers >= 7) estimatedPrice = basePrice + 300;
+      } else if (serviceKey === 'wedding') {
+        if (passengers >= 12) estimatedPrice = 2990;
+        else if (passengers >= 7) estimatedPrice = 1990;
+      } else if (serviceKey === 'hourly-hire') {
+        estimatedPrice = basePrice * Math.max(3, passengers);
+      } else {
+        if (passengers >= 12) estimatedPrice = basePrice + 400;
+        else if (passengers >= 7) estimatedPrice = basePrice + 100;
+      }
+
+      amountEl.textContent = '$' + estimatedPrice.toLocaleString('en-AU');
+      previewEl.classList.add('show');
+    }
+
+    function handleWidgetSubmit(e) {
+      e.preventDefault();
+
+      const service    = document.getElementById('widget-service').value;
+      const date       = document.getElementById('widget-date').value;
+      const passengers = document.getElementById('widget-passengers').value;
+      const pickup     = document.getElementById('widget-pickup').value.trim();
+
+      if (!service) {
+        document.getElementById('widget-service').focus();
+        document.getElementById('widget-service').style.borderColor = 'var(--gold)';
+        return;
+      }
+
+      // Build URL params and redirect to booking.html
+      const params = new URLSearchParams();
+      if (service)    params.set('tour',       service);
+      if (date)       params.set('date',       date);
+      if (passengers) params.set('pax',        passengers);
+      if (pickup)     params.set('pickup',     pickup);
+
+      window.location.href = 'booking.html?' + params.toString();
+    }
+
+    // ── Intersection Observer for fade-in-on-scroll ───────────────
+    (function initFadeObserver() {
+      const elements = document.querySelectorAll('.fade-up');
+      if (!elements.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -60px 0px'
+      });
+
+      elements.forEach(el => observer.observe(el));
+    })();
+
+    // ── Set min date for date picker to today ────────────────────
+    (function setMinDate() {
+      const dateInput = document.getElementById('widget-date');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.value = '';
+      }
+    })();
+
+    // ── Highlight active nav link based on scroll position ───────
+    (function initScrollSpy() {
+      const sections = document.querySelectorAll('section[id]');
+      const navAnchors = document.querySelectorAll('.nav-links a');
+
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          if (window.scrollY >= sectionTop) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        navAnchors.forEach(anchor => {
+          anchor.style.color = '';
+          const href = anchor.getAttribute('href');
+          if (href && href.slice(1) === current) {
+            anchor.style.color = 'var(--gold)';
+          }
+        });
+      }, { passive: true });
+    })();
+
+    // ── Customer Slideshow Logic ─────────────────────────────────
+    let currentSlideIdx = 0;
+    let slideshowPhotos = [];
+
+    function renderSlideshow() {
+      const container = document.getElementById('slideshow-container');
+      if (!window.BookingEngine) return;
+      
+      slideshowPhotos = window.BookingEngine.getCustomerPhotos();
+      if (slideshowPhotos.length === 0) return; // Keep default placeholder
+
+      container.innerHTML = slideshowPhotos.map((photo, idx) => `
+        <div class="slide-item" style="display: ${idx === currentSlideIdx ? 'flex' : 'none'}; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #070a13; border-radius: var(--radius-md); overflow: hidden; position: relative;">
+          <img src="${photo.data}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.75;" alt="${photo.caption}">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 30px 20px; text-align: center; color: white; z-index: 5;">
+            <h4 style="font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--gold);">${photo.caption}</h4>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function nextSlide() {
+      if (slideshowPhotos.length === 0) return;
+      currentSlideIdx = (currentSlideIdx + 1) % slideshowPhotos.length;
+      renderSlideshow();
+    }
+
+    function prevSlide() {
+      if (slideshowPhotos.length === 0) return;
+      currentSlideIdx = (currentSlideIdx - 1 + slideshowPhotos.length) % slideshowPhotos.length;
+      renderSlideshow();
+    }
+
+    // Call on DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', () => {
+      // Sync dynamic prices to options in the booking form
+      if (window.BookingEngine) {
+        const select = document.getElementById('widget-service');
+        if (select) {
+          select.innerHTML = '';
+          
+          const privateGroup = document.createElement('optgroup');
+          privateGroup.label = 'Direct Private Tours (Bespoke Luxury Rates)';
+          
+          const groupGroup = document.createElement('optgroup');
+          groupGroup.label = 'Bespoke Small Group Tours';
+
+          const chauffeurGroup = document.createElement('optgroup');
+          chauffeurGroup.label = 'Premium Chauffeur Services';
+
+          window.BookingEngine.getTours().forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.dataset.price = t.price;
+            if (t.type === 'private') {
+              opt.textContent = `${t.emoji || '⭐'} ${t.name} — $${t.price.toLocaleString()}`;
+              privateGroup.appendChild(opt);
+            } else {
+              opt.textContent = `${t.emoji || '🚌'} ${t.name} — $${t.price.toLocaleString()}/person`;
+              groupGroup.appendChild(opt);
+            }
+          });
+
+          window.BookingEngine.getChauffeurServices().forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.dataset.price = c.price;
+            opt.textContent = `${c.emoji || '🚐'} ${c.name} — $${c.price.toLocaleString()}`;
+            chauffeurGroup.appendChild(opt);
+          });
+
+          select.appendChild(privateGroup);
+          select.appendChild(groupGroup);
+          select.appendChild(chauffeurGroup);
+        }
+      }
+      renderSlideshow();
+      setInterval(nextSlide, 5000);
+    });
+
+  </script>
+
+  <!-- Floating WhatsApp Widget -->
+  <a href="https://wa.me/61400044004?text=Hi%20AR%20Luxury%20Experiences,%20I%20would%20like%20to%20enquire%20about%20a%20booking." target="_blank" style="position:fixed; bottom:20px; right:20px; background:#25D366; color:#FFF; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:9999; text-decoration:none; transition:transform 0.3s ease;">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/>
+    </svg>
+  </a>
+
+</body>
+</html>

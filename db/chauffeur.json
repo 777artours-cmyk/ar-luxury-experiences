@@ -1,0 +1,47 @@
+[
+  {
+    "id": "airport-transfer",
+    "name": "Premium Airport Transfer",
+    "price": 150,
+    "type": "chauffeur",
+    "emoji": "✈️",
+    "vehicle": "Luxury Sedan / SUV",
+    "description": "One-way premium chauffeur collection to or from Melbourne Airport."
+  },
+  {
+    "id": "hourly-hire",
+    "name": "Hourly Chauffeur Hire (Min 3 hrs)",
+    "price": 195,
+    "type": "chauffeur",
+    "emoji": "⏱️",
+    "vehicle": "Luxury Sedan / SUV",
+    "description": "Hourly executive driver service (minimum 3 hour charter)."
+  },
+  {
+    "id": "corporate",
+    "name": "Corporate Business Travel",
+    "price": 250,
+    "type": "chauffeur",
+    "emoji": "💼",
+    "vehicle": "Premium Executive Vehicle",
+    "description": "Premium business events, meetings, and corporate transfers."
+  },
+  {
+    "id": "wedding",
+    "name": "Wedding Chauffeur Service",
+    "price": 890,
+    "type": "chauffeur",
+    "emoji": "💍",
+    "vehicle": "Mercedes V-Class or S-Class",
+    "description": "Elite chauffeured luxury for your special day. Red carpet setup."
+  },
+  {
+    "id": "vip-event",
+    "name": "VIP Event Private Transfer",
+    "price": 350,
+    "type": "chauffeur",
+    "emoji": "⭐",
+    "vehicle": "Luxury SUV",
+    "description": "Bespoke red carpet arrival and premium transfers for events."
+  }
+]

@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Luxury Experiences — Operations Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SECURITY LOGIN GATEWAY OVERLAY -->
+    <div id="admin-login-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,10,12,0.98); z-index: 100000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px);">
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.25); padding: 40px; border-radius: 12px; width: 360px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+            <div style="font-size: 3rem; margin-bottom: 16px;">🔑</div>
+            <h2 style="font-family: 'Outfit', sans-serif; color: #fff; margin-bottom: 8px; font-size: 1.5rem; letter-spacing: 1px;">AR Operations Hub</h2>
+            <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 24px;">Administrative portal requires secure verification.</p>
+            <form onsubmit="handleAdminLogin(event)" style="display: flex; flex-direction: column; gap: 16px;">
+                <input type="password" id="admin-gate-password" placeholder="Enter Operations Password" required style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; padding: 12px; text-align: center; letter-spacing: 3px; font-size: 1rem; width: 100%; outline: none;">
+                <button type="submit" style="background: #A8892A; color: white; border: none; padding: 12px; font-weight: 700; width: 100%; border-radius: 6px; cursor: pointer; transition: 0.2s;">ACCESS OPERATIONS HUB</button>
+            </form>
+            <div id="login-error-msg" style="color: #ef4444; font-size: 0.78rem; margin-top: 14px; font-weight: 500; display: none;">
+                🚫 Invalid credentials. Access denied.
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside>
+        <div class="logo-container">
+            <div class="logo-icon">AR</div>
+            <div>
+                <div class="logo-text">AR Luxury</div>
+                <div class="logo-sub">Operations Hub</div>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li class="nav-item active" id="nav-dashboard">
+                <button onclick="switchTab('dashboard')">📊 Daily Dashboard</button>
+            </li>
+            <li class="nav-item" id="nav-bookings">
+                <button onclick="switchTab('bookings')">📅 All Bookings</button>
+            </li>
+            <li class="nav-item" id="nav-compliance">
+                <button onclick="switchTab('compliance')">🚐 Fleet & CPV</button>
+            </li>
+            <li class="nav-item" id="nav-ai">
+                <button onclick="switchTab('ai')">🤖 AI Assistant</button>
+            </li>
+            <li class="nav-item" id="nav-analytics">
+                <button onclick="switchTab('analytics')">💰 Revenue Stats</button>
+            </li>
+            <li class="nav-item" id="nav-portals">
+                <button onclick="switchTab('portals')">👤 Portal Links</button>
+            </li>
+            <li class="nav-item" id="nav-admin">
+                <button onclick="switchTab('admin')">⚙️ Product & Media Admin</button>
+            </li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.75rem; color: var(--text-muted); text-align: center;">
+            <strong>AR Luxury Experiences</strong><br>Melbourne CBD, Victoria
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Top Status Bar / Header -->
+        <header class="main-header">
+            <div class="header-title">
+                <h2 id="tab-title">Daily Dashboard</h2>
+                <p id="tab-subtitle">Live operations tracking for AR Luxury Experiences</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+                <button class="btn-add" onclick="syncCentralEngine()" style="background: var(--accent-blue); color: white;">🔄 Sync Engine State</button>
+                <a href="AR_Tours_Website.html" target="_blank" class="btn-add" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); text-decoration:none; display:flex; align-items:center; color: white;">🌐 View Website</a>
+            </div>
+        </header>
+
+        <!-- TAB 1: DAILY DASHBOARD -->
+        <div class="tab-content active" id="tab-dashboard-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Today's Revenue</div>
+                    <div class="stat-value text-gold" id="stat-revenue">$0</div>
+                    <div class="stat-sub">🟢 Real-time Direct Sales</div>
+                </div>
+                <div class="stat-card revenue">
+                    <div class="stat-label">Active Bookings Today</div>
+                    <div class="stat-value" id="stat-active-count">0</div>
+                    <div class="stat-sub" style="color: var(--accent-gold);">🚐 Dispatch Manifest Active</div>
+                </div>
+                <div class="stat-card fleet">
+                    <div class="stat-label">Fleet Compliance</div>
+                    <div class="stat-value" id="stat-fleet-percent">100%</div>
+                    <div class="stat-sub" style="color: var(--accent-emerald);">🚐 4 Vehicles CPV Certified</div>
+                </div>
+                <div class="stat-card pending">
+                    <div class="stat-label">Pending Confirmations</div>
+                    <div class="stat-value" id="stat-pending-count">0</div>
+                    <div class="stat-sub" style="color: var(--accent-blue);">⏳ Needs Action</div>
+                </div>
+            </div>
+
+            <div class="dashboard-layout">
+                <!-- Bookings & Manifest -->
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <div class="bookings-section">
+                        <div class="table-header">
+                            <div class="table-title">Today's Manifest & Status Dispatch</div>
+                            <span class="reg-badge" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald);">Sync Active</span>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Experience</th>
+                                        <th>Pax</th>
+                                        <th>Pickup</th>
+                                        <th>Vehicle</th>
+                                        <th>Driver</th>
+                                        <th>Status Dispatch</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="today-manifest-table">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Row -->
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="booking.html" target="_blank" class="btn-gold" style="flex:1; text-align:center;">➕ New Direct Booking</a>
+                        <button onclick="showPrintModal()" class="btn-gold" style="flex:1.2;">🖨️ Print Traveller List</button>
+                        <button onclick="exportManifest()" class="btn-ghost" style="flex:1;">📄 Export Manifest</button>
+                        <a href="tel:0400044004" class="btn-ghost" style="flex:1; text-align:center; text-decoration:none;">📞 Hotline Operations</a>
+                    </div>
+                </div>
+
+                <!-- Right Fleet Status Column -->
+                <div class="bookings-section" style="display: flex; flex-direction: column; gap: 20px;">
+                    <h3 style="font-family: var(--font-head); font-size:1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Fleet Tracker</h3>
+                    <div id="dashboard-fleet-status" style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Dynamic fleet items -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: ALL BOOKINGS -->
+        <div class="tab-content" id="tab-bookings-content">
+            <div class="bookings-section">
+                <div class="table-header">
+                    <div class="table-title">Partner & Direct Booking Ledger</div>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <input type="text" id="bookings-search" class="form-input" placeholder="Search Client or Ref..." onkeyup="filterLedger()" style="max-width: 200px; padding: 6px 12px;">
+                        <select id="bookings-filter-status" class="form-select" onchange="filterLedger()" style="max-width: 150px; padding: 6px 12px;">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Driver Assigned">Driver Assigned</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                        <button class="btn-add" onclick="showAddModal()">➕ Manual Booking</button>
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ref</th>
+                                <th>Client</th>
+                                <th>Experience</th>
+                                <th>Date / Time</th>
+                                <th>Pax</th>
+                                <th>Revenue</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-ledger-table">
+                            <!-- Dynamic bookings -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: FLEET & CPV COMPLIANCE -->
+        <div class="tab-content" id="tab-compliance-content">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                <div class="bookings-section" style="border-left: 4px solid var(--accent-gold);">
+                    <h3 style="font-family:var(--font-head); font-size:1.05rem; margin-bottom:8px;">STV Accreditation</h3>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">Victoria commercial passenger vehicle operators must hold Safe Transport Victoria Commercial Passenger Vehicle Accreditation. Vehicles must display certified documents.</p>
+                </div>
+                <div class="bookings-section" style="border-left: 4px solid var(--accent-emerald);">
+                    <h3 style="font-family:var(--font-head); font-size:1.05rem; margin-bottom:8px;">Annual Roadworthy</h3>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">Mandatory annual Certificate of Roadworthiness (RWC) inspections by licensed vehicle testers must be completed to ensure fleet roadworthiness.</p>
+                </div>
+                <div class="bookings-section" style="border-left: 4px solid var(--accent-blue);">
+                    <h3 style="font-family:var(--font-head); font-size:1.05rem; margin-bottom:8px;">Accredited Chauffeurs</h3>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">All drivers must hold valid Driver Accreditation cards, clean police background histories, and pass regular commercial driver medical audits.</p>
+                </div>
+            </div>
+
+            <div class="dashboard-layout" style="margin-top: 20px;">
+                <!-- Left Fleet Grid -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="bookings-section">
+                        <div class="table-header"><div class="table-title">STV Vehicle Accreditation Status</div></div>
+                        <div style="overflow-x: auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Vehicle</th>
+                                        <th>Rego</th>
+                                        <th>CPV Expiry</th>
+                                        <th>RWC Due Date</th>
+                                        <th>Compliance Alert</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="compliance-fleet-table">
+                                    <!-- Dynamic fleet rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Inspections Checklists -->
+                <div class="bookings-section">
+                    <h3 style="font-family: var(--font-head); font-size:1.1rem; margin-bottom: 16px;">STV Operations Checklist</h3>
+                    
+                    <div style="display: flex; gap: 8px; margin-bottom: 16px; border-bottom:1px solid var(--border-color); padding-bottom:12px; overflow-x:auto;">
+                        <button class="btn-add" id="btn-chk-daily" onclick="loadChecklist('daily')" style="font-size:0.75rem; padding: 4px 10px;">Daily Pre-Trip</button>
+                        <button class="btn-ghost" id="btn-chk-weekly" onclick="loadChecklist('weekly')" style="font-size:0.75rem; padding: 4px 10px;">Weekly Deep</button>
+                        <button class="btn-ghost" id="btn-chk-monthly" onclick="loadChecklist('monthly')" style="font-size:0.75rem; padding: 4px 10px;">Monthly Fluid</button>
+                        <button class="btn-ghost" id="btn-chk-annual" onclick="loadChecklist('annual')" style="font-size:0.75rem; padding: 4px 10px;">Annual RWC</button>
+                    </div>
+
+                    <div id="checklists-container" style="display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Dynamic checklist items -->
+                    </div>
+                    <button class="btn-gold" onclick="saveActiveChecklist()" style="margin-top: 16px; width: 100%;">💾 Save Inspection Logs</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: AI ASSISTANT -->
+        <div class="tab-content" id="tab-ai-content">
+            <div class="dashboard-layout" style="grid-template-columns: 1.2fr 0.8fr;">
+                <!-- Full AI Chat Panel -->
+                <div class="ai-panel">
+                    <div class="ai-header">
+                        <div class="ai-avatar">AI</div>
+                        <div>
+                            <h4 style="font-size:1rem;">AR Luxe Experiences Tour Assistant</h4>
+                            <div class="ai-status">Online</div>
+                        </div>
+                    </div>
+                    <div class="ai-chat-body" id="ai-chat-body">
+                        <div class="chat-message ai">
+                            G'day! I am fully equipped with your brand parameters:<br>
+                            🗣️ <strong>Direct Pricing</strong>: GOR Reverse ($1,290), Yarra Valley ($990), Phillip Island ($1,190), Mornington ($990), Puffing Billy ($1,090), Melbourne City ($790).<br>
+                            ℹ️ <strong>CPV Accreditation</strong>: Full Safe Transport Victoria compliance specs.<br><br>
+                            Ask me about tour details, CPV requirements, or draft a TripAdvisor/Google review reply!
+                        </div>
+                    </div>
+                    <div class="ai-chat-footer">
+                        <input type="text" id="ai-chat-input" placeholder="Ask pricing, review drafting, or CPV regulations..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                        <button class="btn-send" onclick="sendChatMessage()">➔</button>
+                    </div>
+                </div>
+
+                <!-- Guided Review reply generator -->
+                <div class="bookings-section">
+                    <h3 style="font-family: var(--font-head); font-size:1.15rem; margin-bottom:12px;">TripAdvisor/Google Review Responder</h3>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">Paste a guest review below to automatically draft a warm response in our brand voice.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <textarea id="review-input" class="form-textarea" placeholder="e.g. 'We booked a private Great Ocean Road tour. Chauffeur was absolutely amazing and the reverse route was so peaceful...'" style="height:120px; font-size:0.85rem;"></textarea>
+                        <button class="btn-gold" onclick="generateReplyDraft()">✨ Draft Warm Reply</button>
+                        
+                        <div id="reply-output-box" style="display:none; background:rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding:16px; border-radius:var(--radius-sm);">
+                            <div style="font-size:0.75rem; text-transform:uppercase; color:var(--accent-emerald); font-weight:700; margin-bottom:8px;">Drafted Brand Reply</div>
+                            <p id="reply-output-text" style="font-size:0.85rem; line-height:1.5; color:#cbd5e1; white-space:pre-wrap;"></p>
+                            <button class="btn-add" onclick="copyReplyText()" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-color); color:white; font-size:0.72rem; padding:4px 8px; margin-top:12px;">📋 Copy Draft</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: REVENUE ANALYTICS -->
+        <div class="tab-content" id="tab-analytics-content">
+            <div class="bookings-section">
+                <h3 style="font-family: var(--font-head); font-size:1.2rem;">Revenue Analytics (Last 7 Days)</h3>
+                
+                <!-- CSS Bar Chart -->
+                <div class="bar-chart-container" id="bar-chart-holder">
+                    <!-- Dynamic chart bars -->
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px;">
+                <!-- Tour revenue breakdown -->
+                <div class="bookings-section">
+                    <h3 style="font-family:var(--font-head); font-size:1.1rem; margin-bottom:16px;">Revenue Breakdown by Experience</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Experience</th>
+                                <th>Direct Revenue Generated</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tour-revenue-tbody">
+                            <!-- Dynamic rows -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Source breakdown & stats -->
+                <div class="bookings-section" style="display:flex; flex-direction:column; gap:20px;">
+                    <h3 style="font-family:var(--font-head); font-size:1.1rem;">Sales Channel Ratio</h3>
+                    
+                    <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                        <span>Direct Website Sales:</span><strong id="ratio-direct">$0 (0%)</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                        <span>Travel Agency Commissions:</span><strong id="ratio-agent">$0 (0%)</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; padding-top:10px;">
+                        <span>Total Direct Ledger:</span><strong id="ratio-total" style="color:var(--accent-gold); font-size:1.15rem;">$0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: PORTALS -->
+        <div class="tab-content" id="tab-portals-content">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                <div class="bookings-section" style="text-align: center; padding: 40px 24px;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🧳</div>
+                    <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 12px;">Customer Portal</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px;">Allows direct clients to retrieve bookings, request date changes, input special requests, and download printable PDF invoices.</p>
+                    <a href="portals/customer.html" target="_blank" class="btn-gold" style="width: 100%; text-align: center; text-decoration: none;">Launch Client Portal</a>
+                </div>
+                <div class="bookings-section" style="text-align: center; padding: 40px 24px;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🚐</div>
+                    <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 12px;">Driver Manifest Portal</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px;">Bespoke driver cabin screen. Access daily manifests, launch Google Maps routing, and dispatch live trip status indicators.</p>
+                    <a href="portals/driver.html" target="_blank" class="btn-gold" style="width: 100%; text-align: center; text-decoration: none;">Launch Driver Portal</a>
+                </div>
+                <div class="bookings-section" style="text-align: center; padding: 40px 24px;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🤝</div>
+                    <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 12px;">Agency Partner Portal</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px;">Enables verified commission-based agency partners to book clients directly, track payouts, and view settled 15% ledgers.</p>
+                    <a href="portals/agent.html" target="_blank" class="btn-gold" style="width: 100%; text-align: center; text-decoration: none;">Launch Agent Portal</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7: PRODUCT & MEDIA ADMIN -->
+        <div class="tab-content" id="tab-admin-content">
+            <div class="dashboard-layout" style="grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: start;">
+                
+                <!-- LEFT COLUMN: QUICK PRICES & PHOTO SLIDESHOW -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Pricing Configuration Box -->
+                    <div class="bookings-section">
+                        <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">💵 Base Pricing Settings</h3>
+                        <div style="display: flex; flex-direction: column; gap: 14px; max-height: 400px; overflow-y: auto; padding-right: 6px;">
+                            <h4 style="font-family: var(--font-head); font-size: 0.9rem; color: var(--accent-gold); margin-bottom: 4px;">Direct Private Tours (Flat vehicle rate, up to 5 pax)</h4>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Great Ocean Road Private ($)</label>
+                                <input type="number" id="admin-private-gor" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Phillip Island Private ($)</label>
+                                <input type="number" id="admin-private-phillip" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Yarra Valley Private ($)</label>
+                                <input type="number" id="admin-private-yarra" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Mornington Peninsula Private ($)</label>
+                                <input type="number" id="admin-private-mornington" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Puffing Billy Private ($)</label>
+                                <input type="number" id="admin-private-puffing" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Melbourne City Private ($)</label>
+                                <input type="number" id="admin-private-melbourne" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            
+                            <h4 style="font-family: var(--font-head); font-size: 0.9rem; color: var(--accent-gold); margin-top: 10px; margin-bottom: 4px;">Direct Group Tours (Per person rates)</h4>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Great Ocean Road Group ($ per person)</label>
+                                <input type="number" id="admin-group-gor" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.7rem;">Phillip Island Group ($ per person)</label>
+                                <input type="number" id="admin-group-phillip" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                            </div>
+                            <button class="btn-gold" onclick="saveAdminPricing()" style="margin-top: 10px; width: 100%;">💾 Save Pricing Configuration</button>
+                        </div>
+                    </div>
+
+                    <!-- Customer Photos & Gallery Box -->
+                    <div class="bookings-section">
+                        <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">📸 Customer Photo & Slideshow Manager</h3>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div>
+                                <label class="form-label" style="font-size: 0.75rem;">Upload Photo</label>
+                                <input type="file" id="admin-photo-file" accept="image/*" class="form-input" style="margin-top: 4px; padding: 8px 12px;">
+                            </div>
+                            <div>
+                                <label class="form-label" style="font-size: 0.75rem;">Photo Caption</label>
+                                <input type="text" id="admin-photo-caption" class="form-input" placeholder="e.g. Great Ocean Road Tour - May 2026" style="margin-top: 4px;">
+                            </div>
+                            <button class="btn-gold" onclick="uploadAdminPhoto()">📤 Upload Photo to Slideshow</button>
+                        </div>
+
+                        <div style="margin-top: 24px;">
+                            <h4 style="font-family: var(--font-head); font-size: 1rem; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">Active Photos</h4>
+                            <div id="admin-photo-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-height: 180px; overflow-y: auto; padding-right: 4px;">
+                                <!-- Dynamically loaded -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Google Integration Configuration Box -->
+                    <div class="bookings-section">
+                        <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🔌 Google Sheet & Calendar Sync</h3>
+                        <div style="display: flex; flex-direction: column; gap: 14px;">
+                            <div>
+                                <label class="form-label" style="font-size: 0.75rem;">Google Web App URL</label>
+                                <input type="text" id="google-webhook-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" style="margin-top: 4px; padding: 8px 12px;">
+                                <span style="font-size:0.7rem; color:var(--text-muted);">Paste the deployment URL from your Google Apps Script setup.</span>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn-ghost" onclick="testGoogleSync()" style="flex: 1; font-size: 0.75rem; padding: 6px 12px;">⚡ Test Sync</button>
+                                <button class="btn-gold" onclick="saveGoogleWebhook()" style="flex: 1; font-size: 0.75rem; padding: 6px 12px;">💾 Save Webhook</button>
+                            </div>
+                            
+                            <details style="margin-top: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 10px;">
+                                <summary style="font-family: var(--font-head); font-weight: 700; color: var(--accent-gold); cursor: pointer; font-size: 0.78rem;">📝 Show Google Apps Script Setup Code</summary>
+                                <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;">
+                                    <p>1. Open your <strong>Google Sheet</strong>, go to <strong>Extensions ➔ Apps Script</strong>.</p>
+                                    <p>2. Paste the script below into the editor, click Save, and click <strong>Deploy ➔ New Deployment ➔ Web App</strong>.</p>
+                                    <p>3. Set: Execute as: <strong>Me</strong>, Access: <strong>Anyone</strong>.</p>
+                                    <p>4. Copy the Web App URL and paste it in the field above.</p>
+                                    <pre style="background:#070a13; color:#a5b4fc; padding:10px; border-radius:4px; overflow-x:auto; max-height:200px; font-family:monospace; font-size:0.68rem; margin-top:8px; border:1px solid rgba(255,255,255,0.05);" id="apps-script-code"></pre>
+                                    <button class="btn-gold" onclick="copyAppsScriptCode()" style="margin-top: 8px; font-size: 0.65rem; padding: 4px 8px; width: 100%;">📋 Copy Script Code</button>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: DYNAMIC PRODUCT CATALOG MANAGER -->
+                <div class="bookings-section" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                        <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin: 0;">🛠 Tour Experiences Catalog</h3>
+                        <button class="btn-add" onclick="initNewTourForm()" style="font-size: 0.75rem; padding: 4px 10px;">➕ New Experience</button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; align-items: start;">
+                        <!-- Scrollable list of active products -->
+                        <div>
+                            <h4 style="font-family: var(--font-head); font-size: 0.85rem; color: var(--accent-gold); margin-bottom: 8px;">Active Products</h4>
+                            <div id="admin-tour-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 520px; overflow-y: auto; padding-right: 4px;">
+                                <!-- Dynamically loaded product list -->
+                            </div>
+                        </div>
+
+                        <!-- Product Editor Form -->
+                        <div id="admin-tour-editor" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); padding: 16px; border-radius: var(--radius-sm); display: none;">
+                            <h4 style="font-family: var(--font-head); font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;" id="editor-title">Edit Product</h4>
+                            <input type="hidden" id="edit-tour-mode" value="edit"> <!-- 'edit' or 'new' -->
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.85rem;">
+                                <div>
+                                    <label class="form-label" style="font-size: 0.7rem;">Product ID (slug) *</label>
+                                    <input type="text" id="edit-tour-id" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                                </div>
+                                <div>
+                                    <label class="form-label" style="font-size: 0.7rem;">Product Name *</label>
+                                    <input type="text" id="edit-tour-name" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.7rem;">Emoji Indicator *</label>
+                                        <input type="text" id="edit-tour-emoji" class="form-input" placeholder="e.g. 🌊" style="margin-top: 4px; padding: 6px 10px;">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.7rem;">Price ($) *</label>
+                                        <input type="number" id="edit-tour-price" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.7rem;">Service Category *</label>
+                                        <select id="edit-tour-type" class="form-select" style="margin-top: 4px; padding: 6px 10px;" onchange="handleTypeChange()">
+                                            <option value="private">Private Tour (Flat vehicle rate)</option>
+                                            <option value="group">Group Tour (Per person rate)</option>
+                                            <option value="chauffeur">Chauffeur Service (CMS Dynamic)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.7rem;">Vehicle Description *</label>
+                                        <input type="text" id="edit-tour-vehicle" class="form-input" placeholder="e.g. Luxury Vehicle / Toyota Hiace 11-seater" style="margin-top: 4px; padding: 6px 10px;">
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" id="limits-row">
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.7rem;">Max Guest Limit *</label>
+                                        <input type="number" id="edit-tour-pax" class="form-input" style="margin-top: 4px; padding: 6px 10px;">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" style="font-size: 0.7rem;">Duration / Unit *</label>
+                                        <input type="text" id="edit-tour-duration" class="form-input" placeholder="e.g. 14 Hours" style="margin-top: 4px; padding: 6px 10px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="form-label" style="font-size: 0.7rem;">Description *</label>
+                                    <textarea id="edit-tour-description" class="form-textarea" style="margin-top: 4px; padding: 6px 10px; height: 60px; font-size: 0.8rem;"></textarea>
+                                </div>
+                                <div id="itinerary-row">
+                                    <label class="form-label" style="font-size: 0.7rem;">Itinerary Timeline (Separated by |) *</label>
+                                    <textarea id="edit-tour-itinerary" class="form-textarea" placeholder="e.g. 08:00 Departure | 12:00 Lunch | 17:00 Return" style="margin-top: 4px; padding: 6px 10px; height: 60px; font-size: 0.8rem;"></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label" style="font-size: 0.7rem;">Product Image (Local Upload) *</label>
+                                    <input type="file" id="edit-tour-image-file" class="form-input" accept="image/*" style="margin-top: 4px; padding: 4px 6px;" onchange="handleImageUpload(event)">
+                                    <div id="image-preview-container" style="margin-top: 8px; position: relative; display: inline-block;">
+                                        <img id="edit-tour-image-preview" style="max-height: 70px; border-radius: 6px; border: 1px solid var(--border-color); display: none;">
+                                        <button type="button" id="edit-tour-image-clear" onclick="clearSelectedImage()" style="display:none; position:absolute; top:-6px; right:-6px; background:#ef4444; color:white; border:none; border-radius:50%; width:16px; height:16px; font-size:10px; cursor:pointer; line-height:16px; text-align:center; padding:0;">×</button>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 8px; margin-top: 10px;">
+                                    <button class="btn-ghost" onclick="cancelTourEdit()" style="flex: 1; padding: 6px; font-size: 0.75rem;">Cancel</button>
+                                    <button class="btn-gold" onclick="saveTourCatalogExperience()" style="flex: 1.5; padding: 6px; font-size: 0.75rem;">💾 Save Product</button>
+                                    <button id="btn-tour-delete" class="btn-ghost" onclick="deleteTourCatalogExperience()" style="flex: 0.8; padding: 6px; font-size: 0.75rem; border-color: rgba(239,68,68,0.3); color: #ef4444;">🗑️ Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Editor Placeholder -->
+                        <div id="admin-tour-placeholder" style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 40px 10px; background: rgba(255,255,255,0.01); border: 1px dashed var(--border-color); border-radius: var(--radius-sm);">
+                            💡 Click any tour on the left to edit its name, price, description, vehicle type, and full itinerary timeline, or click <strong>➕ New Experience</strong> to add products dynamically.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MANUAL BOOKING MODAL -->
+    <div class="modal-overlay" id="manual-booking-modal">
+        <div class="modal-content">
+            <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">New Direct Reservation</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                    <label class="form-label" style="font-size: 0.7rem;">Client Full Name</label>
+                    <input type="text" id="modal-name" class="form-input" style="margin-top: 4px;">
+                </div>
+                <div>
+                    <label class="form-label" style="font-size: 0.7rem;">Client Email</label>
+                    <input type="email" id="modal-email" class="form-input" style="margin-top: 4px;">
+                </div>
+                <div>
+                    <label class="form-label" style="font-size: 0.7rem;">Client Phone</label>
+                    <input type="text" id="modal-phone" class="form-input" style="margin-top: 4px;">
+                </div>
+                <div>
+                    <label class="form-label" style="font-size: 0.7rem;">Choose Private Experience</label>
+                    <select id="modal-experience" class="form-select" style="margin-top: 4px;">
+                        <option value="">Select...</option>
+                        <!-- Dynamic options -->
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div>
+                        <label class="form-label" style="font-size: 0.7rem;">Departure Date</label>
+                        <input type="date" id="modal-date" class="form-input" style="margin-top: 4px;">
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size: 0.7rem;">Passengers (Pax)</label>
+                        <input type="number" id="modal-pax" class="form-input" value="2" min="1" max="12" style="margin-top: 4px;">
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label" style="font-size: 0.7rem;">Pickup Address</label>
+                    <input type="text" id="modal-pickup" class="form-input" placeholder="Crown Towers Southbank, W Hotel etc." style="margin-top: 4px;">
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 14px;">
+                    <button class="btn-ghost" onclick="hideAddModal()" style="flex: 1;">Cancel</button>
+                    <button class="btn-gold" onclick="submitManualBooking()" style="flex: 1;">Create Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRINT TRAVELLER LIST MODAL -->
+    <div class="modal-overlay" id="print-traveller-modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🖨️ Print Traveller Manifest</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                    <label class="form-label" style="font-size: 0.75rem;">Select Tour Date</label>
+                    <input type="date" id="print-manifest-date" class="form-input" style="margin-top: 4px;">
+                    <span style="font-size: 0.7rem; color: var(--text-muted);">Defaults to tomorrow's date for quick dispatch preparation.</span>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 14px;">
+                    <button class="btn-ghost" onclick="hidePrintModal()" style="flex: 1;">Cancel</button>
+                    <button class="btn-gold" onclick="printTravellerManifest()" style="flex: 1.5;">🖨️ Open Print Manifest</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Toast Alert -->
+    <div id="global-toast-operations" style="position: fixed; bottom: 2rem; right: 2rem; background: rgba(16, 185, 129, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 1rem 2rem; border-radius: 12px; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: none; z-index: 10000; transition: all 0.3s ease;"></div>
+
+    <script src="booking-engine.js"></script>
+    <script>
+        // Checklists State
+        let checklists = {
+            daily: [
+                { text: "Steering, brakes, and instrument warning lights verified operational", checked: false },
+                { text: "Windscreen wipers, washer fluid, and demisters checked", checked: false },
+                { text: "Tyre tread depth, pressure, and visual structural integrity verified", checked: false },
+                { text: "Passenger seatbelts and buckle mechanisms checked for wear", checked: false },
+                { text: "Accreditation certificates and emergency RACV flyers in cabin", checked: false }
+            ],
+            weekly: [
+                { text: "Verify brake fluid and engine coolant reservoir levels", checked: false },
+                { text: "Inspect commercial fire extinguisher inspection tags", checked: false },
+                { text: "Cabin deep vacuuming and premium leather dressing applied", checked: false },
+                { text: "Ensure first-aid medical supplies are fully restocked", checked: false }
+            ],
+            monthly: [
+                { text: "Under-carriage chassis inspection for transmission fluid leaks", checked: false },
+                { text: "Calibrate high-pressure passenger tyres and matching spares", checked: false },
+                { text: "Test rear climate control and commercial heating cycles", checked: false }
+            ],
+            annual: [
+                { text: "Licensed Vehicle Tester Certificate of Roadworthiness (RWC) completed", checked: false },
+                { text: "Submit commercial CPV accreditation records to Safe Transport Vic", checked: false },
+                { text: "Complete medical assessments and driving history record reviews", checked: false }
+            ]
+        };
+        let activeChecklistType = 'daily';
+
+        // Page Load
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Enforce Security Credentials Overlay check
+            const token = localStorage.getItem('ar_admin_token');
+            const loginOverlay = document.getElementById('admin-login-overlay');
+            if (token) {
+                loginOverlay.style.setProperty('display', 'none', 'important');
+                await BookingEngine.loadFromBackend();
+            } else {
+                loginOverlay.style.setProperty('display', 'flex', 'important');
+            }
+
+            // Load saved checklist progress
+            const savedChecklists = localStorage.getItem('ar_luxury_checklists_progress');
+            if (savedChecklists) {
+                checklists = JSON.parse(savedChecklists);
+            }
+
+            // Populate experiences select in modal
+            populateModalExperiences();
+
+            // Load Admin data
+            loadAdminPricing();
+            renderAdminPhotos();
+            renderAdminTourList();
+            loadGoogleWebhook();
+
+            syncCentralEngine();
+            loadChecklist('daily');
+        });
+
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('admin-gate-password').value;
+            const errorMsg = document.getElementById('login-error-msg');
+            errorMsg.style.display = 'none';
+            
+            try {
+                const res = await fetch('http://localhost:5001/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    localStorage.setItem('ar_admin_token', data.token);
+                    document.getElementById('admin-login-overlay').style.setProperty('display', 'none', 'important');
+                    
+                    // Re-sync with active authorization header
+                    await BookingEngine.loadFromBackend();
+                    populateModalExperiences();
+                    renderAdminTourList();
+                    loadAdminPricing();
+                    showToast('Access Authorized. Welcome back, Operator!');
+                } else {
+                    errorMsg.style.display = 'block';
+                }
+            } catch(e) {
+                alert('Connection to backend CMS offline. Please ensure your backend is started with "npm start" on port 5001!');
+            }
+        }
+
+        function populateModalExperiences() {
+            const modalSel = document.getElementById('modal-experience');
+            if (modalSel) {
+                modalSel.innerHTML = '<option value="">Select private tour...</option>';
+                BookingEngine.getTours().forEach(t => {
+                    modalSel.innerHTML += `<option value="${t.id}">${t.name} ($${t.price})</option>`;
+                });
+                BookingEngine.getChauffeurServices().forEach(c => {
+                    modalSel.innerHTML += `<option value="${c.id}">${c.name} ($${c.price})</option>`;
+                });
+            }
+        }
+
+        let activeEditTourId = null;
+        let activeEditCategory = 'tour'; // 'tour' or 'chauffeur'
+        let uploadedImageBase64 = '';
+
+        function handleTypeChange() {
+            const type = document.getElementById('edit-tour-type').value;
+            const limitsRow = document.getElementById('limits-row');
+            const itineraryRow = document.getElementById('itinerary-row');
+            if (type === 'chauffeur') {
+                limitsRow.style.display = 'none';
+                itineraryRow.style.display = 'none';
+            } else {
+                limitsRow.style.display = 'grid';
+                itineraryRow.style.display = 'block';
+            }
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImageBase64 = e.target.result;
+                const preview = document.getElementById('edit-tour-image-preview');
+                const clearBtn = document.getElementById('edit-tour-image-clear');
+                preview.src = uploadedImageBase64;
+                preview.style.display = 'block';
+                clearBtn.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearSelectedImage() {
+            uploadedImageBase64 = '';
+            document.getElementById('edit-tour-image-file').value = '';
+            document.getElementById('edit-tour-image-preview').style.display = 'none';
+            document.getElementById('edit-tour-image-preview').src = '';
+            document.getElementById('edit-tour-image-clear').style.display = 'none';
+        }
+
+        function renderAdminTourList() {
+            const list = document.getElementById('admin-tour-list');
+            if (!list) return;
+            list.innerHTML = '';
+            
+            const tours = BookingEngine.getTours();
+            const chauffeurs = BookingEngine.getChauffeurServices();
+            
+            // List Tours
+            if (tours.length > 0) {
+                const tourHeader = document.createElement('div');
+                tourHeader.style = 'font-size:0.68rem; color:var(--accent-gold); text-transform:uppercase; margin:8px 0 4px; font-weight:700; opacity:0.8;';
+                tourHeader.textContent = '🗺️ Private & Group Tours';
+                list.appendChild(tourHeader);
+            }
+            tours.forEach(t => {
+                const item = document.createElement('div');
+                item.className = 'checklist-item';
+                item.style.cursor = 'pointer';
+                item.style.padding = '8px 10px';
+                item.style.borderRadius = '6px';
+                item.style.marginBottom = '6px';
+                item.style.background = (activeEditTourId === t.id && activeEditCategory === 'tour') ? 'rgba(212,175,55,0.12)' : 'rgba(255,255,255,0.02)';
+                item.style.border = (activeEditTourId === t.id && activeEditCategory === 'tour') ? '1px solid var(--accent-gold)' : '1px solid var(--border-color)';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.style.alignItems = 'center';
+                item.style.transition = 'var(--trans)';
+                item.onclick = () => loadTourIntoEditor(t.id, 'tour');
+                
+                item.innerHTML = `
+                    <div style="flex:1;">
+                        <span style="font-size:1.15rem; margin-right:4px;">${t.emoji || '✦'}</span>
+                        <strong style="font-size:0.8rem;">${t.name}</strong><br>
+                        <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">${t.type} · ${t.duration || 'Flexible'}</span>
+                    </div>
+                    <div style="font-weight:700; color:var(--accent-gold); font-size:0.82rem;">
+                        $${t.price}
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+
+            // List Chauffeurs
+            if (chauffeurs.length > 0) {
+                const chauffeurHeader = document.createElement('div');
+                chauffeurHeader.style = 'font-size:0.68rem; color:var(--accent-gold); text-transform:uppercase; margin:16px 0 4px; font-weight:700; opacity:0.8;';
+                chauffeurHeader.textContent = '🚐 Chauffeur Services';
+                list.appendChild(chauffeurHeader);
+            }
+            chauffeurs.forEach(c => {
+                const item = document.createElement('div');
+                item.className = 'checklist-item';
+                item.style.cursor = 'pointer';
+                item.style.padding = '8px 10px';
+                item.style.borderRadius = '6px';
+                item.style.marginBottom = '6px';
+                item.style.background = (activeEditTourId === c.id && activeEditCategory === 'chauffeur') ? 'rgba(212,175,55,0.12)' : 'rgba(255,255,255,0.02)';
+                item.style.border = (activeEditTourId === c.id && activeEditCategory === 'chauffeur') ? '1px solid var(--accent-gold)' : '1px solid var(--border-color)';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.style.alignItems = 'center';
+                item.style.transition = 'var(--trans)';
+                item.onclick = () => loadTourIntoEditor(c.id, 'chauffeur');
+                
+                item.innerHTML = `
+                    <div style="flex:1;">
+                        <span style="font-size:1.15rem; margin-right:4px;">${c.emoji || '🚐'}</span>
+                        <strong style="font-size:0.8rem;">${c.name}</strong><br>
+                        <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Chauffeur Service</span>
+                    </div>
+                    <div style="font-weight:700; color:var(--accent-gold); font-size:0.82rem;">
+                        $${c.price}
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function loadTourIntoEditor(id, category = 'tour') {
+            activeEditTourId = id;
+            activeEditCategory = category;
+            clearSelectedImage();
+            renderAdminTourList();
+            
+            let item;
+            if (category === 'tour') {
+                const tours = BookingEngine.getTours();
+                item = tours.find(t => t.id === id);
+            } else {
+                const chauffeurs = BookingEngine.getChauffeurServices();
+                item = chauffeurs.find(c => c.id === id);
+            }
+            if (!item) return;
+            
+            document.getElementById('admin-tour-placeholder').style.display = 'none';
+            document.getElementById('admin-tour-editor').style.display = 'block';
+            document.getElementById('editor-title').textContent = category === 'tour' ? 'Edit Tour Experience' : 'Edit Chauffeur Option';
+            document.getElementById('edit-tour-mode').value = 'edit';
+            
+            // Set fields
+            document.getElementById('edit-tour-id').value = item.id;
+            document.getElementById('edit-tour-id').disabled = true; // Cannot edit slug once created
+            document.getElementById('edit-tour-name').value = item.name;
+            document.getElementById('edit-tour-emoji').value = item.emoji || '';
+            document.getElementById('edit-tour-price').value = item.price || item.basePrice || 0;
+            document.getElementById('edit-tour-type').value = category === 'tour' ? item.type : 'chauffeur';
+            document.getElementById('edit-tour-vehicle').value = item.vehicle || '';
+            document.getElementById('edit-tour-pax').value = item.paxLimit || 5;
+            document.getElementById('edit-tour-duration').value = item.duration || 'N/A';
+            document.getElementById('edit-tour-description').value = item.description || '';
+            document.getElementById('edit-tour-itinerary').value = item.itinerary || '';
+            
+            // Image Preview loading
+            if (item.image) {
+                uploadedImageBase64 = item.image;
+                const preview = document.getElementById('edit-tour-image-preview');
+                preview.src = uploadedImageBase64;
+                preview.style.display = 'block';
+                document.getElementById('edit-tour-image-clear').style.display = 'block';
+            }
+            
+            handleTypeChange();
+            document.getElementById('btn-tour-delete').style.display = 'block';
+        }
+
+        function initNewTourForm() {
+            activeEditTourId = null;
+            activeEditCategory = 'tour';
+            clearSelectedImage();
+            renderAdminTourList();
+            
+            document.getElementById('admin-tour-placeholder').style.display = 'none';
+            document.getElementById('admin-tour-editor').style.display = 'block';
+            document.getElementById('editor-title').textContent = 'Create Custom Experience';
+            document.getElementById('edit-tour-mode').value = 'new';
+            
+            // Clear fields
+            document.getElementById('edit-tour-id').value = '';
+            document.getElementById('edit-tour-id').disabled = false; // Slug is editable for new tours
+            document.getElementById('edit-tour-name').value = '';
+            document.getElementById('edit-tour-emoji').value = '✦';
+            document.getElementById('edit-tour-price').value = '';
+            document.getElementById('edit-tour-type').value = 'private';
+            document.getElementById('edit-tour-vehicle').value = 'Luxury Vehicle';
+            document.getElementById('edit-tour-pax').value = 5;
+            document.getElementById('edit-tour-duration').value = '8 Hours';
+            document.getElementById('edit-tour-description').value = '';
+            document.getElementById('edit-tour-itinerary').value = '';
+            
+            handleTypeChange();
+            document.getElementById('btn-tour-delete').style.display = 'none';
+        }
+
+        function cancelTourEdit() {
+            activeEditTourId = null;
+            renderAdminTourList();
+            document.getElementById('admin-tour-editor').style.display = 'none';
+            document.getElementById('admin-tour-placeholder').style.display = 'block';
+        }
+
+        async function saveTourCatalogExperience() {
+            const id = document.getElementById('edit-tour-id').value.trim().toLowerCase();
+            const name = document.getElementById('edit-tour-name').value.trim();
+            const emoji = document.getElementById('edit-tour-emoji').value.trim() || '✦';
+            const price = parseFloat(document.getElementById('edit-tour-price').value);
+            const type = document.getElementById('edit-tour-type').value;
+            const vehicle = document.getElementById('edit-tour-vehicle').value.trim();
+            const paxLimit = parseInt(document.getElementById('edit-tour-pax').value);
+            const duration = document.getElementById('edit-tour-duration').value.trim();
+            const description = document.getElementById('edit-tour-description').value.trim();
+            const itinerary = document.getElementById('edit-tour-itinerary').value.trim();
+            const mode = document.getElementById('edit-tour-mode').value;
+
+            if (!id || !name || isNaN(price) || !vehicle || !description) {
+                alert('Please complete all form fields with valid values!');
+                return;
+            }
+
+            const payload = {
+                id,
+                name,
+                emoji,
+                price,
+                type,
+                vehicle,
+                paxLimit: type === 'chauffeur' ? 7 : paxLimit,
+                duration: type === 'chauffeur' ? 'Flexible' : duration,
+                description,
+                itinerary: type === 'chauffeur' ? '' : itinerary,
+                image: uploadedImageBase64
+            };
+
+            if (type === 'chauffeur') {
+                if (mode === 'new') {
+                    const existing = BookingEngine.getChauffeurServices().some(c => c.id === id);
+                    if (existing) {
+                        alert(`Chauffeur Slug "${id}" already exists!`);
+                        return;
+                    }
+                    await BookingEngine.addChauffeur(payload);
+                    showToast('New chauffeur service created successfully!');
+                } else {
+                    await BookingEngine.updateChauffeur(id, payload);
+                    showToast('Chauffeur service updated successfully!');
+                }
+            } else {
+                if (mode === 'new') {
+                    const existing = BookingEngine.getTours().some(t => t.id === id);
+                    if (existing) {
+                        alert(`Tour Slug "${id}" already exists!`);
+                        return;
+                    }
+                    await BookingEngine.addTour(payload);
+                    showToast('New tour experience created successfully!');
+                } else {
+                    await BookingEngine.updateTour(id, payload);
+                    showToast('Tour experience updated successfully!');
+                }
+            }
+
+            // Sync
+            populateModalExperiences();
+            renderAdminTourList();
+            cancelTourEdit();
+            syncCentralEngine();
+        }
+
+        async function deleteTourCatalogExperience() {
+            const id = document.getElementById('edit-tour-id').value;
+            const type = document.getElementById('edit-tour-type').value;
+            if (confirm(`Are you absolutely sure you want to delete this experience catalog item?`)) {
+                if (type === 'chauffeur') {
+                    await BookingEngine.deleteChauffeur(id);
+                } else {
+                    await BookingEngine.deleteTour(id);
+                }
+                showToast('Experience catalog item deleted.');
+                
+                // Sync
+                populateModalExperiences();
+                renderAdminTourList();
+                cancelTourEdit();
+                syncCentralEngine();
+            }
+        }
+
+        function loadAdminPricing() {
+            const p = BookingEngine.getPricing();
+            if (document.getElementById('admin-private-gor')) {
+                document.getElementById('admin-private-gor').value = p.gorPrivatePrice || 1500;
+            }
+            document.getElementById('admin-private-phillip').value = p.phillipPrivatePrice || 1500;
+            document.getElementById('admin-private-yarra').value = p.yarraPrivatePrice || 1500;
+            document.getElementById('admin-private-mornington').value = p.morningtonPrivatePrice || 1500;
+            document.getElementById('admin-private-puffing').value = p.puffingPrivatePrice || 1500;
+            document.getElementById('admin-private-melbourne').value = p.melbournePrivatePrice || 1500;
+            document.getElementById('admin-group-gor').value = p.groupGorRate || 149;
+            document.getElementById('admin-group-phillip').value = p.groupPhillipRate || 250;
+        }
+
+        function saveAdminPricing() {
+            const gorPrivatePrice = parseFloat(document.getElementById('admin-private-gor').value);
+            const phillipPrivatePrice = parseFloat(document.getElementById('admin-private-phillip').value);
+            const yarraPrivatePrice = parseFloat(document.getElementById('admin-private-yarra').value);
+            const morningtonPrivatePrice = parseFloat(document.getElementById('admin-private-mornington').value);
+            const puffingPrivatePrice = parseFloat(document.getElementById('admin-private-puffing').value);
+            const melbournePrivatePrice = parseFloat(document.getElementById('admin-private-melbourne').value);
+            const groupGorRate = parseFloat(document.getElementById('admin-group-gor').value);
+            const groupPhillipRate = parseFloat(document.getElementById('admin-group-phillip').value);
+
+            if (isNaN(gorPrivatePrice) || isNaN(phillipPrivatePrice) || isNaN(yarraPrivatePrice) || 
+                isNaN(morningtonPrivatePrice) || isNaN(puffingPrivatePrice) || isNaN(melbournePrivatePrice) || 
+                isNaN(groupGorRate) || isNaN(groupPhillipRate)) {
+                alert('Please enter valid numeric values for all rates!');
+                return;
+            }
+
+            BookingEngine.savePricing({
+                gorPrivatePrice,
+                phillipPrivatePrice,
+                yarraPrivatePrice,
+                morningtonPrivatePrice,
+                puffingPrivatePrice,
+                melbournePrivatePrice,
+                groupGorRate,
+                groupPhillipRate
+            });
+
+            // Re-populate modal select
+            populateModalExperiences();
+            
+            syncCentralEngine();
+            showToast('Bespoke product pricing saved and applied globally!');
+        }
+
+        function renderAdminPhotos() {
+            const gallery = document.getElementById('admin-photo-gallery');
+            if (!gallery) return;
+            gallery.innerHTML = '';
+            const photos = BookingEngine.getCustomerPhotos();
+            
+            if (photos.length === 0) {
+                gallery.innerHTML = '<div style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 20px;">No photos uploaded yet.</div>';
+                return;
+            }
+            
+            photos.forEach(p => {
+                const item = document.createElement('div');
+                item.style.position = 'relative';
+                item.style.borderRadius = '6px';
+                item.style.overflow = 'hidden';
+                item.style.border = '1px solid var(--border-color)';
+                item.style.height = '70px';
+                
+                item.innerHTML = `
+                    <img src="${p.data}" style="width: 100%; height: 100%; object-fit: cover;" alt="${p.caption}">
+                    <button onclick="deleteAdminPhoto('${p.id}')" style="position: absolute; top: 2px; right: 2px; background: rgba(239, 68, 68, 0.85); color: white; border-radius: 4px; padding: 2px 5px; font-size: 0.65rem; border: none; cursor: pointer;">✕</button>
+                `;
+                gallery.appendChild(item);
+            });
+        }
+
+        function uploadAdminPhoto() {
+            const fileInput = document.getElementById('admin-photo-file');
+            const captionInput = document.getElementById('admin-photo-caption');
+            const file = fileInput.files[0];
+            const caption = captionInput.value.trim() || 'AR Luxury Experiences';
+
+            if (!file) {
+                alert('Please select an image file first!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result;
+                BookingEngine.addCustomerPhoto(base64Data, caption);
+                fileInput.value = '';
+                captionInput.value = '';
+                renderAdminPhotos();
+                showToast('Customer photo uploaded to slideshow!');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function deleteAdminPhoto(id) {
+            if (confirm('Are you sure you want to delete this photo from the slideshow?')) {
+                BookingEngine.deleteCustomerPhoto(id);
+                renderAdminPhotos();
+                showToast('Photo removed from slideshow.');
+            }
+        }
+
+        function syncCentralEngine() {
+            renderDashboard();
+            renderAllBookings();
+            renderFleetTracker();
+            renderRevenueAnalytics();
+            showToast('Operations Hub synchronized successfully!');
+        }
+
+        // Tab Swapper
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+
+            document.getElementById(`tab-${tabId}-content`).classList.add('active');
+            document.getElementById(`nav-${tabId}`).classList.add('active');
+
+            const titles = {
+                dashboard: ['Daily Dashboard', 'Live operations tracking for AR Luxury Experiences'],
+                bookings: ['All Bookings Ledger', 'Bespoke direct sales database & manual entry'],
+                compliance: ['Fleet & CPV Standards', 'Accreditation, inspections, and compliance tracking'],
+                ai: ['Central AI Operations Assistant', 'Bespoke brand responder & TripAdvisor templates'],
+                analytics: ['Revenue Analytics', 'Sales metrics, bar charts, and experience ratios'],
+                portals: ['Portal Integrations', 'Self-service links for Clients, Chauffeurs, and Partners'],
+                admin: ['Product & Media Admin', 'Update experiences pricing and customer slideshow photos']
+            };
+
+            document.getElementById('tab-title').innerText = titles[tabId][0];
+            document.getElementById('tab-subtitle').innerText = titles[tabId][1];
+        }
+
+        // Render Dashboard
+        function renderDashboard() {
+            const bookings = BookingEngine.getAllBookings();
+            const today = new Date().toISOString().split('T')[0];
+            const todayBookings = bookings.filter(b => b.date === today && b.status !== 'Cancelled');
+            
+            let todayRev = 0;
+            let pendingCount = 0;
+
+            const tbody = document.getElementById('today-manifest-table');
+            tbody.innerHTML = '';
+
+            todayBookings.forEach(b => {
+                const val = b.totalPrice || b.revenue || 0;
+                todayRev += val;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>⏱ ${b.time}</td>
+                    <td><strong>${b.experienceName || b.tourId}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${b.customerName}</span></td>
+                    <td>👤 ${b.pax}</td>
+                    <td><span style="font-size:0.8rem;">${b.pickupLocation}</span></td>
+                    <td><code>${b.vehicleId ? BookingEngine.fleet.find(v => v.id === b.vehicleId).name.split(' ')[0] : 'Unassigned'}</code></td>
+                    <td>${b.driverId ? 'Chauffeur Active' : 'Unassigned'}</td>
+                    <td>
+                        <select onchange="updateManifestStatus('${b.ref}', this.value)" style="background:#0d1220; color:white; border:1px solid var(--border-color); padding:4px; border-radius:4px; font-size:0.8rem;">
+                            <option value="Pending" ${b.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Confirmed" ${b.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                            <option value="Driver Assigned" ${b.status === 'Driver Assigned' ? 'selected' : ''}>Driver Assigned</option>
+                            <option value="Picked Up" ${b.status === 'Picked Up' ? 'selected' : ''}>Picked Up</option>
+                            <option value="On Tour" ${b.status === 'On Tour' ? 'selected' : ''}>On Tour</option>
+                            <option value="Completed" ${b.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if (todayBookings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px; color:var(--text-secondary);">No manifests scheduled for dispatch today.</td></tr>';
+            }
+
+            bookings.forEach(b => {
+                if (b.status === 'Pending') pendingCount++;
+            });
+
+            // Set stats
+            document.getElementById('stat-revenue').innerText = BookingEngine.formatCurrency(todayRev);
+            document.getElementById('stat-active-count').innerText = todayBookings.length;
+            document.getElementById('stat-pending-count').innerText = pendingCount;
+        }
+
+        function updateManifestStatus(ref, val) {
+            BookingEngine.updateBookingStatus(ref, val);
+            BookingEngine.toast(`Manifest ${ref} updated to ${val}`, 'success');
+            renderDashboard();
+            renderAllBookings();
+        }
+
+        // Render Fleet Tracker
+        function renderFleetTracker() {
+            const container = document.getElementById('dashboard-fleet-status');
+            container.innerHTML = '';
+
+            BookingEngine.fleet.forEach(v => {
+                const item = document.createElement('div');
+                item.className = 'checklist-item';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.style.alignItems = 'center';
+                item.innerHTML = `
+                    <div>
+                        <strong>${v.name}</strong><br>
+                        <code style="font-size:0.75rem; color:var(--text-muted);">${v.rego}</code>
+                    </div>
+                    <span class="reg-badge" style="background:${v.status === 'available' ? 'rgba(16,185,129,0.15)' : 'rgba(59,130,246,0.15)'}; color:${v.status === 'available' ? 'var(--accent-emerald)' : 'var(--accent-blue)'};">${v.status}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Render Bookings Tab
+        function renderAllBookings() {
+            const bookings = BookingEngine.getAllBookings();
+            const tbody = document.getElementById('bookings-ledger-table');
+            tbody.innerHTML = '';
+
+            bookings.sort((a,b) => b.date.localeCompare(a.date)).forEach(b => {
+                const val = b.totalPrice || b.revenue || 0;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><code>${b.ref}</code></td>
+                    <td><strong>${b.customerName}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${b.customerEmail}</span></td>
+                    <td>${b.experienceName || b.tourId}</td>
+                    <td>📅 ${b.date} at ${b.time}</td>
+                    <td>👤 ${b.pax} Pax</td>
+                    <td style="font-weight:700; color:var(--accent-gold);">${BookingEngine.formatCurrency(val)}</td>
+                    <td><span class="reg-badge">${b.status}</span></td>
+                    <td>
+                        <button onclick="dispatchDeleteBooking('${b.ref}')" class="btn-ghost" style="padding:4px 8px; font-size:0.72rem; color:#ef4444; border-color:rgba(239,68,68,0.15);">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterLedger() {
+            const query = document.getElementById('bookings-search').value.toLowerCase().trim();
+            const status = document.getElementById('bookings-filter-status').value;
+            const rows = document.querySelectorAll('#bookings-ledger-table tr');
+
+            rows.forEach(r => {
+                const text = r.innerText.toLowerCase();
+                const matchQuery = text.includes(query);
+                const matchStatus = status === '' ? true : text.includes(status.toLowerCase());
+
+                if (matchQuery && matchStatus) {
+                    r.style.display = '';
+                } else {
+                    r.style.display = 'none';
+                }
+            });
+        }
+
+        function dispatchDeleteBooking(ref) {
+            if (confirm(`Are you sure you want to delete reservation ${ref}?`)) {
+                BookingEngine.deleteBooking(ref);
+                syncCentralEngine();
+            }
+        }
+
+        // Add Manual Booking modal
+        function showAddModal() {
+            document.getElementById('manual-booking-modal').style.display = 'flex';
+        }
+        function hideAddModal() {
+            document.getElementById('manual-booking-modal').style.display = 'none';
+        }
+        function submitManualBooking() {
+            const name = document.getElementById('modal-name').value.trim();
+            const email = document.getElementById('modal-email').value.trim();
+            const phone = document.getElementById('modal-phone').value.trim();
+            const experienceId = document.getElementById('modal-experience').value;
+            const date = document.getElementById('modal-date').value;
+            const pax = parseInt(document.getElementById('modal-pax').value);
+            const pickup = document.getElementById('modal-pickup').value.trim();
+
+            if (!name || !email || !experienceId || !date || !pickup) {
+                alert('Please complete all form fields!');
+                return;
+            }
+
+            const quote = BookingEngine.calculatePrice(experienceId, pax, date, []);
+            const newB = BookingEngine.createBooking({
+                tourId: experienceId,
+                serviceType: quote.serviceType,
+                experienceName: quote.experienceName,
+                date,
+                time: '09:00',
+                pax,
+                pickupType: 'hotel',
+                pickupLocation: pickup,
+                dropoffLocation: 'Same as pickup',
+                customerName: name,
+                customerEmail: email,
+                customerPhone: phone,
+                extras: [],
+                specialRequirements: 'Manually logged in Operations Hub.',
+                basePrice: quote.basePrice,
+                extrasPrice: 0,
+                discount: 0,
+                totalPrice: quote.totalPrice,
+                status: 'Confirmed'
+            });
+
+            if (newB) {
+                hideAddModal();
+                syncCentralEngine();
+            }
+        }
+
+        // Render Compliance Table
+        function renderComplianceFleet() {
+            const tbody = document.getElementById('compliance-fleet-table');
+            tbody.innerHTML = '';
+
+            BookingEngine.fleet.forEach(v => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${v.name}</strong></td>
+                    <td><code>${v.rego}</code></td>
+                    <td>${v.cpvExpiry}</td>
+                    <td>${v.rwcDate}</td>
+                    <td><span class="reg-badge" style="background:rgba(16,185,129,0.1); color:var(--accent-emerald);">CPV Accredited</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Inspections Checklist loader
+        function loadChecklist(type) {
+            activeChecklistType = type;
+            
+            // Toggle active styling
+            document.querySelectorAll('.tab-content button').forEach(b => {
+                if (b.id && b.id.startsWith('btn-chk-')) {
+                    b.className = 'btn-ghost';
+                    b.style.color = 'var(--text-secondary)';
+                }
+            });
+            const activeBtn = document.getElementById(`btn-chk-${type}`);
+            if (activeBtn) {
+                activeBtn.className = 'btn-add';
+                activeBtn.style.color = '#060810';
+            }
+
+            const container = document.getElementById('checklists-container');
+            container.innerHTML = '';
+
+            checklists[type].forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'checklist-item';
+                div.innerHTML = `
+                    <input type="checkbox" id="chk-${type}-${idx}" ${item.checked ? 'checked' : ''} onchange="toggleChecklistItem('${type}', ${idx})" style="width:18px; height:18px; accent-color:var(--accent-gold); cursor:pointer;">
+                    <label for="chk-${type}-${idx}" style="font-size:0.85rem; cursor:pointer; color:${item.checked ? 'var(--text-muted)' : '#ffffff'}; text-decoration:${item.checked ? 'line-through' : 'none'};">${item.text}</label>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleChecklistItem(type, idx) {
+            checklists[type][idx].checked = !checklists[type][idx].checked;
+            loadChecklist(type);
+        }
+
+        function saveActiveChecklist() {
+            localStorage.setItem('ar_luxury_checklists_progress', JSON.stringify(checklists));
+            showToast('STV Inspection checklists saved successfully!');
+        }
+
+        // AI Chat Engine
+        function sendChatMessage() {
+            const input = document.getElementById('ai-chat-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Render User bubble
+            const body = document.getElementById('ai-chat-body');
+            const userDiv = document.createElement('div');
+            userDiv.className = 'chat-message user';
+            userDiv.innerText = query;
+            body.appendChild(userDiv);
+            
+            input.value = '';
+            body.scrollTop = body.scrollHeight;
+
+            // Generate AI bubble after brief delay
+            setTimeout(() => {
+                const reply = simulateAIQuery(query);
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'chat-message ai';
+                aiDiv.innerHTML = reply;
+                body.appendChild(aiDiv);
+                body.scrollTop = body.scrollHeight;
+            }, 600);
+        }
+
+        function simulateAIQuery(q) {
+            const clean = q.toLowerCase();
+            
+            if (clean.includes('hello') || clean.includes('hi ') || clean.includes('hey')) {
+                return "G'day! Welcome to the AR Luxury Experiences Operations Hub. I'm your central AI Operations assistant. Ask me anything about our standard direct tour rates, fleet compliance, or paste a customer review to draft a warm response.";
+            }
+
+            if (clean.includes('price') || clean.includes('cost') || clean.includes('quote') || clean.includes('how much')) {
+                return `Here is our <strong>direct pricing catalogue</strong> (strictly no aggregators):<br>
+                - Great Ocean Road Private Reverse Tour: $1,290 / vehicle<br>
+                - Phillip Island Penguin Parade Tour: $1,190 / vehicle<br>
+                - Yarra Valley Premium Wine Tour: $990 / vehicle<br>
+                - Mornington Peninsula Hot Springs Tour: $990 / vehicle<br>
+                - Puffing Billy & Dandenong Ranges Tour: $1,090 / vehicle<br>
+                - Melbourne City Discovery Custom Tour: $790 / vehicle<br>
+                Clients book directly at www.toursau.com or via phone 0400 044 004.`;
+            }
+
+            if (clean.includes('cpv') || clean.includes('regulation') || clean.includes('safe transport') || clean.includes('accreditation')) {
+                return `<strong>Safe Transport Victoria Commercial Regulations Guide</strong>:<br>
+                1. <strong>Accreditation</strong>: Operators must hold certified Safe Transport Victoria Accreditation. Carry documentation onboard.<br>
+                2. <strong>RWC Inspections</strong>: Fleet vehicles must undergo annual Certificate of Roadworthiness (RWC) inspections.<br>
+                3. <strong>Chauffeurs</strong>: Every active driver must hold an approved STV Driver Accreditation card and pass commercial medical reviews.`;
+            }
+
+            return `Got it! If you need bespoke custom quotes for airport charter hires, call our hotline at 0400 044 004. To draft warm review responses, try pasting the comment directly in the Review Responder box on the right.`;
+        }
+
+        // Review responder
+        function generateReplyDraft() {
+            const txt = document.getElementById('review-input').value.trim();
+            if (!txt) {
+                alert('Please paste a guest review first!');
+                return;
+            }
+
+            const draft = `G'day! Thank you so much for the lovely review!
+            
+It was an absolute pleasure hosting you and showing you the best of Victoria. We take immense pride in our premium hospitality, private tailored routes, and bespoke direct booking care.
+
+If you ever return down under, we'd love to welcome you back for another unforgettable private tour in our executive fleet.
+
+Warm regards,
+The AR Luxury Experiences Team
+Melbourne CBD | 0400 044 004 | www.toursau.com`;
+
+            document.getElementById('reply-output-text').innerText = draft;
+            document.getElementById('reply-output-box').style.display = 'block';
+        }
+
+        function copyReplyText() {
+            const text = document.getElementById('reply-output-text').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Brand response copied to clipboard!');
+            });
+        }
+
+        // Render Revenue Analytics
+        function renderRevenueAnalytics() {
+            const stats = BookingEngine.getRevenueStats();
+            
+            // Build simple CSS bar chart based on 7 days mock metrics
+            const chart = document.getElementById('bar-chart-holder');
+            chart.innerHTML = '';
+            
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const mockDailyAmounts = [1290, 990, 1190, 0, 990, 1290, 1540];
+
+            mockDailyAmounts.forEach((val, idx) => {
+                const percentage = Math.min((val / 1600) * 100, 100);
+                const bar = document.createElement('div');
+                bar.className = 'bar-item';
+                bar.innerHTML = `
+                    <div style="font-size:0.7rem; color:var(--text-muted);">$${val}</div>
+                    <div class="bar-fill" style="height: ${percentage === 0 ? '5' : percentage}px;"></div>
+                    <div class="bar-label">${days[idx]}</div>
+                `;
+                chart.appendChild(bar);
+            });
+
+            // Populate table breakdown
+            const tbody = document.getElementById('tour-revenue-tbody');
+            tbody.innerHTML = '';
+            
+            const breakdown = BookingEngine.getTopTours();
+            breakdown.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${item.name}</strong></td>
+                        <td style="font-weight:700; color:var(--accent-gold);">${BookingEngine.formatCurrency(item.revenue)}</td>
+                    </tr>
+                `;
+            });
+
+            if (breakdown.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; padding:12px; color:var(--text-secondary);">No revenue breakdowns recorded.</td></tr>';
+            }
+
+            // Sales Channels
+            const bookings = BookingEngine.getAllBookings().filter(b => b.status !== 'Cancelled');
+            let directSales = 0;
+            let agentSales = 0;
+
+            bookings.forEach(b => {
+                const val = b.totalPrice || b.revenue || 0;
+                if (b.source === 'agent') {
+                    agentSales += val;
+                } else {
+                    directSales += val;
+                }
+            });
+
+            const grandTotal = directSales + agentSales;
+            const dirPercent = grandTotal === 0 ? 0 : Math.round((directSales / grandTotal) * 100);
+            const agPercent = grandTotal === 0 ? 0 : Math.round((agentSales / grandTotal) * 100);
+
+            document.getElementById('ratio-direct').innerText = `${BookingEngine.formatCurrency(directSales)} (${dirPercent}%)`;
+            document.getElementById('ratio-agent').innerText = `${BookingEngine.formatCurrency(agentSales)} (${agPercent}%)`;
+            document.getElementById('ratio-total').innerText = BookingEngine.formatCurrency(grandTotal);
+        }
+
+        // Export Manifest (printable window)
+        function exportManifest() {
+            const today = new Date().toISOString().split('T')[0];
+            const bookings = BookingEngine.getAllBookings().filter(b => b.date === today && b.status !== 'Cancelled');
+            
+            let htmlStr = `
+                <div style="font-family:'Outfit', sans-serif; padding:40px; color:#1e293b; max-width:800px; margin:0 auto; border:1px solid #e2e8f0; border-radius:16px;">
+                    <h1 style="color:#D4AF37; margin:0 0 10px;">AR Luxury Experiences</h1>
+                    <p style="margin:0 0 30px; font-size:14px; color:#64748b;">Daily Dispatch Manifest: <strong>${today}</strong></p>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="border-bottom:2px solid #e2e8f0; text-align:left;">
+                                <th style="padding:10px 0; color:#475569;">Time</th>
+                                <th style="padding:10px 0; color:#475569;">Client</th>
+                                <th style="padding:10px 0; color:#475569;">Experience</th>
+                                <th style="padding:10px 0; color:#475569;">Pickup Location</th>
+                                <th style="padding:10px 0; color:#475569; text-align:right;">Pax</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            bookings.forEach(b => {
+                htmlStr += `
+                    <tr style="border-bottom:1px solid #f1f5f9;">
+                        <td style="padding:12px 0;"><strong>${b.time}</strong></td>
+                        <td style="padding:12px 0;">${b.customerName}</td>
+                        <td style="padding:12px 0;">${b.experienceName || b.tourId}</td>
+                        <td style="padding:12px 0;">${b.pickupLocation}</td>
+                        <td style="padding:12px 0; text-align:right;">👤 ${b.pax}</td>
+                    </tr>
+                `;
+            });
+
+            if (bookings.length === 0) {
+                htmlStr += `<tr><td colspan="5" style="text-align:center; padding:30px; color:#64748b;">No tours dispatched today.</td></tr>`;
+            }
+
+            htmlStr += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            const win = window.open('', '_blank');
+            win.document.write(`<html><head><title>Manifest ${today}</title></head><body>${htmlStr}</body></html>`);
+            win.document.close();
+        }
+
+        // Global Operations Toast
+        function showToast(msg) {
+            const toast = document.getElementById('global-toast-operations');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.style.opacity = '1';
+                }, 400);
+            }, 3000);
+        }
+
+        // ─── GOOGLE WEBHOOK & INTEGRATIONS ───────────────────
+        const googleAppsScriptCode = `function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Append booking in tabular form
+    sheet.appendRow([
+      data.ref,
+      data.customerName || (data.firstName + ' ' + data.lastName),
+      data.customerEmail || data.email,
+      data.customerPhone || data.phone,
+      data.experienceName || (data.experience ? data.experience.name : 'Tour'),
+      data.date,
+      data.time,
+      data.pax || (data.adults + data.children),
+      data.pickupLocation || data.hotelName || 'Melbourne CBD',
+      data.specialRequirements || data.specialReqs || 'None',
+      data.paymentMethod || 'Stripe',
+      data.totalPrice || data.total || 0,
+      new Date()
+    ]);
+    
+    // Create Google Calendar event
+    var cal = CalendarApp.getDefaultCalendar();
+    if (cal) {
+      var eventTitle = "🚐 " + (data.experienceName || 'AR Luxury Tour') + " - " + (data.customerName || (data.firstName + ' ' + data.lastName));
+      var [y, m, d] = data.date.split('-');
+      var [h, min] = data.time.split(':');
+      var startTime = new Date(y, m-1, d, h, min);
+      var endTime = new Date(startTime.getTime() + 8 * 60 * 60 * 1000); // 8-hour duration
+      
+      var description = "Booking Ref: " + data.ref + "\\n" +
+                        "Pax: " + (data.pax || (data.adults + data.children)) + "\\n" +
+                        "Phone: " + (data.customerPhone || data.phone) + "\\n" +
+                        "Email: " + (data.customerEmail || data.email) + "\\n" +
+                        "Pickup: " + (data.pickupLocation || data.hotelName) + "\\n" +
+                        "Notes: " + (data.specialRequirements || data.specialReqs);
+                        
+      cal.createEvent(eventTitle, startTime, endTime, {
+        description: description,
+        location: data.pickupLocation || data.hotelName
+      });
+    }
+    
+    // Send email notification upon confirmation
+    var emailSubject = "New Booking Confirmed: " + data.ref + " - AR Luxury Experiences";
+    var emailBody = "G'day Operator,\\n\\nA new booking has been confirmed via the website!\\n\\n" +
+                    "Reference: " + data.ref + "\\n" +
+                    "Client: " + (data.customerName || (data.firstName + ' ' + data.lastName)) + "\\n" +
+                    "Experience: " + (data.experienceName || 'Tour') + "\\n" +
+                    "Date & Time: " + data.date + " at " + data.time + "\\n" +
+                    "Passengers: " + (data.pax || (data.adults + data.children)) + "\\n" +
+                    "Phone: " + (data.customerPhone || data.phone) + "\\n" +
+                    "Email: " + (data.customerEmail || data.email) + "\\n" +
+                    "Pickup: " + (data.pickupLocation || data.hotelName) + "\\n" +
+                    "Special Notes: " + (data.specialRequirements || data.specialReqs) + "\\n\\n" +
+                    "Warm regards,\\nAR Luxury Experiences System";
+                    
+    MailApp.sendEmail("777artours@gmail.com", emailSubject, emailBody);
+    
+    return ContentService.createTextOutput(JSON.stringify({status: 'success'})).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({status: 'error', message: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+
+        function loadGoogleWebhook() {
+            const urlInput = document.getElementById('google-webhook-url');
+            if (urlInput) {
+                urlInput.value = localStorage.getItem('ar_google_webhook_url') || '';
+            }
+            
+            const codePre = document.getElementById('apps-script-code');
+            if (codePre) {
+                codePre.textContent = googleAppsScriptCode;
+            }
+        }
+
+        function saveGoogleWebhook() {
+            const url = document.getElementById('google-webhook-url').value.trim();
+            localStorage.setItem('ar_google_webhook_url', url);
+            showToast('Google integration Webhook URL saved successfully!');
+        }
+
+        function testGoogleSync() {
+            const url = localStorage.getItem('ar_google_webhook_url');
+            if (!url) {
+                alert('Please save your Google Web App URL first!');
+                return;
+            }
+            
+            showToast('Dispatching test booking payload...');
+            
+            const mockPayload = {
+                ref: 'TEST-99999',
+                experienceName: 'Great Ocean Road Private Tour',
+                date: new Date().toISOString().split('T')[0],
+                time: '09:00',
+                firstName: 'Simulated',
+                lastName: 'Test',
+                email: 'test@artours.com',
+                phone: '0400044004',
+                adults: 2,
+                children: 0,
+                hotelName: 'Crown Towers Southbank',
+                specialReqs: 'Simulated connection test from Operations Dashboard.',
+                paymentMethod: 'Stripe',
+                total: 1500
+            };
+            
+            fetch(url, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(mockPayload)
+            }).then(() => {
+                showToast('Sync payload dispatched successfully! Check Sheet & Calendar.');
+            }).catch(err => {
+                alert('Connection test failed: ' + err.toString());
+            });
+        }
+
+        function copyAppsScriptCode() {
+            navigator.clipboard.writeText(googleAppsScriptCode).then(() => {
+                showToast('Google Apps Script setup code copied to clipboard!');
+            });
+        }
+
+        // ─── PRINT TRAVELLER MANIFESTS ────────────────────────
+        function showPrintModal() {
+            const dateInput = document.getElementById('print-manifest-date');
+            
+            // Default tomorrow's date
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.value = tomorrow.toISOString().split('T')[0];
+            
+            document.getElementById('print-traveller-modal').style.display = 'flex';
+        }
+
+        function hidePrintModal() {
+            document.getElementById('print-traveller-modal').style.display = 'none';
+        }
+
+        function printTravellerManifest() {
+            const targetDate = document.getElementById('print-manifest-date').value;
+            if (!targetDate) {
+                alert('Please select a manifest date first!');
+                return;
+            }
+            
+            const bookings = BookingEngine.getAllBookings().filter(b => b.date === targetDate && b.status !== 'Cancelled');
+            
+            // Separate products booked: Private Tours vs Group Tours
+            const privateBookings = bookings.filter(b => b.tourId ? b.tourId.endsWith('-private') : (b.serviceType === 'day-tour' && !b.tourId.endsWith('-group')));
+            const groupBookings = bookings.filter(b => b.tourId ? b.tourId.endsWith('-group') : false);
+            const otherBookings = bookings.filter(b => !privateBookings.includes(b) && !groupBookings.includes(b));
+
+            let htmlStr = `
+                <html>
+                <head>
+                    <title>Traveller Manifest - ${targetDate}</title>
+                    <style>
+                        body { font-family: 'Outfit', 'Helvetica Neue', Arial, sans-serif; padding: 40px; color: #1e293b; max-width: 950px; margin: 0 auto; line-height: 1.5; }
+                        h1 { color: #A8892A; margin: 0 0 4px; font-size: 26px; }
+                        .date-subtitle { font-size: 15px; color: #64748b; margin: 0 0 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
+                        .cat-header { background: #f8fafc; border-left: 4px solid #A8892A; padding: 8px 14px; font-weight: bold; font-size: 16px; margin: 24px 0 12px; color: #0f172a; text-transform: uppercase; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
+                        th { background: #f1f5f9; padding: 10px; text-align: left; color: #475569; border-bottom: 2px solid #cbd5e1; font-weight: 600; }
+                        td { padding: 10px; border-bottom: 1px solid #e2e8f0; color: #334155; vertical-align: top; }
+                        .notes-text { font-style: italic; color: #dc2626; font-weight: 500; font-size: 12px; }
+                        @media print {
+                            body { padding: 10px; }
+                            button { display: none; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div style="display:flex; justify-content:space-between; align-items:center;" class="no-print">
+                        <button onclick="window.print()" style="background:#A8892A; color:white; border:none; padding:10px 20px; font-weight:600; border-radius:6px; cursor:pointer;">🖨️ Click to Print Manifest</button>
+                        <button onclick="window.close()" style="background:#64748b; color:white; border:none; padding:10px 20px; font-weight:600; border-radius:6px; cursor:pointer;">Close Window</button>
+                    </div>
+                    
+                    <div style="margin-top:20px;">
+                        <h1>AR Luxury Experiences</h1>
+                        <div class="date-subtitle">Traveller Dispatch Manifest: <strong>${BookingEngine.formatDate(targetDate)}</strong></div>
+                    </div>
+            `;
+
+            const renderTable = (list, title) => {
+                if (list.length === 0) return '';
+                
+                let tableHtml = `<div class="cat-header">${title}</div>`;
+                tableHtml += `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 22%;">Experience / Product</th>
+                                <th style="width: 8%;">Pax</th>
+                                <th style="width: 15%;">Lead Traveller</th>
+                                <th style="width: 12%;">Phone</th>
+                                <th style="width: 15%;">Email Address</th>
+                                <th style="width: 16%;">Pickup Details</th>
+                                <th style="width: 12%;">Special Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                list.forEach(b => {
+                    const paxCount = b.pax || (b.adults + (b.children || 0));
+                    tableHtml += `
+                        <tr>
+                            <td><strong>${b.experienceName || b.tourId}</strong><br><span style="font-size:0.75rem; color:#64748b;">⏱ Time: ${b.time}</span></td>
+                            <td style="font-weight:bold; text-align:center;">👤 ${paxCount}</td>
+                            <td><strong>${b.customerName || (b.firstName + ' ' + b.lastName)}</strong></td>
+                            <td><code>${b.customerPhone || b.phone || '—'}</code></td>
+                            <td><span style="font-size:0.8rem; word-break:break-all;">${b.customerEmail || b.email || '—'}</span></td>
+                            <td><span style="font-size:0.82rem;">🏢 ${b.pickupLocation || b.hotelName || 'Melbourne CBD'}</span></td>
+                            <td class="notes-text">${b.specialRequirements || b.specialReqs || 'None'}</td>
+                        </tr>
+                    `;
+                });
+                
+                tableHtml += `</tbody></table>`;
+                return tableHtml;
+            };
+
+            // Render Private, Group, and Chauffeur classes separately
+            let manifestBody = '';
+            manifestBody += renderTable(privateBookings, '⭐ Private Tours Manifest (Max 5 Pax luxury vehicle)');
+            manifestBody += renderTable(groupBookings, '🚌 Group Tours Manifest (Toyota Hiace 11-Seater)');
+            manifestBody += renderTable(otherBookings, '🚐 Transfers & Chauffeur Manifest');
+            
+            if (bookings.length === 0) {
+                manifestBody = `<div style="text-align:center; padding:50px; font-size:16px; border:2px dashed #cbd5e1; border-radius:10px; color:#64748b; margin-top:30px;">
+                    🚫 No reservations scheduled for dispatch on <strong>${BookingEngine.formatDate(targetDate)}</strong>.
+                </div>`;
+            }
+
+            htmlStr += manifestBody + `</body></html>`;
+            
+            hidePrintModal();
+            const win = window.open('', '_blank');
+            win.document.write(htmlStr);
+            win.document.close();
+        }
+    </script>
+</body>
+</html>

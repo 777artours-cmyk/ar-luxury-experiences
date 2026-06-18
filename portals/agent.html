@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Partner Portal — AR Luxury Experiences</title>
+  <link rel="stylesheet" href="../luxury.css">
+  <style>
+    body {
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(212, 175, 55, 0.03) 0px, transparent 50%);
+    }
+    .agent-container {
+      max-width: 1000px;
+      margin: 100px auto;
+      padding: 0 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="luxury-nav">
+    <div class="nav-container">
+      <a href="../AR_Tours_Website.html" class="logo">
+        <div class="logo-icon">AR</div>
+        <span>AR Luxury Experiences</span>
+      </a>
+      <a href="../AR_Tours_Website.html" class="btn-ghost btn-sm">← Back to Website</a>
+    </div>
+  </nav>
+
+  <div class="agent-container">
+    
+    <!-- LOGIN SCREEN -->
+    <div id="login-panel" class="glass-card" style="max-width: 450px; margin: 0 auto; padding: 40px; text-align: center;">
+      <h2 style="font-family: var(--font-head); font-size: 1.8rem; margin-bottom: 8px;">Agency Partner Portal</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 30px;">Login to access commission-based private bookings.</p>
+      
+      <div style="text-align: left; display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <label class="form-label" style="font-size: 0.7rem;">Agent ID</label>
+          <input type="text" id="login-agent-id" class="form-input" placeholder="AGENT001" style="margin-top: 6px;">
+        </div>
+        <div>
+          <label class="form-label" style="font-size: 0.7rem;">Password</label>
+          <input type="password" id="login-agent-pass" class="form-input" placeholder="••••••••" style="margin-top: 6px;">
+        </div>
+        <button class="btn-gold" onclick="handleLogin()" style="width: 100%;">Access Partner Ledger</button>
+        <div style="font-size: 0.75rem; text-align: center; color: var(--text-muted);">Demo ID: <code>AGENT001</code> | Pass: <code>demo123</code></div>
+      </div>
+    </div>
+
+    <!-- AGENT DASHBOARD -->
+    <div id="dashboard-panel" style="display: none;">
+      
+      <div class="glass-card" style="padding: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+        <div>
+          <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Verified Agency Partner</span>
+          <h2 style="font-family: var(--font-head); font-size: 1.5rem;" id="agent-welcome">Welcome back, Partner Agency</h2>
+        </div>
+        <span class="btn-emerald btn-sm" style="padding: 6px 14px; font-size: 0.8rem; cursor: default;">Active • 15% Commission Rate</span>
+      </div>
+
+      <!-- Stats Grid -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px;">
+        <div class="glass-card" style="padding: 24px; text-align: center;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Total Client Bookings</div>
+          <div style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: white;" id="stat-bookings">0</div>
+        </div>
+        <div class="glass-card" style="padding: 24px; text-align: center;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Commission Earned (15%)</div>
+          <div style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: var(--accent-gold);" id="stat-commission">$0</div>
+        </div>
+        <div class="glass-card" style="padding: 24px; text-align: center;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Pending Payout</div>
+          <div style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: var(--accent-emerald);" id="stat-pending">$0</div>
+        </div>
+      </div>
+
+      <!-- Layout Columns -->
+      <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start;">
+        
+        <!-- Book for Client Form -->
+        <div class="glass-card" style="padding: 32px;">
+          <h3 style="font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 20px;">Book private experience for Client</h3>
+          
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label class="form-label" style="font-size: 0.7rem;">Client Full Name</label>
+              <input type="text" id="client-name" class="form-input" style="margin-top: 6px;">
+            </div>
+            
+            <div>
+              <label class="form-label" style="font-size: 0.7rem;">Client Contact Email</label>
+              <input type="email" id="client-email" class="form-input" style="margin-top: 6px;">
+            </div>
+
+            <div>
+              <label class="form-label" style="font-size: 0.7rem;">Client Contact Phone</label>
+              <input type="text" id="client-phone" class="form-input" style="margin-top: 6px;">
+            </div>
+
+            <div>
+              <label class="form-label" style="font-size: 0.7rem;">Choose Experience</label>
+              <select id="client-experience" class="form-select" style="margin-top: 6px;" onchange="updateCommissionCalculation()">
+                <option value="">Select a private tour...</option>
+                <!-- Dynamic options -->
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label class="form-label" style="font-size: 0.7rem;">Departure Date</label>
+                <input type="date" id="client-date" class="form-input" style="margin-top: 6px;">
+              </div>
+              <div>
+                <label class="form-label" style="font-size: 0.7rem;">Departure Time</label>
+                <select id="client-time" class="form-select" style="margin-top: 6px;">
+                  <option value="07:00">07:00 AM</option>
+                  <option value="08:30">08:30 AM</option>
+                  <option value="09:30">09:30 AM</option>
+                  <option value="13:00">01:00 PM</option>
+                  <option value="14:30">02:30 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label class="form-label" style="font-size: 0.7rem;">Passengers (Pax)</label>
+                <select id="client-pax" class="form-select" style="margin-top: 6px;">
+                  <option value="1">1 Guest</option>
+                  <option value="2">2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                  <option value="5">5 Guests</option>
+                  <option value="6">6 Guests</option>
+                  <option value="7">7 Guests</option>
+                  <option value="8">8 Guests</option>
+                  <option value="10">10 Guests</option>
+                  <option value="12">12 Guests</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" style="font-size: 0.7rem;">Pickup Location Type</label>
+                <select id="client-pickup-type" class="form-select" style="margin-top: 6px;">
+                  <option value="hotel">Hotel CBD</option>
+                  <option value="airbnb">Airbnb Address</option>
+                  <option value="home">Private Address</option>
+                  <option value="airport">Airport Terminal</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="font-size: 0.7rem;">Pickup Full Address</label>
+              <input type="text" id="client-pickup" class="form-input" placeholder="Crown Towers, Sofitel, Airport T2 etc." style="margin-top: 6px;">
+            </div>
+
+            <!-- Commission calculation preview -->
+            <div style="background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.18); padding: 14px; border-radius: var(--radius-sm); font-size: 0.85rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Vehicle Base Cost:</span><strong id="calc-base">$0</strong></div>
+              <div style="display:flex; justify-content:space-between; color: var(--accent-emerald);"><span>Agency Comm (15%):</span><strong id="calc-comm">$0</strong></div>
+            </div>
+
+            <button class="btn-gold" onclick="submitClientBooking()" style="width: 100%;">Create Booking Manifest</button>
+          </div>
+        </div>
+
+        <!-- Bookings table & payouts -->
+        <div style="display: flex; flex-direction: column; gap: 32px;">
+          
+          <div class="glass-card" style="padding: 32px; overflow-x: auto;">
+            <h3 style="font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 20px;">Partner Ledger</h3>
+            <table style="width: 100%;">
+              <thead>
+                <tr style="text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.75rem; text-transform: uppercase;">
+                  <th style="padding: 8px; color: var(--text-muted);">Ref</th>
+                  <th style="padding: 8px; color: var(--text-muted);">Client</th>
+                  <th style="padding: 8px; color: var(--text-muted);">Tour</th>
+                  <th style="padding: 8px; color: var(--text-muted);">Value</th>
+                  <th style="padding: 8px; color: var(--text-muted);">Comm (15%)</th>
+                  <th style="padding: 8px; color: var(--text-muted);">Status</th>
+                </tr>
+              </thead>
+              <tbody id="agent-ledger-body">
+                <!-- Dynamic ledger entries -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Commission summary & payouts -->
+          <div class="glass-card" style="padding: 32px;">
+            <h3 style="font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 16px;">Payout Settlement</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin-bottom: 24px;">Commission settlements are cleared monthly on the 1st business day. Your payouts are dispatched automatically to your registered agency banking details. Monthly agency statements are sent via invoice.</p>
+            <a id="btn-payout" class="btn-gold" style="width:100%; text-align:center; text-decoration:none;">Request Express Payout</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../booking-engine.js"></script>
+  <script>
+    function handleLogin() {
+      const id = document.getElementById('login-agent-id').value.trim();
+      const pass = document.getElementById('login-agent-pass').value;
+
+      if (id === 'AGENT001' && pass === 'demo123') {
+        document.getElementById('login-panel').style.display = 'none';
+        document.getElementById('dashboard-panel').style.display = 'block';
+        loadAgentDashboard();
+      } else {
+        BookingEngine.toast('Incorrect credentials. Please try again.', 'info');
+      }
+    }
+
+    function loadAgentDashboard() {
+      // Load Experiences select
+      const select = document.getElementById('client-experience');
+      select.innerHTML = '<option value="">Select a private experience...</option>';
+      
+      BookingEngine.tours.forEach(t => {
+        select.innerHTML += `<option value="${t.id}">${t.name} (from $${t.minPrice})</option>`;
+      });
+      BookingEngine.chauffeurServices.forEach(c => {
+        select.innerHTML += `<option value="${c.id}">${c.name} (from $${c.basePrice})</option>`;
+      });
+
+      refreshLedger();
+    }
+
+    function updateCommissionCalculation() {
+      const experienceId = document.getElementById('client-experience').value;
+      if (!experienceId) {
+        document.getElementById('calc-base').innerText = '$0';
+        document.getElementById('calc-comm').innerText = '$0';
+        return;
+      }
+
+      const quote = BookingEngine.calculatePrice(experienceId, 1, '', []);
+      document.getElementById('calc-base').innerText = BookingEngine.formatCurrency(quote.basePrice);
+      document.getElementById('calc-comm').innerText = BookingEngine.formatCurrency(Math.round(quote.basePrice * 0.15));
+    }
+
+    function refreshLedger() {
+      const bookings = BookingEngine.getAllBookings().filter(b => b.source === 'agent');
+      const body = document.getElementById('agent-ledger-body');
+      body.innerHTML = '';
+
+      let totalVal = 0;
+      let totalComm = 0;
+      
+      bookings.forEach(b => {
+        const val = b.totalPrice || b.revenue || 0;
+        const comm = Math.round(val * 0.15);
+        totalVal += val;
+        totalComm += comm;
+
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border-color)';
+        tr.style.fontSize = '0.85rem';
+        tr.innerHTML = `
+          <td style="padding: 10px; font-weight:700; color:var(--accent-gold);">${b.ref}</td>
+          <td style="padding: 10px;">${b.customerName}</td>
+          <td style="padding: 10px;">${b.experienceName || b.tourId}</td>
+          <td style="padding: 10px; font-weight:700;">${BookingEngine.formatCurrency(val)}</td>
+          <td style="padding: 10px; color:var(--accent-emerald); font-weight:700;">${BookingEngine.formatCurrency(comm)}</td>
+          <td style="padding: 10px;"><span class="text-gold">${b.status}</span></td>
+        `;
+        body.appendChild(tr);
+      });
+
+      if (bookings.length === 0) {
+        body.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-secondary);">No ledger records found.</td></tr>`;
+      }
+
+      // Stats
+      document.getElementById('stat-bookings').innerText = bookings.length;
+      document.getElementById('stat-commission').innerText = BookingEngine.formatCurrency(totalComm);
+      document.getElementById('stat-pending').innerText = BookingEngine.formatCurrency(totalComm);
+
+      // Mailto payout
+      document.getElementById('btn-payout').href = `mailto:${BookingEngine.EMAIL}?subject=${encodeURIComponent('Express Payout Request: AGENT001')}&body=${encodeURIComponent('G\'day,\n\nI would like to request an express payout settlement for Agent AGENT001.\n\nTotal Ledger Balance: ' + BookingEngine.formatCurrency(totalComm) + '\n\nWarm regards,\nPartner Agency')}`;
+    }
+
+    function submitClientBooking() {
+      const name = document.getElementById('client-name').value.trim();
+      const email = document.getElementById('client-email').value.trim();
+      const phone = document.getElementById('client-phone').value.trim();
+      const experienceId = document.getElementById('client-experience').value;
+      const date = document.getElementById('client-date').value;
+      const time = document.getElementById('client-time').value;
+      const pax = parseInt(document.getElementById('client-pax').value);
+      const pickupType = document.getElementById('client-pickup-type').value;
+      const pickupLocation = document.getElementById('client-pickup').value.trim();
+
+      if (!name || !email || !phone || !experienceId || !date || !pickupLocation) {
+        BookingEngine.toast('Please complete all form fields!', 'info');
+        return;
+      }
+
+      const quote = BookingEngine.calculatePrice(experienceId, pax, date, []);
+      
+      const bookingData = {
+        tourId: experienceId,
+        serviceType: quote.serviceType,
+        experienceName: quote.experienceName,
+        date,
+        time,
+        pax,
+        pickupType,
+        pickupLocation,
+        dropoffLocation: 'Same as pickup',
+        customerName: name,
+        customerEmail: email,
+        customerPhone: phone,
+        extras: [],
+        specialRequirements: 'Booked via travel agency partner AGENT001.',
+        basePrice: quote.basePrice,
+        extrasPrice: 0,
+        discount: 0,
+        totalPrice: quote.totalPrice,
+        status: 'Confirmed',
+        source: 'agent',
+        agentId: 'AGENT001'
+      };
+
+      const newBooking = BookingEngine.createBooking(bookingData);
+      if (newBooking) {
+        BookingEngine.toast(`Client booking ${newBooking.ref} confirmed successfully!`, 'success');
+        
+        // Reset form
+        document.getElementById('client-name').value = '';
+        document.getElementById('client-email').value = '';
+        document.getElementById('client-phone').value = '';
+        document.getElementById('client-experience').value = '';
+        document.getElementById('client-date').value = '';
+        document.getElementById('client-pickup').value = '';
+        document.getElementById('calc-base').innerText = '$0';
+        document.getElementById('calc-comm').innerText = '$0';
+        
+        refreshLedger();
+      }
+    }
+  </script>
+</body>
+</html>

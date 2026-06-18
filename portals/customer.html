@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Portal — AR Luxury Experiences</title>
+  <link rel="stylesheet" href="../luxury.css">
+  <style>
+    body {
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+    }
+    .portal-container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 0 24px;
+    }
+    .status-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 32px 0;
+    }
+    .status-timeline::before {
+      content: '';
+      position: absolute;
+      top: 15px; left: 0; right: 0; height: 2px;
+      background: rgba(255,255,255,0.08);
+      z-index: 1;
+    }
+    .timeline-fill {
+      position: absolute;
+      top: 15px; left: 0; height: 2px;
+      background: var(--accent-gold);
+      z-index: 1;
+      transition: var(--transition);
+    }
+    .status-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .status-step.active .status-dot {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+    .status-step.completed .status-dot {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      color: #060810;
+    }
+    .status-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .status-step.active .status-label { color: var(--accent-gold); }
+    .status-step.completed .status-label { color: var(--text-primary); }
+    
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .modal-card {
+      max-width: 450px;
+      width: 100%;
+      padding: 32px;
+      border-radius: var(--radius-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="luxury-nav">
+    <div class="nav-container">
+      <a href="../AR_Tours_Website.html" class="logo">
+        <div class="logo-icon">AR</div>
+        <span>AR Luxury Experiences</span>
+      </a>
+      <a href="../AR_Tours_Website.html" class="btn-ghost btn-sm">← Back to Website</a>
+    </div>
+  </nav>
+
+  <div class="portal-container">
+    
+    <!-- LOGIN SCREEN -->
+    <div id="login-panel" class="glass-card" style="padding: 40px; text-align: center;">
+      <h2 style="font-family: var(--font-head); font-size: 1.8rem; margin-bottom: 8px;">Find My Booking</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 30px;">Enter your booking reference or registration email to view status.</p>
+      
+      <div style="text-align: left; display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <label class="form-label" style="font-size: 0.7rem;">Booking Reference or Email</label>
+          <input type="text" id="login-ref" class="form-input" placeholder="e.g. ARL-123456 or name@domain.com" style="margin-top: 6px;">
+        </div>
+        <button class="btn-gold" onclick="handleLookup()" style="width: 100%;">Find Booking</button>
+      </div>
+    </div>
+
+    <!-- BOOKING DETAILS SCREEN -->
+    <div id="details-panel" class="glass-card" style="padding: 40px; display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+        <div>
+          <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Booking Reference</span>
+          <h2 id="booking-ref-title" style="font-family: var(--font-head); font-size: 1.6rem; color: var(--accent-gold);">ARL-XXXXXX</h2>
+        </div>
+        <span id="booking-status-badge" class="btn-emerald btn-sm" style="padding: 4px 12px; font-size: 0.75rem; cursor: default;">Pending</span>
+      </div>
+
+      <!-- Timeline -->
+      <div class="status-timeline">
+        <div class="timeline-fill" id="timeline-fill" style="width: 0%;"></div>
+        <div class="status-step" id="step-received">
+          <div class="status-dot">1</div>
+          <div class="status-label">Received</div>
+        </div>
+        <div class="status-step" id="step-confirmed">
+          <div class="status-dot">2</div>
+          <div class="status-label">Confirmed</div>
+        </div>
+        <div class="status-step" id="step-assigned">
+          <div class="status-dot">3</div>
+          <div class="status-label">Assigned</div>
+        </div>
+        <div class="status-step" id="step-complete">
+          <div class="status-dot">4</div>
+          <div class="status-label">Complete</div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px; margin: 32px 0; background: rgba(255,255,255,0.02); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Experience:</span><strong id="detail-tour">-</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Date / Time:</span><strong id="detail-date">-</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Passengers:</span><strong id="detail-pax">-</strong></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Pickup Location:</span><strong id="detail-pickup">-</strong></div>
+      </div>
+
+      <!-- Invoice Breakdown -->
+      <h3 style="font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Invoice Summary</h3>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px;">
+        <div style="display: justify-content; display: flex; justify-content: space-between; font-size: 0.9rem;"><span style="color: var(--text-secondary);">Base Vehicle Rate:</span><span id="inv-base">$0</span></div>
+        <div style="display: justify-content; display: flex; justify-content: space-between; font-size: 0.9rem;"><span style="color: var(--text-secondary);">Custom Extras:</span><span id="inv-extras">$0</span></div>
+        <div style="display: justify-content; display: flex; justify-content: space-between; font-size: 0.9rem; color: #ef4444; display: none;" id="inv-discount-row"><span style="color: #ef4444;">Discount Applied:</span><span id="inv-discount">-$0</span></div>
+        <div style="display: justify-content; display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; border-top: 1px solid var(--border-color); padding-top: 10px;"><span>Total Paid:</span><span id="inv-total" style="color: var(--accent-gold); font-size: 1.3rem;">$0</span></div>
+      </div>
+
+      <!-- Action items -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <button class="btn-gold" onclick="downloadInvoice()" style="width: 100%;">📄 Download Invoice</button>
+        <a id="btn-change-date" class="btn-ghost" style="width: 100%; text-align: center; text-decoration: none;">📅 Request Date Change</a>
+        <a id="btn-request" class="btn-ghost" style="width: 100%; text-align: center; text-decoration: none;">💬 Add Custom Request</a>
+        <button class="btn-ghost" onclick="showCancelModal()" style="width: 100%; color: #ef4444; border-color: rgba(239,68,68,0.2);">❌ Cancel Booking</button>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.8rem;">
+        Need help? Call 0400 044 004 or WhatsApp our Operations Team.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CANCEL MODAL -->
+  <div class="modal-overlay" id="cancel-modal">
+    <div class="glass-card modal-card">
+      <h3 style="font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 12px; color: #ef4444;">Cancel My Booking</h3>
+      <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 24px;">Are you sure you want to cancel your luxury booking? Direct bookings are eligible for a full refund if cancelled up to 48 hours prior to scheduled departure. Cancellations within 48 hours may incur a holding fee.</p>
+      <div style="display: flex; gap: 12px;">
+        <button class="btn-ghost" onclick="hideCancelModal()" style="flex: 1;">Keep Booking</button>
+        <button class="btn-gold" onclick="confirmCancel()" style="flex: 1; background: linear-gradient(135deg, #ef4444, #b91c1c); border-color:#ef4444; color: white;">Confirm Cancellation</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../booking-engine.js"></script>
+  <script>
+    let activeBooking = null;
+
+    function handleLookup() {
+      const inputVal = document.getElementById('login-ref').value.trim();
+      if (!inputVal) {
+        BookingEngine.toast('Please enter a booking reference or email!', 'info');
+        return;
+      }
+
+      const booking = BookingEngine.getBooking(inputVal);
+      if (booking) {
+        activeBooking = booking;
+        showBookingDetails(booking);
+      } else {
+        BookingEngine.toast('No booking found matching that reference or email.', 'info');
+      }
+    }
+
+    function showBookingDetails(booking) {
+      document.getElementById('login-panel').style.display = 'none';
+      document.getElementById('details-panel').style.display = 'block';
+
+      // Set fields
+      document.getElementById('booking-ref-title').innerText = booking.ref;
+      document.getElementById('booking-status-badge').innerText = booking.status;
+      document.getElementById('detail-tour').innerText = booking.experienceName;
+      document.getElementById('detail-date').innerText = `${booking.date} at ${booking.time}`;
+      document.getElementById('detail-pax').innerText = `${booking.pax} Guests`;
+      document.getElementById('detail-pickup').innerText = booking.pickupLocation;
+
+      // Pricing
+      document.getElementById('inv-base').innerText = BookingEngine.formatCurrency(booking.basePrice);
+      document.getElementById('inv-extras').innerText = BookingEngine.formatCurrency(booking.extrasPrice || 0);
+      
+      const discountRow = document.getElementById('inv-discount-row');
+      if (booking.discount > 0) {
+        document.getElementById('inv-discount').innerText = `-${BookingEngine.formatCurrency(booking.discount)}`;
+        discountRow.style.display = 'flex';
+      } else {
+        discountRow.style.display = 'none';
+      }
+      
+      document.getElementById('inv-total').innerText = BookingEngine.formatCurrency(booking.totalPrice || booking.revenue);
+
+      // Mailto builders
+      document.getElementById('btn-change-date').href = `mailto:${BookingEngine.EMAIL}?subject=${encodeURIComponent('Date Change Request: ' + booking.ref)}&body=${encodeURIComponent('G\'day,\n\nI would like to request a date change for booking ' + booking.ref + '.\n\nPreferred New Date: YYYY-MM-DD\n\nWarm regards,\n' + booking.customerName)}`;
+      document.getElementById('btn-request').href = `mailto:${BookingEngine.EMAIL}?subject=${encodeURIComponent('Special Request: ' + booking.ref)}&body=${encodeURIComponent('G\'day Team,\n\nI would like to add a special request to my booking ' + booking.ref + ':\n\n[Add details here]\n\nWarm regards,\n' + booking.customerName)}`;
+
+      // Update Timeline
+      updateTimeline(booking.status);
+    }
+
+    function updateTimeline(status) {
+      const steps = ['received', 'confirmed', 'assigned', 'complete'];
+      let activeIndex = 0;
+
+      if (status === 'Confirmed') activeIndex = 1;
+      if (status === 'Driver Assigned' || status === 'Picked Up' || status === 'On Tour') activeIndex = 2;
+      if (status === 'Completed') activeIndex = 3;
+
+      // Fill width
+      const percentage = (activeIndex / 3) * 100;
+      document.getElementById('timeline-fill').style.width = `${percentage}%`;
+
+      // Classes
+      document.querySelectorAll('.status-step').forEach((el, idx) => {
+        el.classList.remove('active', 'completed');
+        if (idx === activeIndex) {
+          el.classList.add('active');
+        } else if (idx < activeIndex) {
+          el.classList.add('completed');
+        }
+      });
+    }
+
+    function showCancelModal() {
+      document.getElementById('cancel-modal').style.display = 'flex';
+    }
+
+    function hideCancelModal() {
+      document.getElementById('cancel-modal').style.display = 'none';
+    }
+
+    function confirmCancel() {
+      if (activeBooking) {
+        BookingEngine.updateBookingStatus(activeBooking.ref, 'Cancelled');
+        BookingEngine.toast('Booking successfully cancelled.', 'success');
+        hideCancelModal();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    }
+
+    function downloadInvoice() {
+      if (!activeBooking) return;
+      const htmlStr = BookingEngine.generatePDF(activeBooking);
+      const win = window.open('', '_blank');
+      win.document.write(`<html><head><title>Invoice ${activeBooking.ref}</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet"></head><body>${htmlStr}</body></html>`);
+      win.document.close();
+    }
+  </script>
+</body>
+</html>

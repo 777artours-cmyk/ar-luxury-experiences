@@ -1,0 +1,2833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Experience — AR Luxury Experiences</title>
+    <meta name="description" content="Book your private luxury tour with AR Luxury Experiences. 7-step secure booking for Day Tours and Chauffeur Services in Melbourne CBD.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="luxury.css">
+
+    <style>
+        /* ===== CSS RESET & ROOT ===== */
+        :root {
+            --bg-dark: #06080c;
+            --bg-surface: rgba(10, 14, 24, 0.9);
+            --card-bg: rgba(13, 18, 30, 0.7);
+            --card-bg-solid: #0d121e;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(251, 191, 36, 0.5);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-emerald: #10b981;
+            --accent-gold: #fbbf24;
+            --accent-gold-light: #fde68a;
+            --accent-red: #ef4444;
+            --glass-blur: blur(24px);
+            --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(ellipse at 0% 0%, rgba(251, 191, 36, 0.06) 0px, transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(16, 185, 129, 0.04) 0px, transparent 50%),
+                radial-gradient(ellipse at 50% 30%, rgba(99, 102, 241, 0.03) 0px, transparent 60%);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .booking-header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 200;
+            background: rgba(6, 8, 12, 0.85);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header-logo .logo-ar {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-logo .logo-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.8); }
+        }
+
+        .header-phone {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+        }
+
+        .header-phone:hover {
+            color: var(--accent-gold);
+            border-color: rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .header-phone svg { width: 16px; height: 16px; }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            position: fixed;
+            top: 72px; left: 0; right: 0;
+            z-index: 190;
+            background: rgba(6, 8, 12, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 1.5rem;
+        }
+
+        .progress-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--border-color);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), #f59e0b);
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .step-circle {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            border: 2px solid var(--border-color);
+            background: var(--bg-dark);
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .step-item.completed .step-circle {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            border-color: var(--accent-gold);
+            color: #1a1000;
+        }
+
+        .step-item.active .step-circle {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            border-color: var(--accent-gold);
+            color: #1a1000;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2), 0 4px 12px rgba(251, 191, 36, 0.4);
+        }
+
+        .step-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            transition: var(--transition);
+        }
+
+        .step-item.active .step-label { color: var(--accent-gold); }
+        .step-item.completed .step-label { color: var(--text-secondary); }
+
+        /* ===== MAIN LAYOUT ===== */
+        .booking-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            padding-top: 180px;
+            padding-bottom: 120px;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* ===== STEP CONTENT ===== */
+        .step-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            backdrop-filter: var(--glass-blur);
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .step-panel {
+            display: none;
+            padding: 2.5rem;
+            animation: fadeSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-panel.active { display: block; }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.02em;
+        }
+
+        .step-subheading {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ===== TABS ===== */
+        .tab-nav {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            color: #1a1000;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+        }
+
+        /* ===== EXPERIENCE CARDS ===== */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        .experience-card {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .experience-card:hover {
+            border-color: rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.03);
+            transform: translateY(-3px);
+        }
+
+        .experience-card.selected {
+            border-color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.07);
+            box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.2), 0 8px 24px rgba(251, 191, 36, 0.1);
+        }
+
+        .experience-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 0.75rem; right: 0.75rem;
+            width: 28px; height: 28px;
+            background: var(--accent-gold);
+            color: #1a1000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .exp-icon-area {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .exp-price-badge {
+            position: absolute;
+            bottom: 0.5rem; left: 0.5rem;
+            background: rgba(6, 8, 12, 0.8);
+            border: 1px solid var(--border-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .exp-info { padding: 1rem; }
+
+        .exp-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .exp-meta {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== CALENDAR ===== */
+        .calendar-wrap { margin-bottom: 2rem; }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .cal-month-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .cal-nav-btn {
+            width: 36px; height: 36px;
+            border: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .cal-nav-btn:hover {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.3);
+            color: var(--accent-gold);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-day-header {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 0.4rem 0;
+            letter-spacing: 0.05em;
+        }
+
+        .cal-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .cal-day:hover:not(.disabled):not(.empty) {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.3);
+            color: var(--accent-gold);
+        }
+
+        .cal-day.today { color: var(--accent-emerald); font-weight: 700; }
+        .cal-day.selected {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            color: #1a1000;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+        }
+
+        .cal-day.disabled {
+            color: var(--text-muted);
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .cal-day.empty { cursor: default; }
+
+        /* ===== TIME SLOTS ===== */
+        .time-slots-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-slot {
+            padding: 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255,255,255,0.02);
+            color: var(--text-secondary);
+        }
+
+        .time-slot:hover {
+            border-color: rgba(251, 191, 36, 0.3);
+            color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1));
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.2);
+        }
+
+        /* ===== COUNTER ===== */
+        .counter-group { margin-bottom: 1.5rem; }
+
+        .counter-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .counter-label small {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+
+        .counter-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            width: fit-content;
+        }
+
+        .counter-btn {
+            width: 36px; height: 36px;
+            border: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 300;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .counter-btn:hover {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.4);
+            color: var(--accent-gold);
+        }
+
+        .counter-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            min-width: 2rem;
+            text-align: center;
+        }
+
+        /* ===== FORM INPUTS ===== */
+        .form-group { margin-bottom: 1.25rem; }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            padding: 0.75rem 1rem;
+            transition: var(--transition);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.04);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .form-input.error, .form-select.error { border-color: var(--accent-red); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
+
+        .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+        .form-select option { background: #0d121e; color: white; }
+
+        .form-textarea { resize: vertical; min-height: 100px; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* ===== AUTOCOMPLETE ===== */
+        .autocomplete-wrap { position: relative; }
+
+        .autocomplete-list {
+            position: absolute;
+            top: calc(100% + 4px); left: 0; right: 0;
+            background: #131927;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            display: none;
+        }
+
+        .autocomplete-list.open { display: block; }
+
+        .autocomplete-item {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.15s;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-secondary);
+        }
+
+        .autocomplete-item:hover { background: rgba(251, 191, 36, 0.08); color: white; }
+        .autocomplete-item:last-child { border-bottom: none; }
+
+        /* ===== EXTRAS CARDS ===== */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .extra-card {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(255,255,255,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .extra-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .extra-card:hover { border-color: rgba(251, 191, 36, 0.3); transform: translateY(-2px); }
+        .extra-card.selected { border-color: var(--accent-gold); background: rgba(251, 191, 36, 0.07); }
+        .extra-card.selected::before { opacity: 1; }
+
+        .extra-icon { font-size: 2rem; flex-shrink: 0; }
+
+        .extra-info { flex: 1; }
+
+        .extra-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .extra-price {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+        }
+
+        .extra-check {
+            position: absolute;
+            top: 0.75rem; right: 0.75rem;
+            width: 22px; height: 22px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transition: var(--transition);
+            color: transparent;
+        }
+
+        .extra-card.selected .extra-check {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #1a1000;
+        }
+
+        /* ===== PROMO CODE ===== */
+        .promo-wrap {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .promo-wrap .form-input { flex: 1; }
+
+        .promo-apply-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--accent-gold);
+            border-radius: 10px;
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .promo-apply-btn:hover { background: rgba(251, 191, 36, 0.2); }
+
+        .promo-result {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .promo-result.success { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); display: block; }
+        .promo-result.error { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); display: block; }
+
+        /* ===== OCCASION SELECTOR ===== */
+        .occasion-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .occasion-chip {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .occasion-chip:hover { border-color: rgba(251, 191, 36, 0.3); color: var(--accent-gold); }
+        .occasion-chip.selected { background: rgba(251, 191, 36, 0.1); border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* ===== PAYMENT ===== */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pay-method {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .pay-method:hover { border-color: rgba(251, 191, 36, 0.3); }
+        .pay-method.selected { border-color: var(--accent-gold); background: rgba(251, 191, 36, 0.07); }
+
+        .pay-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+        .pay-name { font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); }
+        .pay-method.selected .pay-name { color: var(--accent-gold); }
+
+        .card-form { display: block; }
+        .card-number-wrap { position: relative; }
+
+        .card-type-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .secure-note {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .secure-note svg { color: var(--accent-emerald); flex-shrink: 0; }
+
+        .cancellation-box {
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .cancellation-box strong { color: var(--accent-gold); }
+
+        .terms-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .terms-checkbox {
+            width: 20px; height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            flex-shrink: 0;
+            cursor: pointer;
+            margin-top: 2px;
+            accent-color: var(--accent-gold);
+        }
+
+        .terms-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .terms-text a { color: var(--accent-gold); text-decoration: none; }
+
+        /* ===== SUCCESS STEP ===== */
+        .success-animation {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .success-ring {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            border: 3px solid var(--accent-emerald);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3.5rem;
+            animation: successPop 0.6s cubic-bezier(0.16, 1, 0.3, 1), successPulse 2.5s ease-in-out 0.6s infinite;
+        }
+
+        @keyframes successPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes successPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
+        }
+
+        .booking-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .confirmation-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .conf-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.9rem;
+        }
+
+        .conf-row:last-child { border-bottom: none; }
+        .conf-key { color: var(--text-muted); font-weight: 500; }
+        .conf-val { color: white; font-weight: 600; text-align: right; max-width: 60%; }
+
+        .success-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .next-steps-box {
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .next-steps-box h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--accent-emerald);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .next-steps-box p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== ORDER SUMMARY SIDEBAR ===== */
+        .order-sidebar {
+            position: sticky;
+            top: 175px;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            backdrop-filter: var(--glass-blur);
+            overflow: hidden;
+        }
+
+        .summary-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(251, 191, 36, 0.04);
+        }
+
+        .summary-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-title-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+        }
+
+        .summary-body { padding: 1.25rem; }
+
+        .summary-experience {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .summary-exp-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .summary-exp-meta { font-size: 0.78rem; color: var(--text-muted); }
+
+        .summary-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .summary-line-items { margin-bottom: 1rem; }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .summary-line:last-child { border-bottom: none; }
+        .summary-line-key { color: var(--text-secondary); }
+        .summary-line-val { font-weight: 600; }
+        .summary-line.discount .summary-line-val { color: var(--accent-emerald); }
+        .summary-line.discount .summary-line-key { color: var(--accent-emerald); }
+
+        .summary-total {
+            border-top: 2px solid var(--border-color);
+            padding-top: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .summary-total-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .summary-total-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+        }
+
+        .help-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .help-box p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+
+        .help-phone {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 1rem;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .help-phone:hover { opacity: 0.8; }
+
+        /* ===== NAVIGATION BUTTONS ===== */
+        .booking-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 190;
+            background: rgba(6, 8, 12, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+        }
+
+        .nav-inner-buttons {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-nav-back {
+            padding: 0.85rem 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-nav-back:hover { background: rgba(255,255,255,0.07); color: white; border-color: rgba(255,255,255,0.15); }
+
+        .btn-nav-next {
+            padding: 0.85rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #f59e0b 100%);
+            color: #1a1000;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-nav-next:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(251, 191, 36, 0.45); }
+        .btn-nav-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .nav-step-indicator {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ===== SECTION DIVIDERS ===== */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== DURATION DISPLAY ===== */
+        .duration-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-emerald);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== PICKUP TYPE ===== */
+        .pickup-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .pickup-type-btn {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255,255,255,0.02);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .pickup-type-btn:hover { border-color: rgba(251,191,36,0.3); color: var(--accent-gold); }
+        .pickup-type-btn.selected { border-color: var(--accent-gold); background: rgba(251,191,36,0.07); color: var(--accent-gold); }
+
+        /* ===== VALIDATION ERROR ===== */
+        .validation-error {
+            color: #f87171;
+            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            display: none;
+        }
+
+        .form-group.has-error .validation-error { display: block; }
+        .form-group.has-error .form-input,
+        .form-group.has-error .form-select { border-color: var(--accent-red); box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+
+        /* ===== ACTION BUTTONS ===== */
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            border: none;
+        }
+
+        .action-btn-outline {
+            border: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+        }
+
+        .action-btn-outline:hover { background: rgba(255,255,255,0.07); color: white; border-color: rgba(255,255,255,0.15); }
+
+        .action-btn-gold {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            color: #1a1000;
+            box-shadow: 0 4px 12px rgba(251,191,36,0.25);
+        }
+
+        .action-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(251,191,36,0.4); }
+
+        .action-btn-emerald {
+            border: 1px solid rgba(16,185,129,0.3);
+            background: rgba(16,185,129,0.08);
+            color: var(--accent-emerald);
+        }
+
+        .action-btn-emerald:hover { background: rgba(16,185,129,0.15); }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 900px) {
+            .booking-layout {
+                grid-template-columns: 1fr;
+                padding-top: 165px;
+            }
+
+            .order-sidebar { display: none; }
+
+            .step-label { display: none; }
+
+            .step-circle { width: 28px; height: 28px; font-size: 0.7rem; }
+
+            .extras-grid { grid-template-columns: 1fr; }
+
+            .form-row { grid-template-columns: 1fr; }
+
+            .payment-methods { grid-template-columns: repeat(2, 1fr); }
+
+            .experience-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .step-panel { padding: 1.5rem; }
+            .step-heading { font-size: 1.4rem; }
+            .nav-inner-buttons { padding: 0; }
+        }
+
+        /* ===== SPECIAL FIELDS ===== */
+        .accessibility-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .accessibility-wrap:hover { border-color: rgba(251,191,36,0.3); }
+
+        .accessibility-check {
+            width: 20px; height: 20px;
+            accent-color: var(--accent-gold);
+            cursor: pointer;
+        }
+
+        .accessibility-label { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* ===== DROP OFF ===== */
+        .dropoff-options { display: flex; gap: 1rem; margin-bottom: 1rem; }
+
+        .dropoff-option {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .dropoff-option:hover { border-color: rgba(251,191,36,0.3); color: var(--accent-gold); }
+        .dropoff-option.selected { border-color: var(--accent-gold); background: rgba(251,191,36,0.07); color: var(--accent-gold); }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="booking-header">
+        <div class="header-inner">
+            <a href="AR_Tours_Website.html" class="header-logo">
+                <span class="logo-ar">AR</span>
+                <span class="logo-dot"></span>
+                Luxury Experiences
+            </a>
+            <a href="tel:0400044004" class="header-phone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+                </svg>
+                0400 044 004
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== STEP PROGRESS BAR ===== -->
+    <div class="progress-container">
+        <div class="progress-inner">
+            <div class="progress-steps" id="progressSteps">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="step-item active" data-step="1" id="stepIndicator1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Experience</div>
+                </div>
+                <div class="step-item" data-step="2" id="stepIndicator2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Date &amp; Time</div>
+                </div>
+                <div class="step-item" data-step="3" id="stepIndicator3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Passengers</div>
+                </div>
+                <div class="step-item" data-step="4" id="stepIndicator4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Pickup</div>
+                </div>
+                <div class="step-item" data-step="5" id="stepIndicator5">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">Extras</div>
+                </div>
+                <div class="step-item" data-step="6" id="stepIndicator6">
+                    <div class="step-circle">6</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step-item" data-step="7" id="stepIndicator7">
+                    <div class="step-circle">7</div>
+                    <div class="step-label">Confirmed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN BOOKING LAYOUT ===== -->
+    <div class="booking-layout">
+
+        <!-- ===== STEP CONTENT ===== -->
+        <main class="step-content">
+
+            <!-- STEP 1: Choose Experience -->
+            <div class="step-panel active" id="step1">
+                <h2 class="step-heading">Choose Your Experience</h2>
+                <p class="step-subheading">Select the perfect private tour or chauffeur service for your Melbourne visit.</p>
+
+                <div class="tab-nav">
+                    <button type="button" class="tab-btn active" id="tabPrivate" onclick="switchTab('private')">✦ Private Tours</button>
+                    <button type="button" class="tab-btn" id="tabGroup" onclick="switchTab('group')">✦ Group Tours</button>
+                    <button type="button" class="tab-btn" id="tabChauffeur" onclick="switchTab('chauffeur')">🚘 Chauffeur Services</button>
+                </div>
+
+                <!-- Private Tours -->
+                <div id="privatePanel">
+                    <div class="experience-grid" id="privateGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Group Tours -->
+                <div id="groupPanel" style="display:none;">
+                    <div class="experience-grid" id="groupGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Chauffeur Services -->
+                <div id="chauffeurPanel" style="display:none;">
+                    <div class="experience-grid" id="chauffeurGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: Date & Time -->
+            <div class="step-panel" id="step2">
+                <h2 class="step-heading">Select Date &amp; Time</h2>
+                <p class="step-subheading">Choose your preferred date and departure time.</p>
+
+                <div id="durationDisplay" class="duration-pill">
+                    ⏱ Duration: — hrs
+                </div>
+
+                <!-- Calendar -->
+                <div class="calendar-wrap">
+                    <div class="calendar-header">
+                        <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+                        <div class="cal-month-label" id="calMonthLabel">— —</div>
+                        <button class="cal-nav-btn" onclick="calNav(1)">›</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="cal-day-header">Sun</div>
+                        <div class="cal-day-header">Mon</div>
+                        <div class="cal-day-header">Tue</div>
+                        <div class="cal-day-header">Wed</div>
+                        <div class="cal-day-header">Thu</div>
+                        <div class="cal-day-header">Fri</div>
+                        <div class="cal-day-header">Sat</div>
+                        <!-- Days populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Time Slots -->
+                <div id="timeSlotsSection" style="display:none;">
+                    <div class="time-slots-label">Available Times</div>
+                    <div class="time-slots-grid" id="timeSlotsGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Passengers -->
+            <div class="step-panel" id="step3">
+                <h2 class="step-heading">Passenger Details</h2>
+                <p class="step-subheading">How many guests will be joining you today?</p>
+
+                <div class="counter-group">
+                    <div class="counter-label">
+                        Adults <small>(12+ years)</small>
+                    </div>
+                    <div class="counter-control">
+                        <button type="button" class="counter-btn" onclick="adjustCounter('adults', -1)">−</button>
+                        <span class="counter-val" id="adultsVal">1</span>
+                        <button type="button" class="counter-btn" onclick="adjustCounter('adults', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="counter-group">
+                    <div class="counter-label">
+                        Children <small>(2–11 years)</small>
+                    </div>
+                    <div class="counter-control">
+                        <button type="button" class="counter-btn" onclick="adjustCounter('children', -1)">−</button>
+                        <span class="counter-val" id="childrenVal">0</span>
+                        <button type="button" class="counter-btn" onclick="adjustCounter('children', 1)">+</button>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="form-group">
+                    <label class="form-label" for="specialReqs">Special Requirements</label>
+                    <textarea class="form-textarea" id="specialReqs" placeholder="Dietary requirements, mobility needs, specific interests, celebration details..."></textarea>
+                </div>
+
+                <div class="accessibility-wrap" onclick="toggleAccessibility()">
+                    <input type="checkbox" class="accessibility-check" id="accessibilityCheck">
+                    <label class="accessibility-label" for="accessibilityCheck">♿ Accessibility needs — wheelchair access, hearing/vision assistance or other accommodations required</label>
+                </div>
+            </div>
+
+            <!-- STEP 4: Pickup Location -->
+            <div class="step-panel" id="step4">
+                <h2 class="step-heading">Pickup Location</h2>
+                <p class="step-subheading">Where shall we collect you? Your driver will arrive at your door.</p>
+
+                <div class="section-label">Pickup Type</div>
+                <div class="pickup-type-grid" id="pickupTypeGrid">
+                    <div class="pickup-type-btn selected" data-pickup="hotel" onclick="selectPickupType('hotel')">🏨 Hotel / Resort</div>
+                    <div class="pickup-type-btn" data-pickup="airbnb" onclick="selectPickupType('airbnb')">🏡 Airbnb / Rental</div>
+                    <div class="pickup-type-btn" data-pickup="home" onclick="selectPickupType('home')">🏠 Home Address</div>
+                    <div class="pickup-type-btn" data-pickup="cbd" onclick="selectPickupType('cbd')">📍 Melbourne CBD</div>
+                </div>
+
+                <!-- Hotel Autocomplete -->
+                <div id="hotelSection" class="form-group">
+                    <label class="form-label">Hotel Name</label>
+                    <div class="autocomplete-wrap">
+                        <input type="text" class="form-input" id="hotelNameInput" placeholder="Start typing your hotel..." autocomplete="off" oninput="hotelAutocomplete()">
+                        <div class="autocomplete-list" id="hotelList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="addressSection" style="display:none;">
+                    <label class="form-label">Street Address</label>
+                    <input type="text" class="form-input" id="streetAddress" placeholder="e.g. 123 Collins Street, Melbourne VIC">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Suburb / Area</label>
+                    <input type="text" class="form-input" id="pickupSuburb" placeholder="e.g. Melbourne CBD, St Kilda, Southbank...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pickup Time</label>
+                    <input type="text" class="form-input" id="pickupTime" readonly placeholder="Auto-filled from your tour time">
+                    <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">Your driver will arrive 30 minutes prior to ensure a relaxed departure.</div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="section-label">Drop-off Location</div>
+                <div class="dropoff-options">
+                    <div class="dropoff-option selected" id="dropoffSame" onclick="selectDropoff('same')">↩ Same as Pickup</div>
+                    <div class="dropoff-option" id="dropoffDiff" onclick="selectDropoff('different')">📍 Different Location</div>
+                </div>
+
+                <div id="dropoffDetails" style="display:none;">
+                    <div class="form-group">
+                        <label class="form-label">Drop-off Address</label>
+                        <input type="text" class="form-input" id="dropoffAddress" placeholder="e.g. Melbourne Airport, 120 Spencer St...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 5: Extras -->
+            <div class="step-panel" id="step5">
+                <h2 class="step-heading">Extras &amp; Personalisation</h2>
+                <p class="step-subheading">Elevate your experience with our curated luxury add-ons.</p>
+
+                <div class="section-label">Premium Extras</div>
+                <div class="extras-grid" id="extrasGrid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="section-label">Special Occasion</div>
+                <div class="occasion-grid" id="occasionGrid">
+                    <div class="occasion-chip" data-occasion="anniversary" onclick="selectOccasion(this)">💍 Anniversary</div>
+                    <div class="occasion-chip" data-occasion="birthday" onclick="selectOccasion(this)">🎂 Birthday</div>
+                    <div class="occasion-chip" data-occasion="honeymoon" onclick="selectOccasion(this)">💑 Honeymoon</div>
+                    <div class="occasion-chip" data-occasion="corporate" onclick="selectOccasion(this)">💼 Corporate</div>
+                    <div class="occasion-chip" data-occasion="other" onclick="selectOccasion(this)">✨ Other</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Personal Message / Custom Request</label>
+                    <textarea class="form-textarea" id="personalMessage" placeholder="Any special requests, surprise arrangements, or personal touches you'd like us to prepare..."></textarea>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="section-label">Promo Code</div>
+                <div class="promo-wrap">
+                    <input type="text" class="form-input" id="promoInput" placeholder="Enter promo code" style="text-transform:uppercase;">
+                    <button class="promo-apply-btn" onclick="applyPromo()">Apply</button>
+                </div>
+                <div class="promo-result" id="promoResult"></div>
+            </div>
+
+            <!-- STEP 6: Personal Details & Payment -->
+            <div class="step-panel" id="step6">
+                <h2 class="step-heading">Your Details &amp; Payment</h2>
+                <p class="step-subheading">Almost there — secure your reservation in just a moment.</p>
+
+                <div class="section-label">Personal Information</div>
+                <div class="form-row">
+                    <div class="form-group" id="fgFirstName">
+                        <label class="form-label">First Name *</label>
+                        <input type="text" class="form-input" id="firstName" placeholder="First name">
+                        <div class="validation-error">First name is required.</div>
+                    </div>
+                    <div class="form-group" id="fgLastName">
+                        <label class="form-label">Last Name *</label>
+                        <input type="text" class="form-input" id="lastName" placeholder="Last name">
+                        <div class="validation-error">Last name is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" id="fgEmail">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" id="email" placeholder="your@email.com">
+                        <div class="validation-error">A valid email is required.</div>
+                    </div>
+                    <div class="form-group" id="fgPhone">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-input" id="guestPhone" placeholder="+61 400 000 000">
+                        <div class="validation-error">Phone number is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Country of Residence</label>
+                    <select class="form-select" id="country">
+                        <option value="AU" selected>🇦🇺 Australia</option>
+                        <option value="US">🇺🇸 United States</option>
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="NZ">🇳🇿 New Zealand</option>
+                        <option value="CA">🇨🇦 Canada</option>
+                        <option value="DE">🇩🇪 Germany</option>
+                        <option value="FR">🇫🇷 France</option>
+                        <option value="JP">🇯🇵 Japan</option>
+                        <option value="CN">🇨🇳 China</option>
+                        <option value="SG">🇸🇬 Singapore</option>
+                        <option value="OTHER">🌏 Other</option>
+                    </select>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="section-label">Payment Method</div>
+                <div class="payment-methods">
+                    <div class="pay-method selected" id="pay-invoice">
+                        <div class="pay-icon">📄</div>
+                        <div class="pay-name">Pay by Invoice</div>
+                    </div>
+                </div>
+
+                <div class="payment-section" id="invoiceSection" style="display: block; padding: 24px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); margin-bottom: 16px; text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 14px;">📄</div>
+                    <div style="font-size: 1rem; font-weight: 600; margin-bottom: 8px;">No Payment Required Now</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); max-width: 400px; margin: 0 auto;">Your booking request will be sent to our team for confirmation. Once confirmed, we will send you a secure payment invoice via email to complete your reservation.</div>
+                </div>
+
+                <!-- Secure Note -->
+                <div class="secure-note">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                    </svg>
+                    <span><strong>You will not be charged</strong> today. Payment is only required after confirmation.</span>
+                </div>
+
+                <!-- Cancellation Policy -->
+                <div class="cancellation-box">
+                    🛡️ <strong>Free Cancellation</strong> — Cancel up to 48 hours before your tour for a full refund. Cancellations within 48 hours are non-refundable. Rescheduling is available with 24hrs notice.
+                </div>
+
+                <!-- Terms -->
+                <div class="terms-wrap">
+                    <input type="checkbox" class="terms-checkbox" id="termsCheck">
+                    <div class="terms-text">
+                        I agree to AR Luxury Experiences' <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>. I confirm all details are accurate and I am authorised to make this booking on behalf of all passengers.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 7: Confirmed -->
+            <div class="step-panel" id="step7">
+                <div class="success-animation">
+                    <div class="success-ring">✓</div>
+                    <h2 class="step-heading">Booking Confirmed!</h2>
+                    <p class="step-subheading">Your luxury experience has been reserved. Get ready for something extraordinary.</p>
+                    <div class="booking-ref" id="bookingRef">✦ ARL-000000</div>
+                </div>
+
+                <!-- Summary Card -->
+                <div class="confirmation-card" id="confirmationDetails">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Success Actions -->
+                <div class="success-actions">
+                    <button class="action-btn action-btn-gold" onclick="downloadConfirmation()">⬇ Download Confirmation</button>
+                    <button class="action-btn action-btn-emerald" onclick="addToCalendar()">📅 Add to Calendar</button>
+                    <button class="action-btn action-btn-outline" onclick="shareConfirmation()">✉ Share with Companions</button>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps-box">
+                    <h4>📋 What Happens Next?</h4>
+                    <p>Our team will review your booking and contact you <strong>within 2 hours</strong> to confirm all details, discuss any special arrangements, and provide your driver's contact information. For urgent inquiries, call us directly.</p>
+                    <div style="margin-top:0.75rem;">
+                        <a href="tel:0400044004" style="color:var(--accent-gold); font-weight:700; text-decoration:none; font-size:1.05rem;">📞 0400 044 004</a>
+                    </div>
+                </div>
+
+                <!-- Final CTA -->
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:1rem;">
+                    <a href="AR_Tours_Website.html" class="action-btn action-btn-outline">← Back to Website</a>
+                    <button type="button" class="action-btn action-btn-gold" onclick="resetAndStartNewBooking()">➕ Book Another Tour</button>
+                    <a href="portals/customer.html" class="action-btn action-btn-outline">👤 View My Bookings</a>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- ===== ORDER SUMMARY SIDEBAR ===== -->
+        <aside class="order-sidebar">
+            <div class="summary-card">
+                <div class="summary-header">
+                    <div class="summary-title">
+                        <div class="summary-title-dot"></div>
+                        Order Summary
+                    </div>
+                </div>
+                <div class="summary-body">
+
+                    <!-- Experience Summary -->
+                    <div id="summaryExperience">
+                        <div class="summary-placeholder">Select an experience to begin</div>
+                    </div>
+
+                    <!-- Line Items -->
+                    <div class="summary-line-items" id="summaryLines" style="display:none;">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Total -->
+                    <div class="summary-total" id="summaryTotal" style="display:none;">
+                        <div class="summary-total-label">Total</div>
+                        <div class="summary-total-val" id="summaryTotalVal">$0</div>
+                    </div>
+
+                    <!-- Help -->
+                    <div class="help-box">
+                        <p>Need assistance?</p>
+                        <a href="tel:0400044004" class="help-phone">0400 044 004</a>
+                        <p style="margin-top:0.3rem;">Available 7am – 9pm daily</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div><!-- /booking-layout -->
+
+    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <div class="booking-nav">
+        <div class="nav-inner-buttons">
+            <button class="btn-nav-back" id="backBtn" onclick="goBack()">
+                ← Back
+            </button>
+            <div class="nav-step-indicator" id="stepIndicatorText">Step 1 of 7</div>
+            <button class="btn-nav-next" id="nextBtn" onclick="goNext()">
+                Continue →
+            </button>
+        </div>
+    </div>
+
+    <!-- External scripts -->
+    <script src="booking-engine.js"></script>
+
+    <script>
+    // ===================================================
+    // AR LUXURY EXPERIENCES — BOOKING ENGINE
+    // ===================================================
+
+    // ─── DATA ───────────────────────────────────────────
+    const DAY_TOURS = []; // Populated dynamically from BookingEngine.getTours()
+
+    const CHAUFFEUR_SERVICES = [
+        { id: 'airport-transfer', name: 'Premium Airport Transfer', icon: '✈️', price: 180, priceLabel: 'From $180', duration: 'Variable', pax: 'Up to 6 Guests', category: 'chauffeur' },
+        { id: 'hourly-hire', name: 'Hourly Hire (Min 3 hrs)', icon: '⏱️', price: 195, priceLabel: '$195 / hour', duration: 'Flexible', pax: 'Up to 6 Guests', category: 'chauffeur' },
+        { id: 'corporate', name: 'Corporate Transfer', icon: '💼', price: 195, priceLabel: 'From $195', duration: 'Variable', pax: 'Up to 6 Guests', category: 'chauffeur' },
+        { id: 'wedding', name: 'Wedding Chauffeur Service', icon: '💒', price: 1490, priceLabel: 'From $1,490', duration: 'Full Day', pax: 'Bridal Party', category: 'chauffeur' },
+        { id: 'vip-event', name: 'VIP Event Service', icon: '⭐', price: 590, priceLabel: 'From $590', duration: 'Variable', pax: 'Up to 12 Guests', category: 'chauffeur' },
+        { id: 'school-excursion', name: 'School & Group Excursions', icon: '🎓', price: 890, priceLabel: 'From $890', duration: 'Variable', pax: 'Up to 57 Guests', category: 'chauffeur' },
+        { id: 'party-transport', name: 'Bucks/Hens Party Transport', icon: '🎉', price: 990, priceLabel: 'From $990', duration: 'Variable', pax: 'Up to 22 Guests', category: 'chauffeur' },
+        { id: 'snow-trip', name: 'Snow Trip Shuttle (Mt Buller)', icon: '🏔️', price: 1490, priceLabel: 'From $1,490', duration: 'Full Day', pax: 'Up to 22 Guests', category: 'chauffeur' }
+    ];
+
+    const EXTRAS = [
+        { id: 'champagne', name: 'Champagne on Arrival', icon: '🥂', price: 45 },
+        { id: 'photographer', name: 'Professional Photographer (2hrs)', icon: '📸', price: 350 },
+        { id: 'hamper', name: 'Gourmet Hamper', icon: '🧺', price: 85 },
+        { id: 'flowers', name: 'Fresh Flower Arrangement', icon: '💐', price: 65 },
+        { id: 'child-seat', name: 'Child Safety Seat', icon: '🪑', price: 25 },
+    ];
+
+    const MELBOURNE_HOTELS = [
+        'Crown Towers Melbourne', 'The Langham Melbourne', 'Sofitel Melbourne on Collins',
+        'InterContinental Melbourne The Rialto', 'Park Hyatt Melbourne', 'QT Melbourne',
+        'W Melbourne', 'Melbourne Marriott Hotel', 'The Westin Melbourne', 'Art Series Hotel',
+        'Grand Hyatt Melbourne', 'Radisson Blu Plaza Hotel Melbourne', 'Hotel Windsor',
+        'Novotel Melbourne South Wharf', 'Ibis Styles Melbourne', 'Adina Apartment Hotel',
+        'Atura Blacktown', 'COMO The Treasury', 'The Lyall Hotel'
+    ];
+
+    const PROMO_CODES = {
+        'LUXE10': { discount: 0.10, label: '10% off applied! ✨' },
+        'WELCOME15': { discount: 0.15, label: '15% off applied! 🎉' },
+        'GROUPVIP': { discount: 0.20, label: '20% VIP Group discount applied! ⭐' },
+    };
+
+    const TIME_SLOTS = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+
+    // ─── STATE ──────────────────────────────────────────
+    const STATE = {
+        currentStep: 1,
+        totalSteps: 7,
+        selectedExperience: null,
+        selectedTab: 'day',
+        selectedDate: null,
+        selectedTime: null,
+        adults: 1,
+        children: 0,
+        specialReqs: '',
+        accessibility: false,
+        pickupType: 'hotel',
+        hotelName: '',
+        streetAddress: '',
+        suburb: '',
+        pickupTime: '',
+        dropoff: 'same',
+        dropoffAddress: '',
+        selectedExtras: [],
+        occasion: null,
+        personalMessage: '',
+        promoCode: null,
+        promoDiscount: 0,
+        paymentMethod: 'invoice',
+        bookingRef: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        country: 'AU',
+        // Calendar state
+        calYear: new Date().getFullYear(),
+        calMonth: new Date().getMonth(),
+    };
+
+    // ─── INIT ────────────────────────────────────────────
+    function init() {
+        loadFromStorage();
+
+        // IF booking was completed (step 7) on last load, reset it so they can start fresh
+        if (STATE.currentStep === 7) {
+            resetBookingState();
+        }
+
+        parseURLParams();
+        renderPrivateTours();
+        renderGroupTours();
+        renderChauffeurServices();
+        renderExtras();
+        renderCalendar();
+
+        // Setup step indicator clicks for quick navigation
+        setupStepIndicatorClicks();
+
+        showStep(STATE.currentStep || 1);
+        updateOrderSummary();
+    }
+
+    function resetBookingState() {
+        try {
+            localStorage.removeItem('arLuxuryBooking');
+        } catch(e) {}
+        
+        STATE.currentStep = 1;
+        STATE.selectedExperience = null;
+        STATE.selectedDate = '';
+        STATE.selectedTime = '';
+        STATE.selectedExtras = [];
+        STATE.firstName = '';
+        STATE.lastName = '';
+        STATE.email = '';
+        STATE.phone = '';
+        STATE.pickupType = 'hotel';
+        STATE.hotelName = '';
+        STATE.suburb = '';
+        STATE.pickupAddress = '';
+        STATE.specialReqs = '';
+        STATE.promoApplied = '';
+        STATE.promoDiscount = 0;
+        STATE.bookingRef = '';
+    }
+
+    function setupStepIndicatorClicks() {
+        document.querySelectorAll('.step-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', () => {
+                const step = parseInt(item.getAttribute('data-step'), 10);
+                if (step === 7) return; // Cannot click directly to step 7
+
+                if (step < STATE.currentStep) {
+                    STATE.currentStep = step;
+                    showStep(step);
+                    saveToStorage();
+                } else if (step > STATE.currentStep && step <= 6) {
+                    let ok = true;
+                    for (let i = STATE.currentStep; i < step; i++) {
+                        if (!validateStep(i)) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        STATE.currentStep = step;
+                        showStep(step);
+                        saveToStorage();
+                    }
+                }
+            });
+        });
+    }
+
+    function loadFromStorage() {
+        try {
+            const saved = localStorage.getItem('arLuxuryBooking');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                Object.assign(STATE, parsed);
+                // Restore calendar month/year from today if past
+                const now = new Date();
+                if (STATE.calYear < now.getFullYear() || (STATE.calYear === now.getFullYear() && STATE.calMonth < now.getMonth())) {
+                    STATE.calYear = now.getFullYear();
+                    STATE.calMonth = now.getMonth();
+                }
+            }
+        } catch(e) {}
+    }
+
+    function saveToStorage() {
+        try {
+            localStorage.setItem('arLuxuryBooking', JSON.stringify(STATE));
+        } catch(e) {}
+    }
+
+    function parseURLParams() {
+        const params = new URLSearchParams(window.location.search);
+        const tour = params.get('tour');
+        const pax = params.get('pax');
+
+        if (tour) {
+            const pool = [...BookingEngine.getTours(), ...BookingEngine.getChauffeurServices()];
+            const found = pool.find(t => t.id === tour);
+            if (found) {
+                STATE.selectedExperience = found;
+                if (found.category === 'chauffeur') {
+                    STATE.selectedTab = 'chauffeur';
+                } else if (found.type === 'group') {
+                    STATE.selectedTab = 'group';
+                } else {
+                    STATE.selectedTab = 'private';
+                }
+            }
+        }
+
+        if (pax) {
+            const n = parseInt(pax, 10);
+            if (!isNaN(n) && n >= 1 && n <= 15) STATE.adults = n;
+        }
+    }
+
+    // ─── STEP NAVIGATION ────────────────────────────────
+    function goNext() {
+        if (!validateStep(STATE.currentStep)) return;
+        if (STATE.currentStep === 6) {
+            completeBooking();
+            return;
+        }
+        if (STATE.currentStep < STATE.totalSteps) {
+            STATE.currentStep++;
+            showStep(STATE.currentStep);
+            saveToStorage();
+        }
+    }
+
+    function goBack() {
+        if (STATE.currentStep > 1) {
+            STATE.currentStep--;
+            showStep(STATE.currentStep);
+            saveToStorage();
+        }
+    }
+
+    function showStep(n) {
+        document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById('step' + n).classList.add('active');
+
+        if (n === 2) {
+            renderCalendar();
+            updateDurationDisplay();
+            prefillPickupTime();
+        }
+
+        if (n === 4) {
+            prefillPickupTime();
+        }
+
+        if (n === 7) {
+            renderConfirmationDetails();
+        }
+
+        updateProgressBar();
+        updateNavButtons();
+        updateOrderSummary();
+
+        // Sync counter displays
+        document.getElementById('adultsVal').textContent = STATE.adults;
+        document.getElementById('childrenVal').textContent = STATE.children;
+    }
+
+    function updateProgressBar() {
+        const fill = Math.max(0, (STATE.currentStep - 1) / (STATE.totalSteps - 1) * 100);
+        document.getElementById('progressFill').style.width = fill + '%';
+
+        for (let i = 1; i <= STATE.totalSteps; i++) {
+            const el = document.getElementById('stepIndicator' + i);
+            el.classList.remove('active', 'completed');
+            if (i < STATE.currentStep) el.classList.add('completed');
+            else if (i === STATE.currentStep) el.classList.add('active');
+
+            // Update circle for completed
+            const circle = el.querySelector('.step-circle');
+            if (i < STATE.currentStep) circle.textContent = '✓';
+            else circle.textContent = i;
+        }
+    }
+
+    function updateNavButtons() {
+        const backBtn = document.getElementById('backBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorText = document.getElementById('stepIndicatorText');
+
+        backBtn.style.visibility = STATE.currentStep === 1 ? 'hidden' : 'visible';
+        indicatorText.textContent = 'Step ' + STATE.currentStep + ' of ' + STATE.totalSteps;
+
+        if (STATE.currentStep === STATE.totalSteps) {
+            nextBtn.style.display = 'none';
+            backBtn.style.display = 'none';
+            indicatorText.textContent = '';
+        } else {
+            nextBtn.style.display = 'flex';
+            backBtn.style.display = 'flex';
+            if (STATE.currentStep === 6) {
+                nextBtn.textContent = '🔒 Complete Booking';
+            } else {
+                nextBtn.innerHTML = 'Continue →';
+            }
+        }
+    }
+
+    // ─── VALIDATION ──────────────────────────────────────
+    function validateStep(step) {
+        if (step === 1) {
+            if (!STATE.selectedExperience) {
+                showToast('Please select an experience to continue.', 'error');
+                return false;
+            }
+        }
+        if (step === 2) {
+            if (!STATE.selectedDate) {
+                showToast('Please select a date.', 'error');
+                return false;
+            }
+            if (!STATE.selectedTime) {
+                showToast('Please select a time slot.', 'error');
+                return false;
+            }
+        }
+        if (step === 4) {
+            if (STATE.pickupType === 'hotel' && !STATE.hotelName) {
+                showToast('Please enter your hotel name.', 'error');
+                return false;
+            }
+            if ((STATE.pickupType === 'home' || STATE.pickupType === 'airbnb') && !document.getElementById('streetAddress').value) {
+                showToast('Please enter your street address.', 'error');
+                return false;
+            }
+        }
+        if (step === 6) {
+            let valid = true;
+
+            const fields = [
+                { id: 'firstName', group: 'fgFirstName', check: v => v.length > 0 },
+                { id: 'lastName', group: 'fgLastName', check: v => v.length > 0 },
+                { id: 'email', group: 'fgEmail', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+                { id: 'guestPhone', group: 'fgPhone', check: v => v.length >= 8 },
+            ];
+
+            fields.forEach(f => {
+                const el = document.getElementById(f.id);
+                const fg = document.getElementById(f.group);
+                if (!f.check(el.value.trim())) {
+                    fg.classList.add('has-error');
+                    valid = false;
+                } else {
+                    fg.classList.remove('has-error');
+                }
+            });
+
+            if (!document.getElementById('termsCheck').checked) {
+                showToast('Please accept the Terms & Conditions to proceed.', 'error');
+                return false;
+            }
+
+            if (!valid) {
+                showToast('Please fill in all required fields.', 'error');
+                return false;
+            }
+
+            // Save personal info
+            STATE.firstName = document.getElementById('firstName').value.trim();
+            STATE.lastName = document.getElementById('lastName').value.trim();
+            STATE.email = document.getElementById('email').value.trim();
+            STATE.phone = document.getElementById('guestPhone').value.trim();
+            STATE.country = document.getElementById('country').value;
+        }
+        return true;
+    }
+
+    // ─── TOAST ───────────────────────────────────────────
+    function showToast(msg, type = 'info') {
+        const existing = document.getElementById('arToast');
+        if (existing) existing.remove();
+
+        const toast = document.createElement('div');
+        toast.id = 'arToast';
+        toast.style.cssText = `
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: ${type === 'error' ? '#ef4444' : '#10b981'};
+            color: white; padding: 0.75rem 1.5rem; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; z-index: 9999;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 2.5s forwards;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        `;
+        toast.textContent = msg;
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes toastIn { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+            @keyframes toastOut { from { opacity:1; } to { opacity:0; } }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ─── STEP 1: TOURS ───────────────────────────────────
+    // ─── STEP 1: TOURS ───────────────────────────────────
+    function renderPrivateTours() {
+        const grid = document.getElementById('privateGrid');
+        const privateTours = BookingEngine.getTours().filter(t => t.type === 'private');
+        grid.innerHTML = privateTours.map(tour => `
+            <div class="experience-card ${STATE.selectedExperience && STATE.selectedExperience.id === tour.id ? 'selected' : ''}"
+                 id="expCard-${tour.id}" onclick="selectExperience('${tour.id}', 'private')">
+                <div class="exp-icon-area">
+                    <span style="font-size: 3rem;">${tour.emoji}</span>
+                    <div class="exp-price-badge">$${tour.price.toLocaleString()} flat</div>
+                </div>
+                <div class="exp-info">
+                    <div class="exp-name">${tour.name}</div>
+                    <div class="exp-meta">
+                        <span>⏱ ${tour.duration}</span>
+                        <span>👤 Up to ${tour.paxLimit} guests</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderGroupTours() {
+        const grid = document.getElementById('groupGrid');
+        const groupTours = BookingEngine.getTours().filter(t => t.type === 'group');
+        grid.innerHTML = groupTours.map(tour => `
+            <div class="experience-card ${STATE.selectedExperience && STATE.selectedExperience.id === tour.id ? 'selected' : ''}"
+                 id="expCard-${tour.id}" onclick="selectExperience('${tour.id}', 'group')">
+                <div class="exp-icon-area">
+                    <span style="font-size: 3rem;">${tour.emoji}</span>
+                    <div class="exp-price-badge">$${tour.price}/person</div>
+                </div>
+                <div class="exp-info">
+                    <div class="exp-name">${tour.name}</div>
+                    <div class="exp-meta">
+                        <span>⏱ ${tour.duration}</span>
+                        <span>🚌 ${tour.vehicle}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderChauffeurServices() {
+        const grid = document.getElementById('chauffeurGrid');
+        const chauffeurList = BookingEngine.getChauffeurServices();
+        grid.innerHTML = chauffeurList.map(svc => `
+            <div class="experience-card ${STATE.selectedExperience && STATE.selectedExperience.id === svc.id ? 'selected' : ''}"
+                 id="expCard-${svc.id}" onclick="selectExperience('${svc.id}', 'chauffeur')">
+                <div class="exp-icon-area">
+                    <span style="font-size: 3rem;">${svc.emoji || '🚐'}</span>
+                    <div class="exp-price-badge">From $${svc.price}</div>
+                </div>
+                <div class="exp-info">
+                    <div class="exp-name">${svc.name}</div>
+                    <div class="exp-meta">
+                        <span>⏱ Flexible</span>
+                        <span>🚐 ${svc.vehicle || 'Luxury Vehicle'}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function switchTab(tab) {
+        STATE.selectedTab = tab;
+        document.getElementById('tabPrivate').classList.toggle('active', tab === 'private');
+        document.getElementById('tabGroup').classList.toggle('active', tab === 'group');
+        document.getElementById('tabChauffeur').classList.toggle('active', tab === 'chauffeur');
+        document.getElementById('privatePanel').style.display = tab === 'private' ? '' : 'none';
+        document.getElementById('groupPanel').style.display = tab === 'group' ? '' : 'none';
+        document.getElementById('chauffeurPanel').style.display = tab === 'chauffeur' ? '' : 'none';
+    }
+
+    function selectExperience(id, category) {
+        const pool = [...BookingEngine.getTours(), ...BookingEngine.getChauffeurServices()];
+        const selected = pool.find(t => t.id === id);
+        if (!selected) return;
+
+        if (selected.type === 'private' && (STATE.adults + STATE.children > selected.paxLimit)) {
+            STATE.adults = selected.paxLimit;
+            STATE.children = 0;
+            showToast(`Note: Private tours are flat-rate limited up to ${selected.paxLimit} guests on a luxury vehicle. Counters adjusted.`, 'info');
+        }
+
+        STATE.selectedExperience = selected;
+        document.querySelectorAll('.experience-card').forEach(c => c.classList.remove('selected'));
+        const el = document.getElementById('expCard-' + id);
+        if (el) el.classList.add('selected');
+
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    // ─── STEP 2: CALENDAR ────────────────────────────────
+    function renderCalendar() {
+        const year = STATE.calYear;
+        const month = STATE.calMonth;
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'];
+
+        document.getElementById('calMonthLabel').textContent = `${monthNames[month]} ${year}`;
+
+        const grid = document.querySelector('.calendar-grid');
+        // Remove old day cells (keep headers)
+        const headers = grid.querySelectorAll('.cal-day-header');
+        grid.innerHTML = '';
+        headers.forEach(h => grid.appendChild(h.cloneNode(true)));
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const today = new Date();
+        const cutoff = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+
+        // Empty cells
+        for (let i = 0; i < firstDay; i++) {
+            const el = document.createElement('div');
+            el.className = 'cal-day empty';
+            grid.appendChild(el);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(year, month, d);
+            const el = document.createElement('div');
+            el.className = 'cal-day';
+            el.textContent = d;
+
+            const isTodayDate = date.toDateString() === today.toDateString();
+            const isPast = date < cutoff;
+
+            if (isTodayDate) el.classList.add('today');
+            if (isPast) { el.classList.add('disabled'); }
+            else { el.onclick = () => selectDate(year, month, d); }
+
+            if (STATE.selectedDate) {
+                const sel = new Date(STATE.selectedDate);
+                if (sel.getFullYear() === year && sel.getMonth() === month && sel.getDate() === d) {
+                    el.classList.add('selected');
+                }
+            }
+
+            grid.appendChild(el);
+        }
+    }
+
+    function calNav(dir) {
+        STATE.calMonth += dir;
+        if (STATE.calMonth > 11) { STATE.calMonth = 0; STATE.calYear++; }
+        if (STATE.calMonth < 0) { STATE.calMonth = 11; STATE.calYear--; }
+        const now = new Date();
+        if (STATE.calYear < now.getFullYear() || (STATE.calYear === now.getFullYear() && STATE.calMonth < now.getMonth())) {
+            STATE.calYear = now.getFullYear();
+            STATE.calMonth = now.getMonth();
+        }
+        renderCalendar();
+    }
+
+    function selectDate(y, m, d) {
+        STATE.selectedDate = new Date(y, m, d).toISOString().split('T')[0];
+        STATE.selectedTime = null;
+        renderCalendar();
+        renderTimeSlots();
+        prefillPickupTime();
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    function renderTimeSlots() {
+        const section = document.getElementById('timeSlotsSection');
+        const grid = document.getElementById('timeSlotsGrid');
+        section.style.display = 'block';
+
+        grid.innerHTML = TIME_SLOTS.map(t => `
+            <div class="time-slot ${STATE.selectedTime === t ? 'selected' : ''}" onclick="selectTime('${t}')">${t}</div>
+        `).join('');
+    }
+
+    function selectTime(t) {
+        STATE.selectedTime = t;
+        document.querySelectorAll('.time-slot').forEach(el => {
+            el.classList.toggle('selected', el.textContent === t);
+        });
+        prefillPickupTime();
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    function updateDurationDisplay() {
+        const el = document.getElementById('durationDisplay');
+        if (STATE.selectedExperience) {
+            el.textContent = '⏱ Duration: ' + STATE.selectedExperience.duration;
+            el.style.display = 'inline-flex';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    function prefillPickupTime() {
+        if (STATE.selectedTime) {
+            const [h, m] = STATE.selectedTime.split(':').map(Number);
+            let pickupH = h;
+            let pickupM = m - 30;
+            if (pickupM < 0) { pickupM = 30; pickupH--; }
+            if (pickupH < 0) pickupH = 23;
+            const pt = `${String(pickupH).padStart(2,'0')}:${String(pickupM).padStart(2,'0')}`;
+            STATE.pickupTime = pt;
+            const el = document.getElementById('pickupTime');
+            if (el) el.value = pt;
+        }
+    }
+
+    // ─── STEP 3: PASSENGERS ──────────────────────────────
+    function adjustCounter(type, delta) {
+        const exp = STATE.selectedExperience;
+        const maxLimit = (exp && exp.paxLimit) ? exp.paxLimit : 15;
+
+        if (type === 'adults') {
+            const nextAdults = Math.max(1, Math.min(15, STATE.adults + delta));
+            if (exp && exp.type === 'private' && (nextAdults + STATE.children > maxLimit)) {
+                showToast(`Private tours are limited to maximum of ${maxLimit} guests on our luxury vehicle.`, 'error');
+                return;
+            }
+            STATE.adults = nextAdults;
+            document.getElementById('adultsVal').textContent = STATE.adults;
+        } else {
+            const nextChildren = Math.max(0, Math.min(10, STATE.children + delta));
+            if (exp && exp.type === 'private' && (STATE.adults + nextChildren > maxLimit)) {
+                showToast(`Private tours are limited to maximum of ${maxLimit} guests on our luxury vehicle.`, 'error');
+                return;
+            }
+            STATE.children = nextChildren;
+            document.getElementById('childrenVal').textContent = STATE.children;
+        }
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    function toggleAccessibility() {
+        STATE.accessibility = !STATE.accessibility;
+        document.getElementById('accessibilityCheck').checked = STATE.accessibility;
+        saveToStorage();
+    }
+
+    // ─── STEP 4: PICKUP ──────────────────────────────────
+    function selectPickupType(type) {
+        STATE.pickupType = type;
+        document.querySelectorAll('.pickup-type-btn').forEach(btn => {
+            btn.classList.toggle('selected', btn.dataset.pickup === type);
+        });
+
+        document.getElementById('hotelSection').style.display = type === 'hotel' ? '' : 'none';
+        document.getElementById('addressSection').style.display = (type === 'home' || type === 'airbnb') ? '' : 'none';
+
+        if (type === 'cbd') {
+            document.getElementById('pickupSuburb').value = 'Melbourne CBD';
+            STATE.suburb = 'Melbourne CBD';
+        }
+
+        saveToStorage();
+    }
+
+    function hotelAutocomplete() {
+        const val = document.getElementById('hotelNameInput').value.toLowerCase();
+        const list = document.getElementById('hotelList');
+
+        if (val.length < 2) { list.classList.remove('open'); return; }
+
+        const matches = MELBOURNE_HOTELS.filter(h => h.toLowerCase().includes(val));
+        if (matches.length === 0) { list.classList.remove('open'); return; }
+
+        list.innerHTML = matches.map(h => `<div class="autocomplete-item" onclick="selectHotel('${h}')">${h}</div>`).join('');
+        list.classList.add('open');
+    }
+
+    function selectHotel(name) {
+        document.getElementById('hotelNameInput').value = name;
+        document.getElementById('hotelList').classList.remove('open');
+        STATE.hotelName = name;
+        saveToStorage();
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.autocomplete-wrap')) {
+            const list = document.getElementById('hotelList');
+            if (list) list.classList.remove('open');
+        }
+    });
+
+    function selectDropoff(val) {
+        STATE.dropoff = val;
+        document.getElementById('dropoffSame').classList.toggle('selected', val === 'same');
+        document.getElementById('dropoffDiff').classList.toggle('selected', val === 'different');
+        document.getElementById('dropoffDetails').style.display = val === 'different' ? '' : 'none';
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    // ─── STEP 5: EXTRAS ──────────────────────────────────
+    function renderExtras() {
+        const grid = document.getElementById('extrasGrid');
+        grid.innerHTML = EXTRAS.map(e => `
+            <div class="extra-card ${STATE.selectedExtras.includes(e.id) ? 'selected' : ''}"
+                 id="extra-${e.id}" onclick="toggleExtra('${e.id}')">
+                <div class="extra-icon">${e.icon}</div>
+                <div class="extra-info">
+                    <div class="extra-name">${e.name}</div>
+                    <div class="extra-price">+$${e.price}</div>
+                </div>
+                <div class="extra-check">✓</div>
+            </div>
+        `).join('');
+    }
+
+    function toggleExtra(id) {
+        if (STATE.selectedExtras.includes(id)) {
+            STATE.selectedExtras = STATE.selectedExtras.filter(x => x !== id);
+        } else {
+            STATE.selectedExtras.push(id);
+        }
+        document.getElementById('extra-' + id).classList.toggle('selected', STATE.selectedExtras.includes(id));
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    function selectOccasion(el) {
+        const val = el.dataset.occasion;
+        if (STATE.occasion === val) {
+            STATE.occasion = null;
+            el.classList.remove('selected');
+        } else {
+            document.querySelectorAll('.occasion-chip').forEach(c => c.classList.remove('selected'));
+            STATE.occasion = val;
+            el.classList.add('selected');
+        }
+        saveToStorage();
+    }
+
+    function applyPromo() {
+        const code = document.getElementById('promoInput').value.trim().toUpperCase();
+        const resultEl = document.getElementById('promoResult');
+
+        if (PROMO_CODES[code]) {
+            STATE.promoCode = code;
+            STATE.promoDiscount = PROMO_CODES[code].discount;
+            resultEl.className = 'promo-result success';
+            resultEl.textContent = '✓ ' + PROMO_CODES[code].label;
+        } else {
+            STATE.promoCode = null;
+            STATE.promoDiscount = 0;
+            resultEl.className = 'promo-result error';
+            resultEl.textContent = '✗ Invalid promo code. Try: LUXE10, WELCOME15, or GROUPVIP';
+        }
+        updateOrderSummary();
+        saveToStorage();
+    }
+
+    // ─── STEP 6: PAYMENT ─────────────────────────────────
+    // Payment method logic removed; default is invoice.
+
+    // ─── ORDER SUMMARY ───────────────────────────────────
+    function updateOrderSummary() {
+        const expDiv = document.getElementById('summaryExperience');
+        const linesDiv = document.getElementById('summaryLines');
+        const totalDiv = document.getElementById('summaryTotal');
+        const totalVal = document.getElementById('summaryTotalVal');
+
+        if (!STATE.selectedExperience) {
+            expDiv.innerHTML = '<div class="summary-placeholder">Select an experience to begin</div>';
+            linesDiv.style.display = 'none';
+            totalDiv.style.display = 'none';
+            return;
+        }
+
+        const exp = STATE.selectedExperience;
+        const totalPax = STATE.adults + STATE.children;
+        
+        let basePrice = getBasePrice(exp, totalPax);
+
+        const extrasTotal = STATE.selectedExtras.reduce((sum, id) => {
+            const ex = EXTRAS.find(e => e.id === id);
+            return sum + (ex ? ex.price : 0);
+        }, 0);
+
+        const subtotal = basePrice + extrasTotal;
+        const discountAmt = STATE.promoDiscount > 0 ? Math.round(subtotal * STATE.promoDiscount) : 0;
+        const total = subtotal - discountAmt;
+
+        // Experience block
+        const dateStr = STATE.selectedDate ? formatDateDisplay(STATE.selectedDate) : '—';
+        const timeStr = STATE.selectedTime || '—';
+        const paxStr = totalPax + ' guest' + (totalPax !== 1 ? 's' : '');
+
+        expDiv.innerHTML = `
+            <div class="summary-experience">
+                <div class="summary-exp-name">${exp.emoji || '✦'} ${exp.name}</div>
+                <div class="summary-exp-meta">📅 ${dateStr} · ${timeStr}</div>
+                <div class="summary-exp-meta" style="margin-top:0.2rem;">👤 ${paxStr}</div>
+                ${STATE.hotelName ? `<div class="summary-exp-meta" style="margin-top:0.2rem;">🏨 ${STATE.hotelName}</div>` : ''}
+                ${STATE.suburb ? `<div class="summary-exp-meta" style="margin-top:0.2rem;">📍 ${STATE.suburb}</div>` : ''}
+            </div>
+        `;
+
+        // Line items
+        let lines = `
+            <div class="summary-line">
+                <div class="summary-line-key">${exp.name} ${exp.type === 'private' ? '(Flat Rate)' : `× ${totalPax}`}</div>
+                <div class="summary-line-val">$${basePrice.toLocaleString()}</div>
+            </div>
+        `;
+
+        STATE.selectedExtras.forEach(id => {
+            const ex = EXTRAS.find(e => e.id === id);
+            if (ex) lines += `
+                <div class="summary-line">
+                    <div class="summary-line-key">${ex.icon} ${ex.name}</div>
+                    <div class="summary-line-val">+$${ex.price}</div>
+                </div>
+            `;
+        });
+
+        if (discountAmt > 0) lines += `
+            <div class="summary-line discount">
+                <div class="summary-line-key">🏷 Promo (${STATE.promoCode})</div>
+                <div class="summary-line-val">−$${discountAmt}</div>
+            </div>
+        `;
+
+        linesDiv.innerHTML = lines;
+        linesDiv.style.display = 'block';
+        totalDiv.style.display = 'flex';
+        totalVal.textContent = '$' + total.toLocaleString();
+    }
+
+    function formatDateDisplay(iso) {
+        const d = new Date(iso + 'T00:00:00');
+        return d.toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    // ─── BOOKING COMPLETION ──────────────────────────────
+    function completeBooking() {
+        if (!validateStep(6)) return;
+
+        // Generate booking ref
+        const ref = 'ARL-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        STATE.bookingRef = ref;
+        STATE.currentStep = 7;
+
+        // Save to BookingEngine if available
+        if (typeof BookingEngine !== 'undefined') {
+            try {
+                const extrasPriceVal = STATE.selectedExtras.reduce((sum, id) => {
+                    const ex = EXTRAS.find(e => e.id === id);
+                    return sum + (ex ? ex.price : 0);
+                }, 0);
+                const totalVal = calculateTotal();
+                const basePriceVal = STATE.selectedExperience ? (STATE.selectedExperience.type === 'private' ? STATE.selectedExperience.price : STATE.selectedExperience.price * (STATE.adults + STATE.children)) : 0;
+                
+                BookingEngine.saveBooking({
+                    ref: STATE.bookingRef,
+                    experience: STATE.selectedExperience,
+                    tourId: STATE.selectedExperience ? STATE.selectedExperience.id : '',
+                    experienceName: STATE.selectedExperience ? STATE.selectedExperience.name : '',
+                    date: STATE.selectedDate,
+                    time: STATE.selectedTime,
+                    adults: STATE.adults,
+                    children: STATE.children,
+                    pax: STATE.adults + STATE.children,
+                    extras: STATE.selectedExtras,
+                    total: totalVal,
+                    totalPrice: totalVal,
+                    basePrice: basePriceVal,
+                    extrasPrice: extrasPriceVal,
+                    discount: Math.max(0, basePriceVal + extrasPriceVal - totalVal),
+                    firstName: STATE.firstName,
+                    lastName: STATE.lastName,
+                    customerName: STATE.firstName + ' ' + STATE.lastName,
+                    email: STATE.email,
+                    customerEmail: STATE.email,
+                    phone: STATE.phone,
+                    customerPhone: STATE.phone,
+                    pickupLocation: STATE.hotelName || STATE.streetAddress || STATE.suburb || 'Melbourne CBD',
+                    hotelName: STATE.hotelName || STATE.streetAddress || STATE.suburb || 'Melbourne CBD',
+                    specialRequirements: STATE.specialReqs || STATE.personalMessage || 'None',
+                    specialReqs: STATE.specialReqs || STATE.personalMessage || 'None',
+                    paymentMethod: 'Invoice',
+                    createdAt: new Date().toISOString(),
+                });
+            } catch(e) {
+                console.error("Error saving booking to engine:", e);
+            }
+        }
+
+        saveToStorage();
+        showStep(7);
+    }
+
+    function getBasePrice(exp, pax) {
+        if (!exp) return 0;
+        let p = 0;
+        if (exp.type === 'private') {
+            p = exp.price;
+            if (pax >= 12) p += 700;
+            else if (pax >= 7) p += 300;
+        } else if (exp.type === 'group') {
+            p = exp.price * pax;
+        } else if (exp.id === 'wedding') {
+            p = exp.price;
+            if (pax >= 12) p = 2990;
+            else if (pax >= 7) p = 1990;
+        } else if (exp.id === 'hourly-hire') {
+            p = exp.price * Math.max(3, pax); // Uses pax field for hours
+        } else {
+            p = exp.price;
+            if (pax >= 12) p += 400;
+            else if (pax >= 7) p += 100;
+        }
+        return p;
+    }
+
+    function calculateTotal() {
+        if (!STATE.selectedExperience) return 0;
+        const totalPax = STATE.adults + STATE.children;
+        const basePrice = getBasePrice(STATE.selectedExperience, totalPax);
+        const extrasTotal = STATE.selectedExtras.reduce((sum, id) => {
+            const ex = EXTRAS.find(e => e.id === id);
+            return sum + (ex ? ex.price : 0);
+        }, 0);
+        const subtotal = basePrice + extrasTotal;
+        return subtotal - (STATE.promoDiscount > 0 ? Math.round(subtotal * STATE.promoDiscount) : 0);
+    }
+
+    function renderConfirmationDetails() {
+        document.getElementById('bookingRef').textContent = '✦ ' + STATE.bookingRef;
+
+        const exp = STATE.selectedExperience;
+        const total = calculateTotal();
+        const extrasNames = STATE.selectedExtras.map(id => EXTRAS.find(e => e.id === id)?.name).filter(Boolean).join(', ') || 'None';
+
+        const rows = [
+            { key: 'Experience', val: exp ? `${exp.icon} ${exp.name}` : '—' },
+            { key: 'Date', val: STATE.selectedDate ? formatDateDisplay(STATE.selectedDate) : '—' },
+            { key: 'Time', val: STATE.selectedTime || '—' },
+            { key: 'Passengers', val: `${STATE.adults} adult${STATE.adults !== 1 ? 's' : ''}${STATE.children > 0 ? ', ' + STATE.children + ' child' + (STATE.children !== 1 ? 'ren' : '') : ''}` },
+            { key: 'Pickup', val: STATE.hotelName || STATE.suburb || 'Melbourne CBD' },
+            { key: 'Extras', val: extrasNames },
+            { key: 'Occasion', val: STATE.occasion ? (STATE.occasion.charAt(0).toUpperCase() + STATE.occasion.slice(1)) : 'None' },
+            { key: 'Guest Name', val: `${STATE.firstName} ${STATE.lastName}` },
+            { key: 'Email', val: STATE.email },
+            { key: 'Phone', val: STATE.phone },
+            { key: 'Total', val: '$' + total.toLocaleString() },
+        ];
+
+        document.getElementById('confirmationDetails').innerHTML = rows.map(r => `
+            <div class="conf-row">
+                <div class="conf-key">${r.key}</div>
+                <div class="conf-val">${r.val}</div>
+            </div>
+        `).join('');
+    }
+
+    // ─── ACTIONS ─────────────────────────────────────────
+    function downloadConfirmation() {
+        const exp = STATE.selectedExperience;
+        const total = calculateTotal();
+        const html = `<!DOCTYPE html><html><head>
+            <meta charset="UTF-8"><title>Booking Confirmation — ${STATE.bookingRef}</title>
+            <style>
+                body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; color: #1a1a1a; }
+                .logo { font-size: 1.5rem; font-weight: bold; color: #92400e; margin-bottom: 2rem; }
+                h1 { color: #065f46; font-size: 1.8rem; margin-bottom: 0.5rem; }
+                .ref { display: inline-block; background: #fef3c7; border: 1px solid #f59e0b; padding: 0.3rem 1rem; border-radius: 50px; font-weight: bold; color: #92400e; margin-bottom: 2rem; }
+                table { width: 100%; border-collapse: collapse; }
+                td { padding: 0.75rem; border-bottom: 1px solid #e5e7eb; }
+                td:first-child { color: #6b7280; font-weight: 600; width: 180px; }
+                .total { font-size: 1.2rem; font-weight: bold; color: #065f46; }
+                .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; }
+            </style></head><body>
+            <div class="logo">AR Luxury Experiences</div>
+            <h1>✅ Booking Confirmed</h1>
+            <div class="ref">${STATE.bookingRef}</div>
+            <table>
+                <tr><td>Experience</td><td>${exp ? exp.name : '—'}</td></tr>
+                <tr><td>Date</td><td>${STATE.selectedDate ? formatDateDisplay(STATE.selectedDate) : '—'}</td></tr>
+                <tr><td>Time</td><td>${STATE.selectedTime || '—'}</td></tr>
+                <tr><td>Passengers</td><td>${STATE.adults} adult(s), ${STATE.children} child(ren)</td></tr>
+                <tr><td>Pickup</td><td>${STATE.hotelName || STATE.suburb || 'Melbourne CBD'}</td></tr>
+                <tr><td>Guest</td><td>${STATE.firstName} ${STATE.lastName}</td></tr>
+                <tr><td>Email</td><td>${STATE.email}</td></tr>
+                <tr><td>Phone</td><td>${STATE.phone}</td></tr>
+                <tr><td class="total">Total</td><td class="total">$${total.toLocaleString()}</td></tr>
+            </table>
+            <div class="footer">
+                <p>Our team will contact you within 2 hours to confirm. Questions? Call <strong>0400 044 004</strong></p>
+                <p>AR Luxury Experiences · Melbourne CBD, VIC · 777artours@gmail.com</p>
+            </div>
+            </body></html>`;
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `AR-Booking-${STATE.bookingRef}.html`;
+        a.click();
+    }
+
+    function addToCalendar() {
+        if (!STATE.selectedDate || !STATE.selectedTime) return;
+
+        const [y, m, d] = STATE.selectedDate.split('-').map(Number);
+        const [h, min] = STATE.selectedTime.split(':').map(Number);
+        const start = new Date(y, m - 1, d, h, min);
+        const dur = STATE.selectedExperience ? parseInt(STATE.selectedExperience.duration) || 8 : 8;
+        const end = new Date(start.getTime() + dur * 60 * 60 * 1000);
+
+        const pad = n => String(n).padStart(2, '0');
+        const fmt = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
+
+        const ics = [
+            'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//AR Luxury Experiences//EN',
+            'BEGIN:VEVENT',
+            `UID:${STATE.bookingRef}@arluxury.com.au`,
+            `DTSTART:${fmt(start)}`,
+            `DTEND:${fmt(end)}`,
+            `SUMMARY:${STATE.selectedExperience ? STATE.selectedExperience.name : 'AR Luxury Tour'} — ${STATE.bookingRef}`,
+            `DESCRIPTION:Booking Reference: ${STATE.bookingRef}\\nAR Luxury Experiences\\nPhone: 0400 044 004`,
+            `LOCATION:${STATE.hotelName || STATE.suburb || 'Melbourne CBD, VIC'}`,
+            'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([ics], { type: 'text/calendar' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `AR-${STATE.bookingRef}.ics`;
+        a.click();
+    }
+
+    function shareConfirmation() {
+        const exp = STATE.selectedExperience;
+        const subject = `AR Luxury Experiences — Booking ${STATE.bookingRef}`;
+        const body = `Hi!
+
+I've booked us on the ${exp ? exp.name : 'AR Luxury Tour'}!
+
+Booking Reference: ${STATE.bookingRef}
+Date: ${STATE.selectedDate ? formatDateDisplay(STATE.selectedDate) : '—'}
+Time: ${STATE.selectedTime || '—'}
+Passengers: ${STATE.adults} adult(s), ${STATE.children} child(ren)
+Pickup: ${STATE.hotelName || STATE.suburb || 'Melbourne CBD'}
+
+AR Luxury Experiences will contact us within 2 hours to confirm.
+Phone: 0400 044 004`;
+
+        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function resetAndStartNewBooking() {
+        resetBookingState();
+        showStep(1);
+    }
+
+    // ─── KICKOFF ─────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', init);
+    </script>
+
+</body>
+</html>

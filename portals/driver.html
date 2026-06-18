@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Operations Portal — AR Luxury Experiences</title>
+  <link rel="stylesheet" href="../luxury.css">
+  <style>
+    body {
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(212, 175, 55, 0.03) 0px, transparent 50%);
+    }
+    .driver-container {
+      max-width: 800px;
+      margin: 100px auto;
+      padding: 0 24px;
+    }
+    .driver-card {
+      padding: 24px;
+      margin-bottom: 24px;
+      background: var(--card-glass);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+    .status-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+    .status-group button {
+      padding: 8px 16px;
+      font-size: 0.78rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="luxury-nav">
+    <div class="nav-container">
+      <a href="../AR_Tours_Website.html" class="logo">
+        <div class="logo-icon">AR</div>
+        <span>AR Luxury Experiences</span>
+      </a>
+      <a href="../AR_Tours_Website.html" class="btn-ghost btn-sm">← Back to Website</a>
+    </div>
+  </nav>
+
+  <div class="driver-container">
+    
+    <!-- LOGIN SCREEN -->
+    <div id="login-panel" class="glass-card" style="max-width: 450px; margin: 0 auto; padding: 40px; text-align: center;">
+      <h2 style="font-family: var(--font-head); font-size: 1.8rem; margin-bottom: 8px;">Driver Portal</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 30px;">Enter security PIN to access daily manifests.</p>
+      
+      <div style="text-align: left; display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <label class="form-label" style="font-size: 0.7rem;">Security PIN</label>
+          <input type="password" id="login-pin" class="form-input" placeholder="••••" style="margin-top: 6px; letter-spacing: 0.5em; text-align: center;">
+        </div>
+        <button class="btn-gold" onclick="handleLogin()" style="width: 100%;">Authorize Access</button>
+        <div style="font-size: 0.75rem; text-align: center; color: var(--text-muted);">Demo PIN: <code>1234</code></div>
+      </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboard-panel" style="display: none;">
+      
+      <!-- Driver Header -->
+      <div class="glass-card" style="padding: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+        <div>
+          <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Accredited Chauffeur Active</span>
+          <h2 style="font-family: var(--font-head); font-size: 1.5rem;">Daily Schedule</h2>
+        </div>
+        <div style="text-align: right;">
+          <div id="live-time" style="font-family: var(--font-head); font-weight: 700; color: var(--accent-gold);">--:--:--</div>
+          <div id="live-date" style="font-size: 0.8rem; color: var(--text-secondary);">2026-05-30</div>
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">🚐 Today's Assigned Tours</h3>
+      <div id="today-tours-list">
+        <!-- Dynamic list of today's bookings -->
+      </div>
+
+      <!-- Schedule Section -->
+      <h3 style="font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 16px; margin-top: 40px; display: flex; align-items: center; gap: 8px;">📅 Upcoming Manifest (7 Days)</h3>
+      <div class="glass-card" style="padding: 24px; overflow-x: auto;">
+        <table style="width: 100%;">
+          <thead>
+            <tr style="text-align: left; border-bottom: 1px solid var(--border-color);">
+              <th style="padding: 10px; color: var(--text-muted);">Date</th>
+              <th style="padding: 10px; color: var(--text-muted);">Time</th>
+              <th style="padding: 10px; color: var(--text-muted);">Experience</th>
+              <th style="padding: 10px; color: var(--text-muted);">Passengers</th>
+              <th style="padding: 10px; color: var(--text-muted);">Status</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-table-body">
+            <!-- Dynamic schedule rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Emergency Contacts -->
+      <h3 style="font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 16px; margin-top: 40px;">🚨 Emergency & Support Contacts</h3>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px;">
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+          <div style="font-size: 1.5rem; margin-bottom: 6px;">📞</div>
+          <div style="font-weight: 700; font-size: 0.9rem;">Operations Manager</div>
+          <a href="tel:0400044004" style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600;">0400 044 004</a>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+          <div style="font-size: 1.5rem; margin-bottom: 6px;">🔧</div>
+          <div style="font-weight: 700; font-size: 0.9rem;">RACV Roadside</div>
+          <a href="tel:131111" style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600;">131 111</a>
+        </div>
+        <div class="glass-card" style="padding: 20px; text-align: center;">
+          <div style="font-size: 1.5rem; margin-bottom: 6px;">🛡</div>
+          <div style="font-weight: 700; font-size: 0.9rem;">Safe Transport Vic</div>
+          <a href="tel:1800800007" style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600;">1800 800 007</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../booking-engine.js"></script>
+  <script>
+    function startClock() {
+      setInterval(() => {
+        const d = new Date();
+        document.getElementById('live-time').innerText = d.toLocaleTimeString('en-AU');
+      }, 1000);
+      document.getElementById('live-date').innerText = BookingEngine.formatDate(new Date().toISOString().split('T')[0]);
+    }
+
+    function handleLogin() {
+      const pin = document.getElementById('login-pin').value;
+      if (pin === '1234') {
+        document.getElementById('login-panel').style.display = 'none';
+        document.getElementById('dashboard-panel').style.display = 'block';
+        startClock();
+        loadDriverDashboard();
+      } else {
+        BookingEngine.toast('Unauthorized PIN code. Try again.', 'info');
+      }
+    }
+
+    function loadDriverDashboard() {
+      const bookings = BookingEngine.getAllBookings();
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Filter today's bookings assigned to either driver or generally active
+      const todayBookings = bookings.filter(b => b.date === today && b.status !== 'Cancelled');
+      const todayList = document.getElementById('today-tours-list');
+      todayList.innerHTML = '';
+
+      if (todayBookings.length === 0) {
+        todayList.innerHTML = `
+          <div class="glass-card" style="padding: 30px; text-align: center; color: var(--text-secondary);">
+            No tours scheduled or assigned to your manifest today.
+          </div>
+        `;
+      } else {
+        todayBookings.forEach(b => {
+          const card = document.createElement('div');
+          card.className = 'driver-card';
+          card.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px;">
+              <div>
+                <span class="text-gold" style="font-size: 0.78rem; text-transform: uppercase; font-weight: 700;">${b.ref} • ${b.time} Departure</span>
+                <h4 style="font-family: var(--font-head); font-size: 1.15rem; margin-top: 4px;">${b.experienceName}</h4>
+              </div>
+              <span class="btn-emerald btn-sm" style="padding: 4px 10px; font-size: 0.75rem; cursor: default;" id="badge-${b.ref}">${b.status}</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.88rem;">
+              <div>
+                <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Passengers</div>
+                <strong>${b.customerName} (${b.pax} Guests)</strong>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">${b.customerPhone}</div>
+              </div>
+              <div>
+                <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Pickup Address</div>
+                <strong>${b.pickupLocation}</strong>
+              </div>
+            </div>
+
+            ${b.specialRequirements ? `
+            <div style="margin-top: 14px; background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.15); padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.82rem;">
+              <span style="color: var(--accent-gold); font-weight: 700;">⚠️ Special Requests:</span> ${b.specialRequirements}
+            </div>` : ''}
+
+            <div style="margin-top: 16px;">
+              <a href="https://maps.google.com/?daddr=${encodeURIComponent(b.pickupLocation)}" target="_blank" class="btn-ghost btn-sm" style="width: 100%; text-align: center; font-size: 0.8rem;">🗺 Open Route in Google Maps</a>
+            </div>
+
+            <div class="status-group">
+              <button class="btn-ghost btn-sm" onclick="updateStatus('${b.ref}', 'En Route to Pickup')">En Route</button>
+              <button class="btn-ghost btn-sm" onclick="updateStatus('${b.ref}', 'Picked Up')">Picked Up</button>
+              <button class="btn-ghost btn-sm" onclick="updateStatus('${b.ref}', 'On Tour')">On Tour</button>
+              <button class="btn-emerald btn-sm" onclick="updateStatus('${b.ref}', 'Completed')">Complete</button>
+              <button class="btn-ghost btn-sm" onclick="updateStatus('${b.ref}', 'No Show')" style="color: #ef4444; border-color: rgba(239,68,68,0.15);">No Show</button>
+            </div>
+          `;
+          todayList.appendChild(card);
+        });
+      }
+
+      // Load 7-day schedule
+      const schedBody = document.getElementById('schedule-table-body');
+      schedBody.innerHTML = '';
+      
+      const next7DaysBookings = bookings.filter(b => b.date > today && b.status !== 'Cancelled');
+      if (next7DaysBookings.length === 0) {
+        schedBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px; color: var(--text-secondary);">No upcoming tours for the next 7 days.</td></tr>`;
+      } else {
+        next7DaysBookings.forEach(b => {
+          const tr = document.createElement('tr');
+          tr.style.borderBottom = '1px solid var(--border-color)';
+          tr.innerHTML = `
+            <td style="padding: 12px; font-size:0.85rem;">${b.date}</td>
+            <td style="padding: 12px; font-size:0.85rem;">⏱ ${b.time}</td>
+            <td style="padding: 12px; font-size:0.85rem; font-weight:700;">${b.experienceName}</td>
+            <td style="padding: 12px; font-size:0.85rem;">👤 ${b.pax} Guests</td>
+            <td style="padding: 12px; font-size:0.85rem;"><span class="text-gold">${b.status}</span></td>
+          `;
+          schedBody.appendChild(tr);
+        });
+      }
+    }
+
+    function updateStatus(ref, status) {
+      const ok = BookingEngine.updateBookingStatus(ref, status);
+      if (ok) {
+        document.getElementById(`badge-${ref}`).innerText = status;
+        BookingEngine.toast(`Status updated to: ${status}`, 'success');
+        loadDriverDashboard();
+      }
+    }
+  </script>
+</body>
+</html>
