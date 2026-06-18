@@ -2324,7 +2324,9 @@
     }
 
     function selectDate(y, m, d) {
-        STATE.selectedDate = new Date(y, m, d).toISOString().split('T')[0];
+        const mm = String(m + 1).padStart(2, '0');
+        const dd = String(d).padStart(2, '0');
+        STATE.selectedDate = `${y}-${mm}-${dd}`;
         STATE.selectedTime = null;
         renderCalendar();
         renderTimeSlots();
@@ -2623,7 +2625,7 @@
                 const totalVal = calculateTotal();
                 const basePriceVal = STATE.selectedExperience ? (STATE.selectedExperience.type === 'private' ? STATE.selectedExperience.price : STATE.selectedExperience.price * (STATE.adults + STATE.children)) : 0;
                 
-                BookingEngine.saveBooking({
+                const newBooking = {
                     ref: STATE.bookingRef,
                     experience: STATE.selectedExperience,
                     tourId: STATE.selectedExperience ? STATE.selectedExperience.id : '',
@@ -2652,7 +2654,30 @@
                     specialReqs: STATE.specialReqs || STATE.personalMessage || 'None',
                     paymentMethod: 'Invoice',
                     createdAt: new Date().toISOString(),
-                });
+                };
+
+                BookingEngine.saveBooking(newBooking);
+
+                // Dispatch to Formspree for automated notifications & customer receipt
+                fetch('https://formspree.io/f/xdavrove', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        subject: `New Booking Request: ${ref} - ${STATE.firstName} ${STATE.lastName}`,
+                        bookingRef: ref,
+                        name: `${STATE.firstName} ${STATE.lastName}`,
+                        email: STATE.email,
+                        phone: STATE.phone,
+                        tourName: STATE.selectedExperience ? STATE.selectedExperience.name : 'Unknown',
+                        date: STATE.selectedDate,
+                        time: STATE.selectedTime,
+                        paxCount: STATE.adults + STATE.children,
+                        totalPrice: '$' + totalVal.toLocaleString(),
+                        pickupLocation: STATE.hotelName || STATE.streetAddress || STATE.suburb || 'Melbourne CBD',
+                        specialRequirements: STATE.specialReqs || STATE.personalMessage || 'None',
+                        invoiceNote: 'Please review this booking in the Operations Hub and dispatch the payment invoice.'
+                    })
+                }).catch(err => console.warn('Formspree dispatch failed:', err));
             } catch(e) {
                 console.error("Error saving booking to engine:", e);
             }
