@@ -4,3 +4,13 @@ node_modules/
 venv/
 __pycache__/
 *.log
+
+# Admin & Operations files
+operations.html
+portals/
+db/
+server.js
+package.json
+package-lock.json
+update_tours.js
+fix_phone.js
