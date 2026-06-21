@@ -94,11 +94,11 @@ const BookingEngine = {
 
   // GET DYNAMIC PRICING CONFIGURATION
   getPricing() {
-    if (localStorage.getItem('ar_version') !== '2.0') {
+    if (localStorage.getItem('ar_version') !== '2.1') {
       localStorage.removeItem('ar_luxury_pricing');
       localStorage.removeItem('ar_luxury_tours');
       localStorage.removeItem('ar_luxury_chauffeur');
-      localStorage.setItem('ar_version', '2.0');
+      localStorage.setItem('ar_version', '2.1');
     }
 
     let pricing = localStorage.getItem('ar_luxury_pricing');
