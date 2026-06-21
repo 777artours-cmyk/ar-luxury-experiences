@@ -1963,10 +1963,23 @@
 
     function parseURLParams() {
         const params = new URLSearchParams(window.location.search);
-        const tour = params.get('tour');
+        let tour = params.get('tour');
         const pax = params.get('pax');
 
         if (tour) {
+            // Map legacy / short slugs from tour detail pages
+            const mapping = {
+                'great-ocean-road': 'great-ocean-road-private',
+                'phillip-island': 'phillip-island-private',
+                'yarra-valley': 'yarra-valley-private',
+                'mornington-peninsula': 'mornington-peninsula-private',
+                'puffing-billy': 'puffing-billy-private',
+                'melbourne-discovery': 'melbourne-discovery-private'
+            };
+            if (mapping[tour]) {
+                tour = mapping[tour];
+            }
+
             const pool = [...BookingEngine.getTours(), ...BookingEngine.getChauffeurServices()];
             const found = pool.find(t => t.id === tour);
             if (found) {

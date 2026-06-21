@@ -94,11 +94,11 @@ const BookingEngine = {
 
   // GET DYNAMIC PRICING CONFIGURATION
   getPricing() {
-    if (localStorage.getItem('ar_version') !== '2.1') {
+    if (localStorage.getItem('ar_version') !== '2.2') {
       localStorage.removeItem('ar_luxury_pricing');
       localStorage.removeItem('ar_luxury_tours');
       localStorage.removeItem('ar_luxury_chauffeur');
-      localStorage.setItem('ar_version', '2.1');
+      localStorage.setItem('ar_version', '2.2');
     }
 
     let pricing = localStorage.getItem('ar_luxury_pricing');
@@ -111,7 +111,11 @@ const BookingEngine = {
         puffingPrivatePrice: 1290,
         melbournePrivatePrice: 890,
         groupGorRate: 149,
-        groupPhillipRate: 199
+        groupPhillipRate: 249,
+        groupYarraRate: 149,
+        groupMorningtonRate: 199,
+        groupPuffingRate: 189,
+        groupMelbourneRate: 129
       };
       localStorage.setItem('ar_luxury_pricing', JSON.stringify(pricing));
     } else {
@@ -126,6 +130,10 @@ const BookingEngine = {
           pricing.puffingPrivatePrice = pricing.privateFlatRate;
           pricing.melbournePrivatePrice = pricing.privateFlatRate;
         }
+        if (!pricing.groupYarraRate) pricing.groupYarraRate = 149;
+        if (!pricing.groupMorningtonRate) pricing.groupMorningtonRate = 199;
+        if (!pricing.groupPuffingRate) pricing.groupPuffingRate = 189;
+        if (!pricing.groupMelbourneRate) pricing.groupMelbourneRate = 129;
       } catch(e) {
         pricing = {
           gorPrivatePrice: 1590,
@@ -134,8 +142,12 @@ const BookingEngine = {
           morningtonPrivatePrice: 1190,
           puffingPrivatePrice: 1290,
           melbournePrivatePrice: 890,
-          groupGorRate: 169,
-          groupPhillipRate: 199
+          groupGorRate: 149,
+          groupPhillipRate: 249,
+          groupYarraRate: 149,
+          groupMorningtonRate: 199,
+          groupPuffingRate: 189,
+          groupMelbourneRate: 129
         };
       }
     }
@@ -159,7 +171,7 @@ const BookingEngine = {
           price: 1590,
           type: 'private',
           vehicle: 'Luxury Vehicle (up to 5 pax)',
-          paxLimit: 22,
+          paxLimit: 5,
           description: 'Bespoke reverse coastal route in a luxury vehicle. Tiered pricing based on vehicle and group size.',
           emoji: '🌊',
           image: '',
@@ -172,7 +184,7 @@ const BookingEngine = {
           price: 1290,
           type: 'private',
           vehicle: 'Luxury Vehicle (up to 5 pax)',
-          paxLimit: 22,
+          paxLimit: 5,
           description: 'Private sunset Little Penguin parade twilight tour. Tiered pricing based on vehicle and group size.',
           emoji: '🐧',
           image: '',
@@ -185,7 +197,7 @@ const BookingEngine = {
           price: 1190,
           type: 'private',
           vehicle: 'Luxury Vehicle (up to 5 pax)',
-          paxLimit: 22,
+          paxLimit: 5,
           description: 'Bespoke wine tasting and estate lunch charter. Tiered pricing based on vehicle and group size.',
           emoji: '🍷',
           image: '',
@@ -198,7 +210,7 @@ const BookingEngine = {
           price: 1190,
           type: 'private',
           vehicle: 'Luxury Vehicle (up to 5 pax)',
-          paxLimit: 11,
+          paxLimit: 5,
           description: 'Hot springs, boutique wineries and stunning bay beaches. Tiered pricing based on vehicle and group size.',
           emoji: '🌺',
           image: '',
@@ -211,7 +223,7 @@ const BookingEngine = {
           price: 1290,
           type: 'private',
           vehicle: 'Luxury Vehicle (up to 5 pax)',
-          paxLimit: 11,
+          paxLimit: 5,
           description: 'Ride the iconic heritage steam train through ancient fern gullies. Tiered pricing based on vehicle and group size.',
           emoji: '🚂',
           image: '',
@@ -224,7 +236,7 @@ const BookingEngine = {
           price: 890,
           type: 'private',
           vehicle: 'Luxury Vehicle (up to 5 pax)',
-          paxLimit: 11,
+          paxLimit: 5,
           description: 'Hidden laneways, world-class cuisine, street art and cultural icons.',
           emoji: '🏙️',
           image: '',
@@ -247,7 +259,7 @@ const BookingEngine = {
           id: 'phillip-island-group',
           name: 'Phillip Island Group Tour',
           duration: '9 Hours',
-          price: 199,
+          price: 249,
           type: 'group',
           vehicle: 'Toyota HiAce 11-seater',
           paxLimit: 11,
@@ -273,7 +285,7 @@ const BookingEngine = {
           id: 'mornington-peninsula-group',
           name: 'Mornington Peninsula Group Tour',
           duration: '8 Hours',
-          price: 149,
+          price: 199,
           type: 'group',
           vehicle: 'Toyota HiAce 11-seater',
           paxLimit: 11,
@@ -286,7 +298,7 @@ const BookingEngine = {
           id: 'puffing-billy-group',
           name: 'Puffing Billy Group Tour',
           duration: '7 Hours',
-          price: 149,
+          price: 189,
           type: 'group',
           vehicle: 'Toyota HiAce 11-seater',
           paxLimit: 11,
@@ -299,7 +311,7 @@ const BookingEngine = {
           id: 'melbourne-discovery-group',
           name: 'Melbourne City Group Tour',
           duration: '4-6 Hours',
-          price: 99,
+          price: 129,
           type: 'group',
           vehicle: 'Toyota HiAce 11-seater',
           paxLimit: 11,
@@ -310,9 +322,26 @@ const BookingEngine = {
         }
       ];
       localStorage.setItem('ar_luxury_tours', JSON.stringify(defaultTours));
-      return defaultTours;
+      tours = JSON.stringify(defaultTours);
     }
-    return JSON.parse(tours);
+    const toursArr = JSON.parse(tours);
+    // Dynamically override prices based on the customized pricing settings in localStorage
+    const pricing = this.getPricing();
+    toursArr.forEach(t => {
+      if (t.id === 'great-ocean-road-private' && pricing.gorPrivatePrice) t.price = pricing.gorPrivatePrice;
+      else if (t.id === 'phillip-island-private' && pricing.phillipPrivatePrice) t.price = pricing.phillipPrivatePrice;
+      else if (t.id === 'yarra-valley-private' && pricing.yarraPrivatePrice) t.price = pricing.yarraPrivatePrice;
+      else if (t.id === 'mornington-peninsula-private' && pricing.morningtonPrivatePrice) t.price = pricing.morningtonPrivatePrice;
+      else if (t.id === 'puffing-billy-private' && pricing.puffingPrivatePrice) t.price = pricing.puffingPrivatePrice;
+      else if (t.id === 'melbourne-discovery-private' && pricing.melbournePrivatePrice) t.price = pricing.melbournePrivatePrice;
+      else if (t.id === 'great-ocean-road-group' && pricing.groupGorRate) t.price = pricing.groupGorRate;
+      else if (t.id === 'phillip-island-group' && pricing.groupPhillipRate) t.price = pricing.groupPhillipRate;
+      else if (t.id === 'yarra-valley-group' && pricing.groupYarraRate) t.price = pricing.groupYarraRate;
+      else if (t.id === 'mornington-peninsula-group' && pricing.groupMorningtonRate) t.price = pricing.groupMorningtonRate;
+      else if (t.id === 'puffing-billy-group' && pricing.groupPuffingRate) t.price = pricing.groupPuffingRate;
+      else if (t.id === 'melbourne-discovery-group' && pricing.groupMelbourneRate) t.price = pricing.groupMelbourneRate;
+    });
+    return toursArr;
   },
 
   saveTours(tours) {
