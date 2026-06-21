@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AR Luxury Experiences | Private Tours & Chauffeur Services Melbourne</title>
-  <meta name="description" content="AR Luxury Experiences offers private luxury tours and chauffeur services across Victoria. Great Ocean Road, Phillip Island, Yarra Valley and more. Book from Melbourne CBD." />
-  <meta name="keywords" content="luxury tours Melbourne, private chauffeur Melbourne, Great Ocean Road tour, Phillip Island tour, Yarra Valley wine tour, Melbourne CBD" />
+  <meta name="description" content="AR Luxury Experiences offers private tours, small group tours, custom bus charters and chauffeur services across Victoria. Great Ocean Road, Phillip Island, Yarra Valley group tours from $99/person. Custom group charters from $1,500." />
+  <meta name="keywords" content="luxury tours Melbourne, private chauffeur Melbourne, Great Ocean Road tour, Phillip Island tour, Yarra Valley wine tour, group tours Melbourne, bus charter Melbourne, custom group tour Victoria, school excursion bus hire, corporate group tours, cruise ship shore excursion Melbourne" />
   <link rel="canonical" href="https://toursau.com" />
   
   <!-- JSON-LD SEO Structured Data -->
@@ -14,7 +14,7 @@
     "@context": "https://schema.org",
     "@type": "TravelAgency",
     "name": "AR Luxury Experiences",
-    "description": "Premium private tours, bespoke group tours, and elite chauffeur services across Melbourne and Victoria.",
+    "description": "Premium private tours, small group tours, custom bus charters, and professional chauffeur services across Melbourne and Victoria. Group tours from $99/person, custom charters from $1,500.",
     "url": "https://toursau.com",
     "logo": "https://toursau.com/assets/logo.png",
     "telephone": "+61400044004",
@@ -30,7 +30,7 @@
   </script>
 
   <meta property="og:title" content="AR Luxury Experiences | Private Tours & Chauffeur Services Melbourne" />
-  <meta property="og:description" content="Premium private tours, bespoke group tours, and elite chauffeur services across Melbourne and Victoria." />
+  <meta property="og:description" content="Premium private tours, small group tours, custom bus charters, and professional chauffeur services across Melbourne and Victoria. Group tours from $99/person." />
   <meta property="og:image" content="https://toursau.com/assets/og-image.jpg" />
   <meta property="og:url" content="https://toursau.com" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -1072,21 +1072,28 @@
             <label class="form-label" for="widget-service">Experience</label>
             <select class="form-select" id="widget-service" name="service" onchange="updatePricePreview()">
               <option value="">Select a tour…</option>
-              <optgroup label="Direct Private Tours ($1,500 Flat Rate)">
-                <option value="great-ocean-road-private" data-price="1500">Great Ocean Road Private — 14 hrs</option>
-                <option value="phillip-island-private" data-price="1500">Phillip Island Private — 9 hrs</option>
-                <option value="yarra-valley-private" data-price="1500" >Yarra Valley Wine Private — 7 hrs</option>
-                <option value="mornington-peninsula-private" data-price="1500" >Mornington Peninsula Private — 8 hrs</option>
-                <option value="puffing-billy-private" data-price="1500">Puffing Billy Private — 7 hrs</option>
-                <option value="melbourne-discovery-private" data-price="1500" >Melbourne City Private — 4–6 hrs</option>
+              <optgroup label="Private Tours (up to 5 pax, per vehicle)">
+                <option value="great-ocean-road-private" data-price="1590">Great Ocean Road Private — 14 hrs</option>
+                <option value="phillip-island-private" data-price="1290">Phillip Island Private — 9 hrs</option>
+                <option value="yarra-valley-private" data-price="1190">Yarra Valley Wine Private — 7 hrs</option>
+                <option value="mornington-peninsula-private" data-price="1190">Mornington Peninsula Private — 8 hrs</option>
+                <option value="puffing-billy-private" data-price="1290">Puffing Billy Private — 7 hrs</option>
+                <option value="melbourne-discovery-private" data-price="890">Melbourne City Private — 4–6 hrs</option>
               </optgroup>
-              <optgroup label="Direct Group Tours (Per Person)">
+              <optgroup label="Group Tours (Per Person)">
                 <option value="great-ocean-road-group" data-price="149">Great Ocean Road Group — $149/person</option>
-                <option value="phillip-island-group" data-price="250">Phillip Island Group — $250/person</option>
+                <option value="phillip-island-group" data-price="199">Phillip Island Group — $199/person</option>
+                <option value="yarra-valley-group" data-price="149">Yarra Valley Wine Group — $149/person</option>
+                <option value="mornington-peninsula-group" data-price="149">Mornington Peninsula Group — $149/person</option>
+                <option value="puffing-billy-group" data-price="149">Puffing Billy Group — $149/person</option>
+                <option value="melbourne-discovery-group" data-price="99">Melbourne City Group — $99/person</option>
+              </optgroup>
+              <optgroup label="Custom Group Charter (Enquiry)">
+                <option value="custom-group-tour" data-price="1500">Custom Group Tour — from $1,500</option>
               </optgroup>
               <optgroup label="Premium Chauffeur Services">
-                <option value="airport-transfer" data-price="150" >Airport Transfer</option>
-                <option value="hourly-hire" data-price="195" >Hourly Chauffeur</option>
+                <option value="airport-transfer" data-price="150">Airport Transfer</option>
+                <option value="hourly-hire" data-price="195">Hourly Chauffeur</option>
               </optgroup>
             </select>
           </div>
@@ -1169,7 +1176,7 @@
             <p class="tour-desc">Victoria's iconic coastal drive — Twelve Apostles, Loch Ard Gorge, and the wild Southern Ocean. A world-class journey from your door.</p>
             <div class="tour-footer">
               <div class="tour-price">
-                <div class="tour-price-label">From</div>
+                <div class="tour-price-label">From <small>(up to 5 pax)</small></div>
                 <div class="tour-price-value">$1,290<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
               </div>
               <a href="tours/great-ocean-road.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
@@ -1190,7 +1197,7 @@
             <p class="tour-desc">Witness the world-famous Penguin Parade at dusk. Koalas, seals, and pristine beaches make this an unforgettable full-day escape.</p>
             <div class="tour-footer">
               <div class="tour-price">
-                <div class="tour-price-label">From</div>
+                <div class="tour-price-label">From <small>(up to 5 pax)</small></div>
                 <div class="tour-price-value">$1,190<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
               </div>
               <a href="tours/phillip-island.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
@@ -1211,7 +1218,7 @@
             <p class="tour-desc">Award-winning wineries, artisan cheese, and breathtaking valley views. A sophisticated day among Victoria's finest producers.</p>
             <div class="tour-footer">
               <div class="tour-price">
-                <div class="tour-price-label">From</div>
+                <div class="tour-price-label">From <small>(up to 5 pax)</small></div>
                 <div class="tour-price-value">$990<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
               </div>
               <a href="tours/yarra-valley.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
@@ -1232,7 +1239,7 @@
             <p class="tour-desc">Hot springs, boutique wineries and stunning bay beaches. The Peninsula's best kept secrets revealed by your private guide.</p>
             <div class="tour-footer">
               <div class="tour-price">
-                <div class="tour-price-label">From</div>
+                <div class="tour-price-label">From <small>(up to 5 pax)</small></div>
                 <div class="tour-price-value">$990<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
               </div>
               <a href="tours/mornington-peninsula.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
@@ -1253,7 +1260,7 @@
             <p class="tour-desc">Ride the iconic heritage steam train through ancient fern gullies and towering mountain ash forests of the Dandenong Ranges.</p>
             <div class="tour-footer">
               <div class="tour-price">
-                <div class="tour-price-label">From</div>
+                <div class="tour-price-label">From <small>(up to 5 pax)</small></div>
                 <div class="tour-price-value">$1,090<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
               </div>
               <a href="tours/puffing-billy.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
@@ -1274,7 +1281,7 @@
             <p class="tour-desc">Hidden laneways, world-class cuisine, street art and cultural icons. Discover Melbourne like a local with your private chauffeur-guide.</p>
             <div class="tour-footer">
               <div class="tour-price">
-                <div class="tour-price-label">From</div>
+                <div class="tour-price-label">From <small>(up to 5 pax)</small></div>
                 <div class="tour-price-value">$790<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/vehicle</span></div>
               </div>
               <a href="tours/melbourne-discovery.html" class="btn btn--outline-gold btn--sm">Explore Tour →</a>
@@ -1286,8 +1293,431 @@
 
       <!-- CTA below tours grid -->
       <div style="text-align:center; margin-top: 52px;" class="fade-up">
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Don't see the perfect experience? We create fully bespoke itineraries.</p>
-        <a href="tel:0400044004" class="btn btn--ghost">📞 Request a Custom Itinerary</a>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Private tour pricing is per vehicle for up to 5 passengers. Larger groups? Check our Group &amp; Custom tours below.</p>
+        <a href="#group-tours" class="btn btn--ghost">🚌 View Group Tours</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       GROUP TOURS (Per Person)
+  ============================================================ -->
+  <section id="group-tours" aria-labelledby="group-tours-title">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <div class="section-tag">Group Tours</div>
+        <h2 class="section-title" id="group-tours-title">Small Group <span>Tours</span></h2>
+        <p class="section-subtitle">
+          Join a small group of like-minded travellers on our curated day tours.
+          Per-person pricing — no minimum group size, just book your seats.
+          Comfortable Toyota HiAce 11-seater with professional chauffeur-guide.
+        </p>
+      </div>
+
+      <div class="tours-grid">
+
+        <!-- GOR Group -->
+        <article class="tour-card fade-up" aria-label="Great Ocean Road Group Tour">
+          <div class="tour-img tour-img--ocean-road">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🌊</div>
+            <div class="tour-duration-badge">14 hours</div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--emerald);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Per Person</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Great Ocean Road</h3>
+            <p class="tour-desc">Reverse scenic route to the Twelve Apostles, Loch Ard Gorge, Kennett River koalas and Apollo Bay — all in one epic day.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$149<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/person</span></div>
+              </div>
+              <a href="booking.html" class="btn btn--outline-gold btn--sm">Book Now →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Phillip Island Group -->
+        <article class="tour-card fade-up" aria-label="Phillip Island Group Tour" style="transition-delay:0.08s">
+          <div class="tour-img tour-img--phillip-island">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🐧</div>
+            <div class="tour-duration-badge">9 hours</div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--emerald);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Per Person</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Phillip Island</h3>
+            <p class="tour-desc">Sunset Little Penguin Parade, wildlife encounters, and stunning coastal walks. An unforgettable twilight experience.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$199<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/person</span></div>
+              </div>
+              <a href="booking.html" class="btn btn--outline-gold btn--sm">Book Now →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Yarra Valley Group -->
+        <article class="tour-card fade-up" aria-label="Yarra Valley Group Tour" style="transition-delay:0.16s">
+          <div class="tour-img tour-img--yarra-valley">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🍷</div>
+            <div class="tour-duration-badge">7 hours</div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--emerald);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Per Person</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Yarra Valley Wine Tour</h3>
+            <p class="tour-desc">Boutique winery tastings, gourmet estate lunch and breathtaking vineyard views in Victoria's premier wine region.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$149<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/person</span></div>
+              </div>
+              <a href="booking.html" class="btn btn--outline-gold btn--sm">Book Now →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mornington Group -->
+        <article class="tour-card fade-up" aria-label="Mornington Peninsula Group Tour" style="transition-delay:0.08s">
+          <div class="tour-img tour-img--mornington">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🌺</div>
+            <div class="tour-duration-badge">8 hours</div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--emerald);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Per Person</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Mornington Peninsula</h3>
+            <p class="tour-desc">Hot springs, boutique wineries and stunning bay beaches. Discover the Peninsula's hidden gems on this relaxing day out.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$149<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/person</span></div>
+              </div>
+              <a href="booking.html" class="btn btn--outline-gold btn--sm">Book Now →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Puffing Billy Group -->
+        <article class="tour-card fade-up" aria-label="Puffing Billy Group Tour" style="transition-delay:0.16s">
+          <div class="tour-img tour-img--puffing-billy">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🚂</div>
+            <div class="tour-duration-badge">7 hours</div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--emerald);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Per Person</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Puffing Billy &amp; Dandenong</h3>
+            <p class="tour-desc">Heritage steam train ride through ancient fern gullies, Sassafras village charm and Dandenong Ranges wildlife.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$149<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/person</span></div>
+              </div>
+              <a href="booking.html" class="btn btn--outline-gold btn--sm">Book Now →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Melbourne City Group -->
+        <article class="tour-card fade-up" aria-label="Melbourne City Group Tour" style="transition-delay:0.24s">
+          <div class="tour-img tour-img--melbourne">
+            <div class="tour-img-inner"></div>
+            <div class="tour-img-overlay"></div>
+            <div class="tour-img-emoji" aria-hidden="true">🏙️</div>
+            <div class="tour-duration-badge">4–6 hours</div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--emerald);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">Per Person</div>
+          </div>
+          <div class="tour-body">
+            <h3 class="tour-name">Melbourne City Discovery</h3>
+            <p class="tour-desc">Hidden laneways, street art, world-class cuisine and cultural icons. Discover Melbourne like a local on this guided city tour.</p>
+            <div class="tour-footer">
+              <div class="tour-price">
+                <div class="tour-price-label">From</div>
+                <div class="tour-price-value">$99<span style="font-size:0.6em;font-weight:500;color:var(--text-dim)">/person</span></div>
+              </div>
+              <a href="booking.html" class="btn btn--outline-gold btn--sm">Book Now →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Group Tours CTA -->
+      <div style="text-align:center; margin-top: 52px;" class="fade-up">
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">All group tours operate on our Toyota HiAce 11-seater with professional chauffeur-guide. Need a bigger group? 👇</p>
+        <a href="#custom-tours" class="btn btn--ghost">🚌 Custom Group Charters →</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       CUSTOM TOURS (Enquiry-Based / Large Groups)
+       SEO: custom group tours melbourne, bus charter melbourne,
+            corporate group tours victoria, school excursion bus hire
+  ============================================================ -->
+  <section id="custom-tours" aria-labelledby="custom-tours-title" style="position:relative; overflow:hidden;">
+    <!-- Subtle background gradient -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(212,175,55,0.06) 0%, transparent 60%);pointer-events:none;"></div>
+    <div class="container" style="position:relative;z-index:1;">
+
+      <div class="section-header section-header--center fade-up">
+        <div class="section-tag">Custom Group Charters</div>
+        <h2 class="section-title" id="custom-tours-title">Custom <span>Group Tours</span> &amp; Bus Charters</h2>
+        <p class="section-subtitle" style="max-width:720px;">
+          From intimate family reunions to large corporate events — we create bespoke group experiences
+          with our licensed bus and tour operator service. Vehicles from 5-seater luxury cars to 28-seater coaches.
+        </p>
+      </div>
+
+      <!-- Pricing Banner -->
+      <div class="fade-up" style="text-align:center;margin-bottom:48px;">
+        <div style="display:inline-block;background:linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:28px 48px;max-width:650px;">
+          <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:8px;">Custom Group Charter</div>
+          <div style="font-size:2.5rem;font-weight:800;color:var(--text-primary);font-family:var(--font-head);line-height:1.1;">
+            Starting from <span style="color:var(--gold);">$1,500</span>
+          </div>
+          <div style="color:var(--text-muted);font-size:0.88rem;margin-top:8px;line-height:1.5;">
+            Pricing depends on vehicle type, group size, distance and duration.<br>
+            5-seater luxury car &bull; 11-seater HiAce &bull; 22-seater Coaster &bull; 28-seater Coach
+          </div>
+        </div>
+      </div>
+
+      <!-- Manual Confirmation Notice -->
+      <div class="fade-up" style="max-width:680px;margin:0 auto 48px;background:rgba(212,175,55,0.08);border:1px solid var(--border-gold);border-radius:var(--radius-sm);padding:20px 28px;text-align:center;">
+        <span style="color:var(--gold);font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">⚠️ Enquiry-Based Booking</span>
+        <p style="color:var(--text-muted);font-size:0.88rem;margin:0;line-height:1.6;">
+          Custom group tours require <strong style="color:var(--text-primary);">manual confirmation</strong>.
+          We need to verify driver availability, vehicle allocation and route feasibility before confirming your booking.
+          Please reach out via email, phone or WhatsApp and our team will prepare a tailored quote within 24 hours.
+        </p>
+      </div>
+
+      <!-- Pickup Options -->
+      <div class="fade-up" style="max-width:680px;margin:0 auto 48px;">
+        <h3 style="text-align:center;font-family:var(--font-head);color:var(--text-primary);font-size:1.15rem;margin-bottom:20px;">🚐 Flexible Pickup Options</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;">
+          <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🚢</div>
+            <div style="font-weight:700;color:var(--text-primary);font-size:0.92rem;margin-bottom:4px;">Cruise Ship Pickup</div>
+            <div style="color:var(--text-muted);font-size:0.82rem;">Station Pier, Port Melbourne &amp; all cruise terminals</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🏠</div>
+            <div style="font-weight:700;color:var(--text-primary);font-size:0.92rem;margin-bottom:4px;">Door-to-Door</div>
+            <div style="color:var(--text-muted);font-size:0.82rem;">Hotel, Airbnb, residence — anywhere in Greater Melbourne</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">✈️</div>
+            <div style="font-weight:700;color:var(--text-primary);font-size:0.92rem;margin-bottom:4px;">Airport Pickup</div>
+            <div style="color:var(--text-muted);font-size:0.82rem;">Melbourne, Avalon &amp; regional airports</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group Types Grid -->
+      <h3 class="fade-up" style="text-align:center;font-family:var(--font-head);color:var(--text-primary);font-size:1.15rem;margin-bottom:28px;">We Cater to Every Kind of Group</h3>
+      <div class="fade-up" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:14px;max-width:960px;margin:0 auto 48px;">
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">👨‍👩‍👧‍👦</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Family Groups &amp; Reunions</div><div style="color:var(--text-muted);font-size:0.76rem;">Multi-generational family days out</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">👴</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Elderly &amp; Senior Groups</div><div style="color:var(--text-muted);font-size:0.76rem;">Comfortable, accessible touring</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎓</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">School &amp; Uni Excursions</div><div style="color:var(--text-muted);font-size:0.76rem;">Safe, licensed student transport</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎉</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Hens &amp; Bucks Parties</div><div style="color:var(--text-muted);font-size:0.76rem;">Winery crawls, bar hops &amp; fun</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">💼</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Corporate &amp; Team Building</div><div style="color:var(--text-muted);font-size:0.76rem;">Executive group transfers &amp; retreats</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎊</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Birthday &amp; Celebrations</div><div style="color:var(--text-muted);font-size:0.76rem;">Milestone parties &amp; special days</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🏠</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Aged Care &amp; Retirement</div><div style="color:var(--text-muted);font-size:0.76rem;">Retirement home group outings</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">⛪</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Church &amp; Community</div><div style="color:var(--text-muted);font-size:0.76rem;">Religious &amp; community group trips</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🏋️</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Sports Team Transport</div><div style="color:var(--text-muted);font-size:0.76rem;">Game day &amp; training transfers</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎶</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Festival &amp; Concert Groups</div><div style="color:var(--text-muted);font-size:0.76rem;">Safe transport to major events</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🚢</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Cruise Shore Excursions</div><div style="color:var(--text-muted);font-size:0.76rem;">Port pickup &amp; curated day tours</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🌍</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">International Tour Groups</div><div style="color:var(--text-muted);font-size:0.76rem;">Multi-day itineraries for visitors</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎨</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Cultural &amp; Heritage Tours</div><div style="color:var(--text-muted);font-size:0.76rem;">Art, history &amp; cultural explorations</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">📸</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Photography &amp; Film Groups</div><div style="color:var(--text-muted);font-size:0.76rem;">Scenic location-based itineraries</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🍷</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Winery Crawl Groups</div><div style="color:var(--text-muted);font-size:0.76rem;">Multi-winery group tastings</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎭</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Theatre &amp; Show Transport</div><div style="color:var(--text-muted);font-size:0.76rem;">Group transfers to shows &amp; events</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">💍</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Wedding Guest Transport</div><div style="color:var(--text-muted);font-size:0.76rem;">Venue transfers for wedding parties</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🏔️</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Snow Trip Groups</div><div style="color:var(--text-muted);font-size:0.76rem;">Mt Buller &amp; Falls Creek charters</div></div>
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:16px 18px;display:flex;align-items:center;gap:12px;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-glass)';this.style.transform='none'">
+          <span style="font-size:1.4rem;">🎪</span>
+          <div><div style="font-weight:600;color:var(--text-primary);font-size:0.88rem;">Party Bus Hire</div><div style="color:var(--text-muted);font-size:0.76rem;">Driver with bus for any occasion</div></div>
+        </div>
+
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="fade-up" style="text-align:center;max-width:680px;margin:0 auto;">
+        <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:24px;line-height:1.6;">
+          Have a special request? We'd love to hear about your group. Reach out and we'll create a custom itinerary and quote tailored to your needs.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;">
+          <a href="mailto:777artours@gmail.com?subject=Custom%20Group%20Tour%20Enquiry" class="btn btn--gold" id="custom-email-btn" style="padding:14px 28px;">
+            ✉️ Email Us
+          </a>
+          <a href="https://wa.me/61400044004?text=Hi%20AR%20Luxury%20Experiences,%20I'd%20like%20to%20enquire%20about%20a%20custom%20group%20tour." target="_blank" class="btn btn--gold" id="custom-whatsapp-btn" style="padding:14px 28px;background:#25D366;border-color:#25D366;">
+            💬 WhatsApp
+          </a>
+          <a href="tel:0400044004" class="btn btn--outline-gold" id="custom-phone-btn" style="padding:14px 28px;">
+            📞 0400 044 004
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-sep"></div>
+
+  <!-- ============================================================
+       GUEST MOMENTS (Google Photos Gallery)
+  ============================================================ -->
+  <section id="guest-moments" aria-labelledby="guest-moments-title">
+    <div class="container">
+
+      <div class="section-header section-header--center fade-up">
+        <div class="section-tag">Guest Gallery</div>
+        <h2 class="section-title" id="guest-moments-title">Guest <span>Moments</span></h2>
+        <p class="section-subtitle">
+          Real moments from real guests. Browse our curated gallery of unforgettable experiences
+          captured across Melbourne and Victoria.
+        </p>
+      </div>
+
+      <!-- Google Photos Album Embed -->
+      <div class="fade-up" style="max-width:800px;margin:0 auto 36px;text-align:center;">
+        <!-- 
+          HOW TO SET UP YOUR GOOGLE PHOTOS GALLERY:
+          ==========================================
+          1. Open Google Photos (photos.google.com)
+          2. Create a new Shared Album called "AR Luxury Experiences - Guest Moments"
+          3. Add your best guest photos to the album
+          4. Click "Share" → "Get Link" → set to "Anyone with the link can view"
+          5. Copy the album link (it looks like: https://photos.app.goo.gl/XXXXX)
+          6. Replace the placeholder link below with your album link
+          
+          Your photos will show as a clickable gallery button below.
+          For a full embedded gallery, consider using Google Photos API or 
+          a service like EmbedSocial / Elfsight later.
+        -->
+        <div style="background:var(--bg-card);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:48px 36px;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 70%);pointer-events:none;"></div>
+          <div style="position:relative;z-index:1;">
+            <div style="font-size:3rem;margin-bottom:16px;">📸</div>
+            <h3 style="font-family:var(--font-head);font-size:1.3rem;color:var(--text-primary);margin-bottom:8px;">Explore Our Guest Gallery</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">
+              Browse hundreds of stunning photos from our tours — Great Ocean Road sunsets, Penguin Parade magic,
+              Yarra Valley vineyards and more. All captured by our guests and team.
+            </p>
+            <a href="https://photos.app.goo.gl/YOUR_ALBUM_LINK_HERE" target="_blank" rel="noopener" class="btn btn--gold" id="guest-gallery-btn" style="padding:14px 32px;font-size:0.95rem;">
+              📷 View Guest Photos on Google Photos
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Follow -->
+      <div class="fade-up" style="text-align:center;">
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px;">Follow us for more moments</p>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+          <a href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
+            📷 Instagram
+          </a>
+          <a href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
+            ▶️ YouTube
+          </a>
+          <a href="https://g.co/kgs/YOUR_GOOGLE_BUSINESS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
+            ⭐ Google Reviews
+          </a>
+        </div>
       </div>
 
     </div>
@@ -1829,8 +2259,11 @@
           <div class="footer-col-title">Quick Links</div>
           <ul class="footer-links" role="list">
             <li><a href="#experiences">Private Tours</a></li>
+            <li><a href="#group-tours">Group Tours</a></li>
+            <li><a href="#custom-tours">Custom Group Charters</a></li>
             <li><a href="#chauffeur">Chauffeur Services</a></li>
             <li><a href="#fleet">Our Fleet</a></li>
+            <li><a href="#guest-moments">Guest Gallery</a></li>
             <li><a href="#why-us">About Us</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="booking.html" style="color:var(--gold); font-weight:600;">Book Now ✦</a></li>

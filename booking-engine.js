@@ -110,7 +110,7 @@ const BookingEngine = {
         morningtonPrivatePrice: 1190,
         puffingPrivatePrice: 1290,
         melbournePrivatePrice: 890,
-        groupGorRate: 169,
+        groupGorRate: 149,
         groupPhillipRate: 199
       };
       localStorage.setItem('ar_luxury_pricing', JSON.stringify(pricing));
@@ -158,9 +158,9 @@ const BookingEngine = {
           duration: '14 Hours',
           price: 1590,
           type: 'private',
-          vehicle: 'Toyota Vellfire (up to 6 pax)',
+          vehicle: 'Luxury Vehicle (up to 5 pax)',
           paxLimit: 22,
-          description: 'Bespoke reverse coastal route on a luxury vehicle. Tiered pricing based on vehicle size.',
+          description: 'Bespoke reverse coastal route in a luxury vehicle. Tiered pricing based on vehicle and group size.',
           emoji: '🌊',
           image: '',
           itinerary: '08:00 Departure | 10:30 Memorial Arch | 12:00 Apollo Bay Lunch | 14:30 12 Apostles | 16:30 Loch Ard Gorge | 21:00 Return'
@@ -171,9 +171,9 @@ const BookingEngine = {
           duration: '9 Hours',
           price: 1290,
           type: 'private',
-          vehicle: 'Toyota Vellfire (up to 6 pax)',
+          vehicle: 'Luxury Vehicle (up to 5 pax)',
           paxLimit: 22,
-          description: 'Private sunset Little Penguin parade twilight tour. Tiered pricing based on vehicle size.',
+          description: 'Private sunset Little Penguin parade twilight tour. Tiered pricing based on vehicle and group size.',
           emoji: '🐧',
           image: '',
           itinerary: '13:00 Departure | 14:30 Wildlife Park | 16:30 Nobbies Boardwalk | 18:30 Penguin Parade | 21:30 Return'
@@ -184,9 +184,9 @@ const BookingEngine = {
           duration: '7 Hours',
           price: 1190,
           type: 'private',
-          vehicle: 'Toyota Vellfire (up to 6 pax)',
+          vehicle: 'Luxury Vehicle (up to 5 pax)',
           paxLimit: 22,
-          description: 'Bespoke wine tasting and estate lunch charter. Tiered pricing based on vehicle size.',
+          description: 'Bespoke wine tasting and estate lunch charter. Tiered pricing based on vehicle and group size.',
           emoji: '🍷',
           image: '',
           itinerary: '09:30 Departure | 10:30 Boutique Winery | 12:30 2-Course Estate Lunch | 14:30 Gin Distillery | 16:30 Return'
@@ -197,9 +197,9 @@ const BookingEngine = {
           duration: '8 Hours',
           price: 1190,
           type: 'private',
-          vehicle: 'Toyota Vellfire (up to 6 pax)',
+          vehicle: 'Luxury Vehicle (up to 5 pax)',
           paxLimit: 11,
-          description: 'Hot springs, boutique wineries and stunning bay beaches. Tiered pricing based on vehicle size.',
+          description: 'Hot springs, boutique wineries and stunning bay beaches. Tiered pricing based on vehicle and group size.',
           emoji: '🌺',
           image: '',
           itinerary: '09:00 Departure | 10:30 Hot Springs | 13:00 Winery Lunch | 15:30 Bay Views | 17:00 Return'
@@ -210,9 +210,9 @@ const BookingEngine = {
           duration: '7 Hours',
           price: 1290,
           type: 'private',
-          vehicle: 'Toyota Vellfire (up to 6 pax)',
+          vehicle: 'Luxury Vehicle (up to 5 pax)',
           paxLimit: 11,
-          description: 'Ride the iconic heritage steam train through ancient fern gullies. Tiered pricing based on vehicle size.',
+          description: 'Ride the iconic heritage steam train through ancient fern gullies. Tiered pricing based on vehicle and group size.',
           emoji: '🚂',
           image: '',
           itinerary: '09:00 Departure | 10:30 Steam Train Ride | 12:30 Sassafras Village | 14:30 Wildlife Park | 16:00 Return'
@@ -223,7 +223,7 @@ const BookingEngine = {
           duration: '4-6 Hours',
           price: 890,
           type: 'private',
-          vehicle: 'Toyota Vellfire (up to 6 pax)',
+          vehicle: 'Luxury Vehicle (up to 5 pax)',
           paxLimit: 11,
           description: 'Hidden laneways, world-class cuisine, street art and cultural icons.',
           emoji: '🏙️',
@@ -234,11 +234,11 @@ const BookingEngine = {
           id: 'great-ocean-road-group',
           name: 'Great Ocean Road Group Tour',
           duration: '14 Hours',
-          price: 169,
+          price: 149,
           type: 'group',
-          vehicle: 'Toyota Hiace 11-seater',
+          vehicle: 'Toyota HiAce 11-seater',
           paxLimit: 11,
-          description: 'Reverse scenic GOR itinerary per person on our modern Toyota Hiace 11-seater.',
+          description: 'Reverse scenic GOR itinerary per person on our modern Toyota HiAce 11-seater.',
           emoji: '🌊',
           image: '',
           itinerary: '07:30 Departure | 10:00 Colac Stop | 12:00 12 Apostles reverse route | 14:00 Apollo Bay | 16:00 Kennett River Koalas | 20:30 Return'
@@ -249,12 +249,64 @@ const BookingEngine = {
           duration: '9 Hours',
           price: 199,
           type: 'group',
-          vehicle: 'Toyota Hiace 11-seater',
+          vehicle: 'Toyota HiAce 11-seater',
           paxLimit: 11,
           description: 'Small group sunset Little Penguin parade twilight tour per person.',
           emoji: '🐧',
           image: '',
           itinerary: '13:00 Departure | 14:30 Wildlife Park | 16:30 Nobbies Boardwalk | 18:30 Penguin Parade | 21:30 Return'
+        },
+        {
+          id: 'yarra-valley-group',
+          name: 'Yarra Valley Wine Group Tour',
+          duration: '7 Hours',
+          price: 149,
+          type: 'group',
+          vehicle: 'Toyota HiAce 11-seater',
+          paxLimit: 11,
+          description: 'Boutique winery tastings, gourmet lunch and vineyard views. Small group per person rate.',
+          emoji: '🍷',
+          image: '',
+          itinerary: '09:30 Departure | 10:30 Boutique Winery | 12:30 Estate Lunch | 14:30 Gin Distillery | 16:30 Return'
+        },
+        {
+          id: 'mornington-peninsula-group',
+          name: 'Mornington Peninsula Group Tour',
+          duration: '8 Hours',
+          price: 149,
+          type: 'group',
+          vehicle: 'Toyota HiAce 11-seater',
+          paxLimit: 11,
+          description: 'Hot springs, wineries and coastal beauty. Small group per person rate.',
+          emoji: '🌺',
+          image: '',
+          itinerary: '09:00 Departure | 10:30 Hot Springs | 13:00 Winery Lunch | 15:30 Bay Views | 17:00 Return'
+        },
+        {
+          id: 'puffing-billy-group',
+          name: 'Puffing Billy Group Tour',
+          duration: '7 Hours',
+          price: 149,
+          type: 'group',
+          vehicle: 'Toyota HiAce 11-seater',
+          paxLimit: 11,
+          description: 'Heritage steam train through the Dandenong Ranges. Small group per person rate.',
+          emoji: '🚂',
+          image: '',
+          itinerary: '09:00 Departure | 10:30 Steam Train Ride | 12:30 Sassafras Village | 14:30 Wildlife Park | 16:00 Return'
+        },
+        {
+          id: 'melbourne-discovery-group',
+          name: 'Melbourne City Group Tour',
+          duration: '4-6 Hours',
+          price: 99,
+          type: 'group',
+          vehicle: 'Toyota HiAce 11-seater',
+          paxLimit: 11,
+          description: 'Hidden laneways, street art and cultural icons. Small group city walking and driving tour per person.',
+          emoji: '🏙️',
+          image: '',
+          itinerary: '10:00 Departure | 10:30 Laneways & Street Art | 12:30 Lunch | 14:00 Cultural Icons | 15:30 Return'
         }
       ];
       localStorage.setItem('ar_luxury_tours', JSON.stringify(defaultTours));
@@ -737,8 +789,8 @@ const BookingEngine = {
   },
 
   sendConfirmationEmail(booking) {
-    const subject = encodeURIComponent(`Booking Confirmed: ${booking.ref} - ${this.BRAND}`);
-    const body = encodeURIComponent(`G'day ${booking.customerName},\n\nWe are delighted to confirm your luxury booking reference ${booking.ref} with AR Luxury Experiences.\n\nExperience: ${booking.experienceName}\nDate: ${booking.date}\nTime: ${booking.time}\nPassengers: ${booking.pax} Guests\nPickup Location: ${booking.pickupLocation}\nTotal Amount: $${booking.totalPrice}\n\nOur professional chauffeur will contact you 24 hours prior to departure.\n\nWarm regards,\nAR Luxury Experiences Team\nMelbourne CBD | ${this.PHONE}`);
+    const subject = encodeURIComponent(`Thank You for Booking With Us — ${booking.ref} - ${this.BRAND}`);
+    const body = encodeURIComponent(`G'day ${booking.customerName},\n\nThank you for booking with AR Luxury Experiences! Your booking reference is ${booking.ref}.\n\nPlease note: This is not a real-time booking. One of our representatives will reach out to you shortly to confirm availability and finalise your reservation. Alternatively, you can reach us on WhatsApp at +61 400 044 004 for immediate assistance.\n\nExperience: ${booking.experienceName}\nDate: ${booking.date}\nTime: ${booking.time}\nPassengers: ${booking.pax} Guests\nPickup Location: ${booking.pickupLocation}\nTotal Amount: $${booking.totalPrice}\n\nOur professional chauffeur will contact you 24 hours prior to departure once your booking is confirmed.\n\nWarm regards,\nAR Luxury Experiences Team\nMelbourne CBD | ${this.PHONE}`);
     return `mailto:${booking.customerEmail}?subject=${subject}&body=${body}`;
   },
 
