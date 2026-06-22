@@ -5,7 +5,7 @@ const BookingEngine = {
   BRAND: 'AR Luxury Experiences',
   PHONE: '0400 044 004',
   EMAIL: '777artours@gmail.com',
-  WEBSITE: 'toursau.com',
+  WEBSITE: 'theartours.com',
   LOCATION: 'Melbourne CBD',
   API_BASE: 'http://localhost:5001/api',
 
@@ -879,7 +879,7 @@ const BookingEngine = {
         </table>
         <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 12px;">
           <p style="margin: 0;">Thank you for choosing AR Luxury Experiences. All trips are subject to our standard Terms & Conditions.</p>
-          <p style="margin: 4px 0 0;">Secure Direct Payments Only. www.toursau.com</p>
+          <p style="margin: 4px 0 0;">Secure Direct Payments Only. www.theartours.com</p>
         </div>
       </div>
     `;

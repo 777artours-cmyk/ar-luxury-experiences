@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /operations.html
+Disallow: /portals/
+Disallow: /db/
+
+Sitemap: https://theartours.com/sitemap.xml
