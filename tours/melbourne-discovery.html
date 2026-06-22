@@ -9,17 +9,44 @@
   {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
-    "name": "AR Luxury Experiences - Melbourne City Discovery Private Tour",
-    "description": "Premium luxury tour in Victoria.",
+    "name": "Melbourne City Discovery Private Tour",
+    "description": "Discover Melbourne's secret laneways, coffee culture, and iconic street art in private luxury comfort.",
+    "touristType": "Sightseeing",
+    "itinerary": {
+      "@type": "ItemList",
+      "numberOfItems": 5,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Executive pickup from Melbourne Hotel or Residence" },
+        { "@type": "ListItem", "position": 2, "name": "Explore famous graffiti laneways & arcade coffee" },
+        { "@type": "ListItem", "position": 3, "name": "Visit Royal Botanic Gardens & Shrine of Remembrance" },
+        { "@type": "ListItem", "position": 4, "name": "Sightseeing around St Kilda beach and Fitzroy street art" },
+        { "@type": "ListItem", "position": 5, "name": "Drop-off at your hotel or preferred CBD dining spot" }
+      ]
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "890",
+      "priceCurrency": "AUD",
+      "url": "https://theartours.com/tours/melbourne-discovery.html",
+      "priceValidUntil": "2027-12-31"
+    },
     "provider": {
       "@type": "TravelAgency",
-      "name": "AR Luxury Experiences"
+      "name": "AR Luxury Experiences",
+      "url": "https://theartours.com"
     }
   }
   </script>
 
   <meta name="description" content="Discover Melbourne's secret laneways, coffee culture, and iconic street art in private luxury comfort with AR Luxury Experiences.">
   <link rel="canonical" href="https://theartours.com/tours/melbourne-discovery.html" />
+
+  <meta property="og:title" content="Melbourne City Discovery Private Tour | AR Luxury Experiences" />
+  <meta property="og:description" content="Discover Melbourne's secret laneways, coffee culture, and iconic street art in private luxury comfort. Private vehicle, professional guide." />
+  <meta property="og:image" content="https://theartours.com/assets/og-image.jpg" />
+  <meta property="og:url" content="https://theartours.com/tours/melbourne-discovery.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="stylesheet" href="../luxury.css">
   <style>
     /* Unique Tour Page Gradients */
