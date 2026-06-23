@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect with AR Luxury Experiences | Melbourne Private Tours</title>
+  <meta name="description" content="Connect with AR Luxury Experiences. Save our contact info, chat on WhatsApp, or write us a Google Review instantly." />
+  <link rel="canonical" href="https://theartours.com/nfc.html" />
+
+  <!-- Open Graph Meta Tags for Sharing -->
+  <meta property="og:title" content="Connect with AR Luxury Experiences" />
+  <meta property="og:description" content="Save our contact details, chat on WhatsApp, book a luxury tour, or leave us a review." />
+  <meta property="og:image" content="https://theartours.com/assets/og-image.jpg" />
+  <meta property="og:url" content="https://theartours.com/nfc.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Import Shared Design System -->
+  <link rel="stylesheet" href="luxury.css" />
+
+  <style>
+    /* NFC Page Custom Mobile Styles */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg) var(--spacing-md);
+      min-height: 100vh;
+    }
+
+    .nfc-container {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: center;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Main Glassmorphism Card */
+    .nfc-card {
+      background: var(--card-glass);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl) var(--spacing-lg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .nfc-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Profile Header */
+    .nfc-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-gold-dark) 0%, var(--accent-gold) 50%, var(--accent-gold-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 auto var(--spacing-md);
+      border: 2px solid var(--border-glow);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .nfc-title {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .nfc-subtitle {
+      font-size: 0.9rem;
+      color: var(--accent-gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    /* Action Links/Buttons */
+    .nfc-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .nfc-btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nfc-btn-icon {
+      font-size: 1.3rem;
+      margin-right: var(--spacing-md);
+      width: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nfc-btn-text {
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .nfc-btn-arrow {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      transition: var(--transition);
+    }
+
+    /* Hover States */
+    .nfc-btn:hover {
+      background: var(--card-glass-hover);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .nfc-btn:hover .nfc-btn-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    /* Glowing Primary CTA (Google Review) */
+    .nfc-btn-primary {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(168, 137, 42, 0.05) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.08);
+    }
+
+    .nfc-btn-primary:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(168, 137, 42, 0.1) 100%);
+    }
+
+    .nfc-btn-primary .nfc-btn-text {
+      color: var(--accent-gold-light);
+      font-weight: 700;
+    }
+
+    /* Footer Social Icons */
+    .nfc-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+
+    .social-icon:hover {
+      background: var(--card-glass-hover);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    /* Secondary QR Code link */
+    .qr-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed rgba(255, 255, 255, 0.05);
+    }
+
+    .qr-trigger:hover {
+      color: var(--accent-gold);
+      border-color: var(--border-glow);
+      background: rgba(255,255,255,0.01);
+    }
+
+    /* Modal Overlay (QR Code) */
+    .qr-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 8, 16, 0.95);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .qr-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .qr-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .qr-modal.active .qr-content {
+      transform: scale(1);
+    }
+
+    .qr-image {
+      background: #fff;
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-md);
+      display: inline-block;
+    }
+
+    .qr-image img {
+      display: block;
+      width: 200px;
+      height: 200px;
+    }
+
+    .qr-close {
+      background: var(--accent-gold);
+      color: #060810;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: var(--spacing-md);
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .qr-close:hover {
+      background: var(--accent-gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* Toast Alert */
+    .toast {
+      position: fixed;
+      bottom: var(--spacing-lg);
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--accent-emerald);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+      z-index: 10000;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nfc-container">
+    <div class="nfc-card">
+      
+      <!-- Avatar representing Reddy / Chauffeur -->
+      <div class="nfc-avatar">AR</div>
+
+      <h1 class="nfc-title">AR Luxury Experiences</h1>
+      <p class="nfc-subtitle">Chauffeur & Tours</p>
+
+      <div class="nfc-links">
+
+        <!-- 1. WRITE A GOOGLE REVIEW (Primary CTA) -->
+        <!-- NOTE: Replace placeid value with your actual Google Business Profile place ID -->
+        <a href="https://search.google.com/local/writereview?placeid=ChIJo-c5Kld11GoRUDGq1lV01wE" 
+           target="_blank" 
+           rel="noopener" 
+           class="nfc-btn nfc-btn-primary">
+          <span class="nfc-btn-icon">✦</span>
+          <span class="nfc-btn-text">Write a Google Review</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </a>
+
+        <!-- 2. SAVE CONTACT DETAILS (vCard) -->
+        <button onclick="downloadVCard()" class="nfc-btn">
+          <span class="nfc-btn-icon">👤</span>
+          <span class="nfc-btn-text">Save Contact to Phone</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </button>
+
+        <!-- 3. CHAT ON WHATSAPP -->
+        <a href="https://wa.me/61400044004?text=Hi%20Reddy,%20I%20just%20tapped%20your%20NFC%20card%20and%20would%20love%20to%20chat!" 
+           target="_blank" 
+           rel="noopener" 
+           class="nfc-btn">
+          <span class="nfc-btn-icon">💬</span>
+          <span class="nfc-btn-text">Chat on WhatsApp</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </a>
+
+        <!-- 4. DIRECT CALL -->
+        <a href="tel:+61400044004" class="nfc-btn">
+          <span class="nfc-btn-icon">📞</span>
+          <span class="nfc-btn-text">Call Reddy Direct</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </a>
+
+        <!-- 5. BOOK A TOUR -->
+        <a href="booking.html" class="nfc-btn">
+          <span class="nfc-btn-icon">🗓</span>
+          <span class="nfc-btn-text">Book Tour / Chauffeur</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </a>
+
+        <!-- 6. VISIT WEBSITE -->
+        <a href="index.html" class="nfc-btn">
+          <span class="nfc-btn-icon">🌐</span>
+          <span class="nfc-btn-text">Visit Main Website</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </a>
+
+      </div>
+
+      <!-- Socials Row -->
+      <div class="nfc-socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">📸</a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">🎥</a>
+        <a href="mailto:777artours@gmail.com" class="social-icon" aria-label="Email">✉</a>
+      </div>
+
+      <!-- QR Code Trigger -->
+      <div onclick="toggleQRModal(true)" class="qr-trigger">
+        <span>Show QR Code</span> 📲
+      </div>
+
+    </div>
+  </div>
+
+  <!-- QR Code Modal Fallback -->
+  <div id="qr-modal-overlay" class="qr-modal" onclick="toggleQRModal(false)">
+    <div class="qr-content" onclick="event.stopPropagation()">
+      <h3 style="font-family: var(--font-head); margin-bottom: 12px; color: var(--accent-gold);">Scan to Connect</h3>
+      <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 20px;">Open your phone camera to scan the QR code and access this card instantly.</p>
+      
+      <div class="qr-image">
+        <!-- Render a live, responsive QR code of the current page URL using qrserver API -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://theartours.com/nfc.html" alt="AR Luxury Experiences NFC Page QR Code" />
+      </div>
+
+      <button class="qr-close" onclick="toggleQRModal(false)">CLOSE</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Alert -->
+  <div id="toast-notification" class="toast">
+    Contact file downloading! 📋
+  </div>
+
+  <script>
+    // ─── 1. DYNAMIC VCARD GENERATOR ───
+    function downloadVCard() {
+      const vcard = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        "N:Reddy;AR Luxury Experiences;;;",
+        "FN:Reddy (AR Luxury Experiences)",
+        "ORG:AR Luxury Experiences",
+        "TITLE:Professional Chauffeur & Tour Operator",
+        "TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+61400044004",
+        "EMAIL;TYPE=PREF,INTERNET:777artours@gmail.com",
+        "URL:https://theartours.com",
+        "ADR;TYPE=WORK,POSTAL,PARCEL:;;Melbourne CBD;Victoria;3000;Australia",
+        "END:VCARD"
+      ].join("\r\n");
+
+      try {
+        const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'Reddy_AR_Luxury_Experiences.vcf');
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        showToast("Contact card downloaded successfully! 📋");
+      } catch (err) {
+        console.error("VCF download failed:", err);
+        // Fallback to plain data URI link if Blob is unsupported
+        window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+      }
+    }
+
+    // ─── 2. TOAST NOTIFICATION ───
+    function showToast(msg) {
+      const toast = document.getElementById("toast-notification");
+      toast.innerText = msg;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+    // ─── 3. QR MODAL TOGGLER ───
+    function toggleQRModal(show) {
+      const modal = document.getElementById("qr-modal-overlay");
+      if (show) {
+        modal.classList.add("active");
+      } else {
+        modal.classList.remove("active");
+      }
+    }
+  </script>
+
+</body>
+</html>

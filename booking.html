@@ -1330,7 +1330,14 @@
 
         .dropoff-option:hover { border-color: rgba(251,191,36,0.3); color: var(--accent-gold); }
         .dropoff-option.selected { border-color: var(--accent-gold); background: rgba(251,191,36,0.07); color: var(--accent-gold); }
-    </style>
+  <!-- Google tag (gtag.js) - Google Ads Conversion Tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-GOOGLE_ADS_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-GOOGLE_ADS_ID');
+  </script>
 </head>
 <body>
 
@@ -1790,6 +1797,12 @@
     <script src="booking-engine.js"></script>
 
     <script>
+    // ===================================================
+    // GOOGLE ADS CONVERSION CONFIGURATION
+    // ===================================================
+    const GOOGLE_ADS_ID = 'AW-GOOGLE_ADS_ID'; // Replace with your AW-XXXXXXXXXX Google Ads Conversion ID
+    const GOOGLE_ADS_LABEL = 'GOOGLE_ADS_LABEL'; // Replace with your Google Ads Conversion Label
+
     // ===================================================
     // AR LUXURY EXPERIENCES — BOOKING ENGINE
     // ===================================================
@@ -2684,6 +2697,16 @@
                 };
 
                 BookingEngine.saveBooking(newBooking);
+
+                // Google Ads Conversion Event Trigger
+                if (typeof gtag !== 'undefined' && GOOGLE_ADS_ID && GOOGLE_ADS_LABEL && GOOGLE_ADS_ID !== 'AW-GOOGLE_ADS_ID') {
+                    gtag('event', 'conversion', {
+                        'send_to': GOOGLE_ADS_ID + '/' + GOOGLE_ADS_LABEL,
+                        'value': totalVal,
+                        'currency': 'AUD',
+                        'transaction_id': ref
+                    });
+                }
 
                 // Dispatch to Formspree for automated notifications & customer receipt
                 fetch('https://formspree.io/f/xdavrove', {
