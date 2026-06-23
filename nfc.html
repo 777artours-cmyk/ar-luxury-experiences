@@ -327,7 +327,7 @@
   <div class="nfc-container">
     <div class="nfc-card">
       
-      <!-- Avatar representing Reddy / Chauffeur -->
+      <!-- Avatar representing AR Tours -->
       <div class="nfc-avatar">AR</div>
 
       <h1 class="nfc-title">AR Luxury Experiences</h1>
@@ -336,13 +336,22 @@
       <div class="nfc-links">
 
         <!-- 1. WRITE A GOOGLE REVIEW (Primary CTA) -->
-        <!-- NOTE: Replace placeid value with your actual Google Business Profile place ID -->
-        <a href="https://search.google.com/local/writereview?placeid=ChIJo-c5Kld11GoRUDGq1lV01wE" 
+        <a href="https://g.page/r/CQ3SWHWA-AzlEBM/review" 
            target="_blank" 
            rel="noopener" 
            class="nfc-btn nfc-btn-primary">
           <span class="nfc-btn-icon">✦</span>
           <span class="nfc-btn-text">Write a Google Review</span>
+          <span class="nfc-btn-arrow">➔</span>
+        </a>
+
+        <!-- 1b. WRITE A TRIPADVISOR REVIEW -->
+        <a href="https://www.tripadvisor.com/UserReviewEdit-g255100-d34337943-Great_Ocean_Tours_Melbourne-Melbourne_Victoria.html" 
+           target="_blank" 
+           rel="noopener" 
+           class="nfc-btn">
+          <span class="nfc-btn-icon">🦉</span>
+          <span class="nfc-btn-text">Write a TripAdvisor Review</span>
           <span class="nfc-btn-arrow">➔</span>
         </a>
 
@@ -354,7 +363,7 @@
         </button>
 
         <!-- 3. CHAT ON WHATSAPP -->
-        <a href="https://wa.me/61400044004?text=Hi%20Reddy,%20I%20just%20tapped%20your%20NFC%20card%20and%20would%20love%20to%20chat!" 
+        <a href="https://wa.me/61400044004?text=Hi%20AR%20Tours,%20I%20just%20tapped%20your%20NFC%20card%20and%20would%20love%20to%20chat!" 
            target="_blank" 
            rel="noopener" 
            class="nfc-btn">
@@ -366,7 +375,7 @@
         <!-- 4. DIRECT CALL -->
         <a href="tel:+61400044004" class="nfc-btn">
           <span class="nfc-btn-icon">📞</span>
-          <span class="nfc-btn-text">Call Reddy Direct</span>
+          <span class="nfc-btn-text">Call AR Tours Direct</span>
           <span class="nfc-btn-arrow">➔</span>
         </a>
 
@@ -427,10 +436,10 @@
       const vcard = [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        "N:Reddy;AR Luxury Experiences;;;",
-        "FN:Reddy (AR Luxury Experiences)",
+        "N:Direct;AR Tours;;;",
+        "FN:AR Tours Direct",
         "ORG:AR Luxury Experiences",
-        "TITLE:Professional Chauffeur & Tour Operator",
+        "TITLE:Private Tours & Professional Chauffeurs",
         "TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+61400044004",
         "EMAIL;TYPE=PREF,INTERNET:777artours@gmail.com",
         "URL:https://theartours.com",
@@ -443,7 +452,7 @@
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'Reddy_AR_Luxury_Experiences.vcf');
+        link.setAttribute('download', 'AR_Tours_Direct.vcf');
         
         document.body.appendChild(link);
         link.click();
