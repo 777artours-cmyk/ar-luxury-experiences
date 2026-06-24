@@ -1412,6 +1412,7 @@
                     <button type="button" class="tab-btn active" id="tabPrivate" onclick="switchTab('private')">✦ Private Tours</button>
                     <button type="button" class="tab-btn" id="tabGroup" onclick="switchTab('group')">✦ Group Tours</button>
                     <button type="button" class="tab-btn" id="tabChauffeur" onclick="switchTab('chauffeur')">🚘 Chauffeur Services</button>
+                    <button type="button" class="tab-btn" id="tabPackages" onclick="switchTab('packages')">🎁 Luxury Packages</button>
                 </div>
 
                 <!-- Private Tours -->
@@ -1431,6 +1432,13 @@
                 <!-- Chauffeur Services -->
                 <div id="chauffeurPanel" style="display:none;">
                     <div class="experience-grid" id="chauffeurGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Luxury Packages -->
+                <div id="packagesPanel" style="display:none;">
+                    <div class="experience-grid" id="packagesGrid">
                         <!-- Populated by JS -->
                     </div>
                 </div>
@@ -1851,7 +1859,7 @@
         currentStep: 1,
         totalSteps: 7,
         selectedExperience: null,
-        selectedTab: 'day',
+        selectedTab: 'private',
         selectedDate: null,
         selectedTime: null,
         adults: 1,
@@ -1895,6 +1903,7 @@
         renderPrivateTours();
         renderGroupTours();
         renderChauffeurServices();
+        renderPackages();
         renderExtras();
         renderCalendar();
 
@@ -1902,6 +1911,14 @@
         setupStepIndicatorClicks();
 
         showStep(STATE.currentStep || 1);
+
+        // Ensure correct tab is active on load
+        if (STATE.selectedTab && STATE.selectedTab !== 'day') {
+            switchTab(STATE.selectedTab);
+        } else {
+            switchTab('private');
+        }
+
         updateOrderSummary();
     }
 
@@ -1912,6 +1929,7 @@
         
         STATE.currentStep = 1;
         STATE.selectedExperience = null;
+        STATE.selectedTab = 'private';
         STATE.selectedDate = '';
         STATE.selectedTime = '';
         STATE.selectedExtras = [];
@@ -2007,6 +2025,8 @@
                     STATE.selectedTab = 'chauffeur';
                 } else if (found.type === 'group') {
                     STATE.selectedTab = 'group';
+                } else if (found.type === 'package') {
+                    STATE.selectedTab = 'packages';
                 } else {
                     STATE.selectedTab = 'private';
                 }
@@ -2270,14 +2290,38 @@
         `).join('');
     }
 
+    function renderPackages() {
+        const grid = document.getElementById('packagesGrid');
+        const packages = BookingEngine.getTours().filter(t => t.type === 'package');
+        grid.innerHTML = packages.map(tour => `
+            <div class="experience-card ${STATE.selectedExperience && STATE.selectedExperience.id === tour.id ? 'selected' : ''}"
+                 id="expCard-${tour.id}" onclick="selectExperience('${tour.id}', 'packages')">
+                <div class="exp-icon-area">
+                    <span style="font-size: 3rem;">${tour.emoji}</span>
+                    <div class="exp-price-badge">$${tour.price.toLocaleString()} flat</div>
+                </div>
+                <div class="exp-info">
+                    <div class="exp-name">${tour.name}</div>
+                    <div class="exp-meta">
+                        <span>⏱ ${tour.duration}</span>
+                        <span>👤 Up to ${tour.paxLimit} guests</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Tab switcher
     function switchTab(tab) {
         STATE.selectedTab = tab;
         document.getElementById('tabPrivate').classList.toggle('active', tab === 'private');
         document.getElementById('tabGroup').classList.toggle('active', tab === 'group');
         document.getElementById('tabChauffeur').classList.toggle('active', tab === 'chauffeur');
+        document.getElementById('tabPackages').classList.toggle('active', tab === 'packages');
         document.getElementById('privatePanel').style.display = tab === 'private' ? '' : 'none';
         document.getElementById('groupPanel').style.display = tab === 'group' ? '' : 'none';
         document.getElementById('chauffeurPanel').style.display = tab === 'chauffeur' ? '' : 'none';
+        document.getElementById('packagesPanel').style.display = tab === 'packages' ? '' : 'none';
     }
 
     function selectExperience(id, category) {
@@ -2285,10 +2329,10 @@
         const selected = pool.find(t => t.id === id);
         if (!selected) return;
 
-        if (selected.type === 'private' && (STATE.adults + STATE.children > selected.paxLimit)) {
+        if ((selected.type === 'private' || selected.type === 'package') && (STATE.adults + STATE.children > selected.paxLimit)) {
             STATE.adults = selected.paxLimit;
             STATE.children = 0;
-            showToast(`Note: Private tours are flat-rate limited up to ${selected.paxLimit} guests on a luxury vehicle. Counters adjusted.`, 'info');
+            showToast(`Note: This premium experience is flat-rate limited up to ${selected.paxLimit} guests. Counters adjusted.`, 'info');
         }
 
         STATE.selectedExperience = selected;
@@ -2426,16 +2470,16 @@
 
         if (type === 'adults') {
             const nextAdults = Math.max(1, Math.min(15, STATE.adults + delta));
-            if (exp && exp.type === 'private' && (nextAdults + STATE.children > maxLimit)) {
-                showToast(`Private tours are limited to maximum of ${maxLimit} guests on our luxury vehicle.`, 'error');
+            if (exp && (exp.type === 'private' || exp.type === 'package') && (nextAdults + STATE.children > maxLimit)) {
+                showToast(`This experience is limited to maximum of ${maxLimit} guests on our luxury vehicle.`, 'error');
                 return;
             }
             STATE.adults = nextAdults;
             document.getElementById('adultsVal').textContent = STATE.adults;
         } else {
             const nextChildren = Math.max(0, Math.min(10, STATE.children + delta));
-            if (exp && exp.type === 'private' && (STATE.adults + nextChildren > maxLimit)) {
-                showToast(`Private tours are limited to maximum of ${maxLimit} guests on our luxury vehicle.`, 'error');
+            if (exp && (exp.type === 'private' || exp.type === 'package') && (STATE.adults + nextChildren > maxLimit)) {
+                showToast(`This experience is limited to maximum of ${maxLimit} guests on our luxury vehicle.`, 'error');
                 return;
             }
             STATE.children = nextChildren;
@@ -2613,7 +2657,7 @@
         // Line items
         let lines = `
             <div class="summary-line">
-                <div class="summary-line-key">${exp.name} ${exp.type === 'private' ? '(Flat Rate)' : `× ${totalPax}`}</div>
+                <div class="summary-line-key">${exp.name} ${(exp.type === 'private' || exp.type === 'package') ? '(Flat Rate)' : `× ${totalPax}`}</div>
                 <div class="summary-line-val">$${basePrice.toLocaleString()}</div>
             </div>
         `;
@@ -2663,7 +2707,7 @@
                     return sum + (ex ? ex.price : 0);
                 }, 0);
                 const totalVal = calculateTotal();
-                const basePriceVal = STATE.selectedExperience ? (STATE.selectedExperience.type === 'private' ? STATE.selectedExperience.price : STATE.selectedExperience.price * (STATE.adults + STATE.children)) : 0;
+                const basePriceVal = STATE.selectedExperience ? getBasePrice(STATE.selectedExperience, STATE.adults + STATE.children) : 0;
                 
                 const newBooking = {
                     ref: STATE.bookingRef,
@@ -2740,6 +2784,9 @@
     function getBasePrice(exp, pax) {
         if (!exp) return 0;
         let p = 0;
+        if (exp.type === 'package') {
+            return exp.price;
+        }
         if (exp.type === 'private') {
             p = exp.price;
             if (pax >= 12) p += 700;

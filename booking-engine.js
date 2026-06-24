@@ -94,11 +94,11 @@ const BookingEngine = {
 
   // GET DYNAMIC PRICING CONFIGURATION
   getPricing() {
-    if (localStorage.getItem('ar_version') !== '2.2') {
+    if (localStorage.getItem('ar_version') !== '2.3') {
       localStorage.removeItem('ar_luxury_pricing');
       localStorage.removeItem('ar_luxury_tours');
       localStorage.removeItem('ar_luxury_chauffeur');
-      localStorage.setItem('ar_version', '2.2');
+      localStorage.setItem('ar_version', '2.3');
     }
 
     let pricing = localStorage.getItem('ar_luxury_pricing');
@@ -115,7 +115,10 @@ const BookingEngine = {
         groupYarraRate: 149,
         groupMorningtonRate: 199,
         groupPuffingRate: 189,
-        groupMelbourneRate: 129
+        groupMelbourneRate: 129,
+        package3DayExplorerPrice: 3990,
+        package2DayEscapePrice: 2890,
+        package4DayAdventurePrice: 4990
       };
       localStorage.setItem('ar_luxury_pricing', JSON.stringify(pricing));
     } else {
@@ -134,6 +137,9 @@ const BookingEngine = {
         if (!pricing.groupMorningtonRate) pricing.groupMorningtonRate = 199;
         if (!pricing.groupPuffingRate) pricing.groupPuffingRate = 189;
         if (!pricing.groupMelbourneRate) pricing.groupMelbourneRate = 129;
+        if (!pricing.package3DayExplorerPrice) pricing.package3DayExplorerPrice = 3990;
+        if (!pricing.package2DayEscapePrice) pricing.package2DayEscapePrice = 2890;
+        if (!pricing.package4DayAdventurePrice) pricing.package4DayAdventurePrice = 4990;
       } catch(e) {
         pricing = {
           gorPrivatePrice: 1590,
@@ -147,7 +153,10 @@ const BookingEngine = {
           groupYarraRate: 149,
           groupMorningtonRate: 199,
           groupPuffingRate: 189,
-          groupMelbourneRate: 129
+          groupMelbourneRate: 129,
+          package3DayExplorerPrice: 3990,
+          package2DayEscapePrice: 2890,
+          package4DayAdventurePrice: 4990
         };
       }
     }
@@ -319,6 +328,45 @@ const BookingEngine = {
           emoji: '🏙️',
           image: '',
           itinerary: '10:00 Departure | 10:30 Laneways & Street Art | 12:30 Lunch | 14:00 Cultural Icons | 15:30 Return'
+        },
+        {
+          id: 'melbourne-luxury-3day-explorer',
+          name: '3-Day Ultimate Melbourne Luxury Package',
+          duration: '3 Days',
+          price: 3990,
+          type: 'package',
+          vehicle: 'Luxury Mercedes V-Class Chauffeur',
+          paxLimit: 5,
+          description: 'Includes Airport Pickup/Drop-off, Great Ocean Road Private Tour (Day 1), Yarra Valley Premium Wine Tour (Day 2), and Puffing Billy & Dandenong Ranges Tour (Day 3). Hotel booked by guest.',
+          emoji: '✨',
+          image: '',
+          itinerary: 'Day 1: Airport Pick Up + Great Ocean Road Reverse Tour | Day 2: Yarra Valley Wine & Gin Tastings with Estate Lunch | Day 3: Puffing Billy Steam Train Ride & Dandenong Ranges + Airport/Hotel Drop-off.'
+        },
+        {
+          id: 'coastal-wine-2day-escape',
+          name: '2-Day Iconic Coastal & Wine Escape',
+          duration: '2 Days',
+          price: 2890,
+          type: 'package',
+          vehicle: 'Luxury Mercedes V-Class Chauffeur',
+          paxLimit: 5,
+          description: 'Includes Airport Pickup, Great Ocean Road Private Tour (Day 1), Yarra Valley Wine Tour (Day 2), and Airport Drop-off. Hotel booked by guest.',
+          emoji: '🥂',
+          image: '',
+          itinerary: 'Day 1: Airport Pick Up + Great Ocean Road Private Tour | Day 2: Yarra Valley Wine & Gin Tour + Airport Drop-off.'
+        },
+        {
+          id: 'complete-victoria-4day-adventure',
+          name: '4-Day Grand Victoria & Melbourne Experience',
+          duration: '4 Days',
+          price: 4990,
+          type: 'package',
+          vehicle: 'Luxury Mercedes V-Class Chauffeur',
+          paxLimit: 5,
+          description: 'Includes Airport Pickup/Drop-off, Melbourne City Tour (Day 1), Great Ocean Road Private Tour (Day 2), Yarra Valley Tour (Day 3), and Puffing Billy + Phillip Island Penguins (Day 4). Hotel booked by guest.',
+          emoji: '👑',
+          image: '',
+          itinerary: 'Day 1: Airport Pick Up + Melbourne City Discovery Tour | Day 2: Great Ocean Road Reverse Tour | Day 3: Yarra Valley Wine & Gin Tour | Day 4: Puffing Billy Steam Train + Phillip Island Penguin Parade + Airport Drop-off.'
         }
       ];
       localStorage.setItem('ar_luxury_tours', JSON.stringify(defaultTours));
@@ -340,6 +388,9 @@ const BookingEngine = {
       else if (t.id === 'mornington-peninsula-group' && pricing.groupMorningtonRate) t.price = pricing.groupMorningtonRate;
       else if (t.id === 'puffing-billy-group' && pricing.groupPuffingRate) t.price = pricing.groupPuffingRate;
       else if (t.id === 'melbourne-discovery-group' && pricing.groupMelbourneRate) t.price = pricing.groupMelbourneRate;
+      else if (t.id === 'melbourne-luxury-3day-explorer' && pricing.package3DayExplorerPrice) t.price = pricing.package3DayExplorerPrice;
+      else if (t.id === 'coastal-wine-2day-escape' && pricing.package2DayEscapePrice) t.price = pricing.package2DayEscapePrice;
+      else if (t.id === 'complete-victoria-4day-adventure' && pricing.package4DayAdventurePrice) t.price = pricing.package4DayAdventurePrice;
     });
     return toursArr;
   },
