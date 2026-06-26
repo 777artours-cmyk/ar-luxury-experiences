@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Tours Direct Blog | Luxury Travel Guides & Melbournian Secrets</title>
+  <meta name="description" content="Explore luxury travel guides, expert tips, and local secrets about Melbourne, the Great Ocean Road, Yarra Valley, and Victoria from AR Tours Direct.">
+  <meta name="keywords" content="Melbourne travel blog, Victoria luxury tours, Great Ocean Road guide, Yarra Valley tips, private tour Melbourne">
+  <link rel="canonical" href="https://theartours.com/blog/">
+  <meta property="og:title" content="AR Tours Direct Blog | Luxury Travel & Melbourne Insights">
+  <meta property="og:description" content="Expert insights, top destination guides, and luxury travel tips for Melbourne and Victoria.">
+  <meta property="og:url" content="https://theartours.com/blog/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="index, follow">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "AR Tours Direct Blog",
+    "description": "Bespoke travel guides and local secrets of Melbourne and Victoria, written by luxury private chauffeurs.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AR Tours Direct",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://theartours.com/images/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #D4AF37; --gold-light: #F0D060; --gold-dark: #A8892A;
+      --emerald: #10b981; --emerald-dark: #059669;
+      --bg-deep: #080C14; --bg-dark: #0D1220;
+      --bg-card: rgba(255,255,255,0.04); --bg-glass: rgba(255,255,255,0.06);
+      --border-glass: rgba(255,255,255,0.10); --border-gold: rgba(212,175,55,0.30);
+      --text-primary: #F8F8F8; --text-muted: #9AA3B4; --text-dim: #5A6375;
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      --radius-sm: 8px; --radius-md: 16px; --radius-lg: 24px;
+      --shadow-gold: 0 0 40px rgba(212,175,55,0.15);
+      --shadow-card: 0 8px 40px rgba(0,0,0,0.5);
+      --trans: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; transition: var(--trans); }
+    img { max-width: 100%; display: block; }
+    
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(8,12,20,0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border-glass); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--text-primary); }
+    .nav-logo:hover { color: var(--gold); }
+    .nav-logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; box-shadow: 0 4px 16px rgba(212,175,55,0.4); }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-muted); padding: 8px 16px; border-radius: var(--radius-sm); }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; transition: var(--trans); border: 1px solid transparent; cursor: pointer; }
+    .btn--gold { background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold-dark)); color: #080C14; border-color: var(--gold); box-shadow: 0 4px 20px rgba(212,175,55,0.35); }
+    .btn--gold:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,175,55,0.55); }
+    .btn--ghost { background: transparent; color: var(--text-primary); border-color: rgba(255,255,255,0.25); }
+    .btn--ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.45); }
+    .btn--sm { padding: 10px 20px; font-size: 0.82rem; }
+    
+    .blog-hero { position: relative; padding: 160px 0 80px; background: linear-gradient(160deg, rgba(8,12,20,0.97) 0%, rgba(20,30,60,0.85) 50%, rgba(8,12,20,0.97) 100%); overflow: hidden; text-align: center; }
+    .blog-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(212,175,55,0.12), transparent 70%); }
+    .blog-hero-inner { position: relative; max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .blog-hero h1 { font-family: var(--font-head); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .blog-hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    
+    .blog-container { max-width: 1280px; margin: 0 auto; padding: 80px 24px; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 30px; }
+    .blog-card { background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transition: var(--trans); }
+    .blog-card::before { content: ''; position: absolute; inset: 0; border: 1px solid transparent; border-radius: inherit; pointer-events: none; transition: var(--trans); }
+    .blog-card:hover { border-color: var(--border-gold); transform: translateY(-6px); box-shadow: var(--shadow-card); }
+    .blog-card:hover::before { border-color: rgba(212,175,55,0.2); }
+    
+    .blog-card-cat { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 12px; display: inline-block; }
+    .blog-card-title { font-family: var(--font-head); font-size: 1.35rem; font-weight: 800; line-height: 1.25; margin-bottom: 12px; color: var(--text-primary); }
+    .blog-card-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+    .blog-card-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--text-dim); border-top: 1px solid var(--border-glass); padding-top: 16px; margin-top: auto; }
+    .blog-card-readmore { font-size: 0.88rem; font-weight: 700; color: var(--gold); display: inline-flex; align-items: center; gap: 4px; margin-top: 16px; }
+    
+    .site-footer { background: #04060b; border-top: 1px solid var(--border-glass); padding: 80px 0 40px; margin-top: 80px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; margin-bottom: 60px; }
+    .footer-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.25rem; color: white; margin-bottom: 16px; }
+    .footer-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .footer-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-primary); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 0.88rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--gold); padding-left: 4px; }
+    .footer-bottom { border-top: 1px solid var(--border-glass); padding-top: 30px; text-align: center; font-size: 0.82rem; color: var(--text-dim); }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/index.html" class="nav-logo">
+        <div class="nav-logo-icon">✦</div>
+        <div>AR Tours Direct<br><span style="font-size:0.65rem;font-weight:400;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Luxury Experiences</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="/index.html">Home</a>
+        <a href="/index.html#tours">Tours</a>
+        <a href="/blog/" class="active">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/booking.html" class="btn btn--gold btn--sm">Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="blog-hero">
+    <div class="blog-hero-inner">
+      <h1>The Luxury <span style="color:var(--gold)">Travel Journal</span></h1>
+      <p>Expert insights, private tour itineraries, and local guides to experiencing Melbourne and Victoria in ultimate comfort.</p>
+    </div>
+  </header>
+
+  <!-- Blog Listing -->
+  <main class="blog-container">
+    <div class="blog-grid">
+    
+      <!-- Card 1 -->
+      <article class="blog-card">
+        <div>
+          <span class="blog-card-cat">Great Ocean Road</span>
+          <h2 class="blog-card-title">Top 10 Must-See Stops on the Great Ocean Road</h2>
+          <p class="blog-card-desc">Discover the absolute best lookouts, coastal towns, rainforest walks, and dramatic limestone cliffs along Australia's most legendary coastal route...</p>
+        </div>
+        <div>
+          <div class="blog-card-meta">
+            <span>📅 June 25, 2026</span>
+            <span>⏱ 8 min read</span>
+          </div>
+          <a href="top-10-great-ocean-road-stops.html" class="blog-card-readmore">Read Article ›</a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="blog-card">
+        <div>
+          <span class="blog-card-cat">Yarra Valley</span>
+          <h2 class="blog-card-title">Ultimate Yarra Valley Wine Tour Guide 2026</h2>
+          <p class="blog-card-desc">The definitive guide to planning a premium wine tour. Discover Domaine Chandon, Yering Station, boutique cellar doors, and gourmet food pairings...</p>
+        </div>
+        <div>
+          <div class="blog-card-meta">
+            <span>📅 June 24, 2026</span>
+            <span>⏱ 7 min read</span>
+          </div>
+          <a href="yarra-valley-wine-guide.html" class="blog-card-readmore">Read Article ›</a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="blog-card">
+        <div>
+          <span class="blog-card-cat">Phillip Island</span>
+          <h2 class="blog-card-title">Phillip Island Penguin Parade: Ultimate Visitor Guide</h2>
+          <p class="blog-card-desc">Learn about ticket upgrades like Penguins Plus, what to wear for the coastal wind, and how to protect the Little Penguins during this magical twilight event...</p>
+        </div>
+        <div>
+          <div class="blog-card-meta">
+            <span>📅 June 23, 2026</span>
+            <span>⏱ 6 min read</span>
+          </div>
+          <a href="phillip-island-penguin-parade-tips.html" class="blog-card-readmore">Read Article ›</a>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="blog-card">
+        <div>
+          <span class="blog-card-cat">Melbourne CBD</span>
+          <h2 class="blog-card-title">15 Hidden Gems in Melbourne Most Tourists Miss</h2>
+          <p class="blog-card-desc">Go beyond the postcards and discover underground art arcades, secret rooftop garden bars, local coffee roasters, and hidden alleyways...</p>
+        </div>
+        <div>
+          <div class="blog-card-meta">
+            <span>📅 June 22, 2026</span>
+            <span>⏱ 5 min read</span>
+          </div>
+          <a href="melbourne-hidden-gems.html" class="blog-card-readmore">Read Article ›</a>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="blog-card">
+        <div>
+          <span class="blog-card-cat">Luxury Travel</span>
+          <h2 class="blog-card-title">Private Tour vs Group Tour: Why Luxury is Worth It</h2>
+          <p class="blog-card-desc">Compare the freedom, comfort, custom route planning, and dedicated service of private luxury chauffeur transport with typical tourist buses...</p>
+        </div>
+        <div>
+          <div class="blog-card-meta">
+            <span>📅 June 21, 2026</span>
+            <span>⏱ 5 min read</span>
+          </div>
+          <a href="private-tour-vs-group-tour.html" class="blog-card-readmore">Read Article ›</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">AR Tours Direct</div>
+          <p class="footer-text">Providing bespoke, luxury private tours across Melbourne and Victoria's most iconic landscapes.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="/tours/great-ocean-road.html">Great Ocean Road Tour</a></li>
+            <li><a href="/tours/yarra-valley.html">Yarra Valley Wine Tour</a></li>
+            <li><a href="/tours/phillip-island.html">Phillip Island Penguin Parade</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 AR Tours Direct. All rights reserved. Premium Chauffeur & Custom VIP Tour Experiences.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

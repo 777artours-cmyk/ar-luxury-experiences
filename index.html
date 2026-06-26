@@ -16,7 +16,7 @@
     "name": "AR Luxury Experiences",
     "description": "Premium private tours, small group tours, custom bus charters, and professional chauffeur services across Melbourne and Victoria. Group tours from $129/person, custom charters from $1,500.",
     "url": "https://theartours.com",
-    "logo": "https://theartours.com/assets/logo.png",
+    "logo": "https://theartours.com/images/logo.png",
     "telephone": "+61400044004",
     "address": {
       "@type": "PostalAddress",
@@ -31,7 +31,7 @@
  
   <meta property="og:title" content="AR Luxury Experiences | Private Tours & Chauffeur Services Melbourne" />
   <meta property="og:description" content="Premium private tours, small group tours, custom bus charters, and professional chauffeur services across Melbourne and Victoria. Group tours from $129/person." />
-  <meta property="og:image" content="https://theartours.com/assets/og-image.jpg" />
+  <meta property="og:image" content="https://theartours.com/images/og-image.jpg" />
   <meta property="og:url" content="https://theartours.com" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -916,6 +916,7 @@
     }
   </style>
   <!-- Google tag (gtag.js) - Google Ads Conversion Tracking -->
+  <!-- TODO: Replace AW-GOOGLE_ADS_ID with your real Google Ads conversion ID
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-GOOGLE_ADS_ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -923,6 +924,7 @@
     gtag('js', new Date());
     gtag('config', 'AW-GOOGLE_ADS_ID');
   </script>
+  -->
 </head>
 <body>
 
@@ -945,7 +947,8 @@
           <li><a href="#experiences">Tours</a></li>
           <li><a href="#chauffeur">Services</a></li>
           <li><a href="#fleet">Fleet</a></li>
-          <li><a href="#why-us">About</a></li>
+          <li><a href="blog/">Blog</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
 
@@ -971,7 +974,8 @@
     <a href="#experiences" class="mobile-link">Tours</a>
     <a href="#chauffeur" class="mobile-link">Services</a>
     <a href="#fleet" class="mobile-link">Fleet</a>
-    <a href="#why-us" class="mobile-link">About</a>
+    <a href="blog/" class="mobile-link">Blog</a>
+    <a href="faq.html" class="mobile-link">FAQ</a>
     <a href="#contact" class="mobile-link">Contact</a>
     <a href="booking.html" class="btn btn--gold">Book Now ✦</a>
   </div>
@@ -1116,11 +1120,29 @@
             <select class="form-select" id="widget-passengers" name="passengers" onchange="updatePricePreview()">
               <option value="1">1 passenger</option>
               <option value="2" selected>2 passengers</option>
-              <script>
-                for(let i=3; i<=57; i++){
-                  document.write('<option value="'+i+'">'+i+' passengers</option>');
-                }
-              </script>
+              <option value="3">3 passengers</option>
+              <option value="4">4 passengers</option>
+              <option value="5">5 passengers</option>
+              <option value="6">6 passengers</option>
+              <option value="7">7 passengers</option>
+              <option value="8">8 passengers</option>
+              <option value="9">9 passengers</option>
+              <option value="10">10 passengers</option>
+              <option value="11">11 passengers</option>
+              <option value="12">12 passengers</option>
+              <option value="13">13 passengers</option>
+              <option value="14">14 passengers</option>
+              <option value="15">15 passengers</option>
+              <option value="16">16 passengers</option>
+              <option value="17">17 passengers</option>
+              <option value="18">18 passengers</option>
+              <option value="19">19 passengers</option>
+              <option value="20">20 passengers</option>
+              <option value="21">21 passengers</option>
+              <option value="22">22 passengers</option>
+              <option value="23">23 passengers</option>
+              <option value="24">24 passengers</option>
+              <option value="25">25+ passengers</option>
             </select>
           </div>
 
@@ -1784,8 +1806,8 @@
               Browse hundreds of stunning photos from our tours — Great Ocean Road sunsets, Penguin Parade magic,
               Yarra Valley vineyards and more. All captured by our guests and team.
             </p>
-            <a href="https://photos.app.goo.gl/YOUR_ALBUM_LINK_HERE" target="_blank" rel="noopener" class="btn btn--gold" id="guest-gallery-btn" style="padding:14px 32px;font-size:0.95rem;">
-              📷 View Guest Photos on Google Photos
+            <a href="https://g.page/r/CQ3SWHWA-AzlEBM" target="_blank" rel="noopener" class="btn btn--gold" id="guest-gallery-btn" style="padding:14px 32px;font-size:0.95rem;">
+              ⭐ See Our Google Reviews
             </a>
           </div>
         </div>
@@ -1795,14 +1817,14 @@
       <div class="fade-up" style="text-align:center;">
         <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px;">Follow us for more moments</p>
         <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-          <a href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
-            📷 Instagram
-          </a>
-          <a href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
-            ▶️ YouTube
-          </a>
-          <a href="https://g.co/kgs/YOUR_GOOGLE_BUSINESS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
+          <a href="https://g.page/r/CQ3SWHWA-AzlEBM/review" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
             ⭐ Google Reviews
+          </a>
+          <a href="https://www.tripadvisor.com/UserReviewEdit-g255100-d34337943-Great_Ocean_Tours_Melbourne-Melbourne_Victoria.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
+            🏆 TripAdvisor
+          </a>
+          <a href="https://wa.me/61400044004" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border-glass);padding:10px 20px;border-radius:50px;color:var(--text-primary);text-decoration:none;font-size:0.85rem;font-weight:600;transition:var(--trans);" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-glass)'">
+            💬 WhatsApp
           </a>
         </div>
       </div>
@@ -2350,8 +2372,8 @@
             <li><a href="#custom-tours">Custom Group Charters</a></li>
             <li><a href="#chauffeur">Chauffeur Services</a></li>
             <li><a href="#fleet">Our Fleet</a></li>
-            <li><a href="#guest-moments">Guest Gallery</a></li>
-            <li><a href="#why-us">About Us</a></li>
+            <li><a href="blog/">Blog</a></li>
+            <li><a href="faq.html">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="booking.html" style="color:var(--gold); font-weight:600;">Book Now ✦</a></li>
           </ul>

@@ -1,0 +1,33 @@
+name: Generate Daily SEO Blog Post
+
+on:
+  schedule:
+    # Runs at 14:00 UTC daily (which is midnight / 00:00 AEST Melbourne time)
+    - cron: '0 14 * * *'
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Run Blog Generator Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate-blog.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add blog/ sitemap.xml
+          git commit -m "auto: add daily SEO blog post for $(date +'%Y-%m-%d')" || exit 0
+          git push

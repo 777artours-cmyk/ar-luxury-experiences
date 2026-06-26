@@ -14,3 +14,13 @@ package.json
 package-lock.json
 update_tours.js
 fix_phone.js
+
+# Temporary / screenshot generation files
+*_screenshot.html
+*_screenshot.png
+take_screenshot.js
+apps_script_ai_flow.js
+node_modules/
+package-lock.json
+package.json
+
