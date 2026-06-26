@@ -372,10 +372,19 @@ const BookingEngine = {
       localStorage.setItem('ar_luxury_tours', JSON.stringify(defaultTours));
       tours = JSON.stringify(defaultTours);
     }
-    const toursArr = JSON.parse(tours);
+    let toursArr;
+    try {
+      toursArr = JSON.parse(tours);
+    } catch (e) {
+      toursArr = [];
+    }
+    if (!toursArr || !Array.isArray(toursArr)) {
+      toursArr = [];
+    }
     // Dynamically override prices based on the customized pricing settings in localStorage
-    const pricing = this.getPricing();
+    const pricing = this.getPricing() || {};
     toursArr.forEach(t => {
+      if (!t) return;
       if (t.id === 'great-ocean-road-private' && pricing.gorPrivatePrice) t.price = pricing.gorPrivatePrice;
       else if (t.id === 'phillip-island-private' && pricing.phillipPrivatePrice) t.price = pricing.phillipPrivatePrice;
       else if (t.id === 'yarra-valley-private' && pricing.yarraPrivatePrice) t.price = pricing.yarraPrivatePrice;
@@ -448,7 +457,7 @@ const BookingEngine = {
   // CHAUFFEUR SERVICES (Loaded dynamically from server with fallback)
   getChauffeurServices() {
     let services = localStorage.getItem('ar_luxury_chauffeur');
-    if (!services) {
+    if (!services || services === 'null' || services === 'undefined') {
       const defaultChauffeurs = [
         { id: 'airport-transfer', name: 'Premium Airport Transfer', price: 180, type: 'chauffeur', emoji: '✈️', vehicle: 'Toyota Vellfire / Sedan', description: 'One-way premium chauffeur collection to or from Melbourne Airport.' },
         { id: 'hourly-hire', name: 'Hourly Chauffeur Hire (Min 3 hrs)', price: 195, type: 'chauffeur', emoji: '⏱️', vehicle: 'Toyota Vellfire / Sedan', description: 'Hourly executive driver service (minimum 3 hour charter).' },
@@ -460,9 +469,18 @@ const BookingEngine = {
         { id: 'snow-trip', name: 'Snow Trip Shuttle (Mt Buller)', price: 1490, type: 'chauffeur', emoji: '🏔️', vehicle: 'Toyota HiAce / Coaster', description: 'Seasonal winter snow day trips with experienced mountain drivers.' }
       ];
       localStorage.setItem('ar_luxury_chauffeur', JSON.stringify(defaultChauffeurs));
-      return defaultChauffeurs;
+      services = JSON.stringify(defaultChauffeurs);
     }
-    return JSON.parse(services);
+    let servicesArr;
+    try {
+      servicesArr = JSON.parse(services);
+    } catch (e) {
+      servicesArr = [];
+    }
+    if (!servicesArr || !Array.isArray(servicesArr)) {
+      servicesArr = [];
+    }
+    return servicesArr;
   },
 
   async addChauffeur(service) {
