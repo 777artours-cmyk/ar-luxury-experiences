@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Experience — AR Luxury Experiences</title>
-    <meta name="description" content="Book your private luxury tour with AR Luxury Experiences. 7-step secure booking for Day Tours and Chauffeur Services in Melbourne CBD.">
+    <meta name="description" content="Book your private luxury tour with AR Tours - Luxury Experiences. 7-step secure booking for Day Tours and Chauffeur Services in Melbourne CBD.">
     <link rel="canonical" href="https://theartours.com/booking.html" />
-    <meta property="og:title" content="Book Your Experience | AR Luxury Experiences" />
-    <meta property="og:description" content="Securely book your private luxury tours, group tours, or chauffeur services online with AR Luxury Experiences." />
+    <meta property="og:title" content="Book Your Experience | AR Tours - Luxury Experiences" />
+    <meta property="og:description" content="Securely book your private luxury tours, group tours, or chauffeur services online with AR Tours - Luxury Experiences." />
     <meta property="og:image" content="https://theartours.com/images/og-image.jpg" />
     <meta property="og:url" content="https://theartours.com/booking.html" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -1697,7 +1697,7 @@
                 <div class="terms-wrap">
                     <input type="checkbox" class="terms-checkbox" id="termsCheck">
                     <div class="terms-text">
-                        I agree to AR Luxury Experiences' <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>. I confirm all details are accurate and I am authorised to make this booking on behalf of all passengers.
+                        I agree to AR Tours' <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>. I confirm all details are accurate and I am authorised to make this booking on behalf of all passengers.
                     </div>
                 </div>
             </div>
@@ -2866,7 +2866,7 @@
                 .total { font-size: 1.2rem; font-weight: bold; color: #065f46; }
                 .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; }
             </style></head><body>
-            <div class="logo">AR Luxury Experiences</div>
+            <div class="logo">AR Tours</div>
             <h1>✅ Thank You for Booking With Us</h1>
             <p style="color:#6b7280; font-size:0.95rem; margin-bottom:1.2rem; line-height:1.5;">This is not a real-time booking. One of our representatives will reach out to you for final confirmation. Alternatively, you can contact us on <a href="https://wa.me/61400044004" style="color:#25D366;font-weight:700;">WhatsApp</a> for immediate assistance.</p>
             <div class="ref">${STATE.bookingRef}</div>
@@ -2883,7 +2883,7 @@
             </table>
             <div class="footer">
                 <p>Our team will contact you within 2 hours to confirm. Questions? Call <strong>0400 044 004</strong></p>
-                <p>AR Luxury Experiences · Melbourne CBD, VIC · 777artours@gmail.com</p>
+                <p>AR Tours - Luxury Experiences · Melbourne, VIC · 777artours@gmail.com</p>
             </div>
             </body></html>`;
 
@@ -2907,7 +2907,7 @@
         const fmt = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
 
         const ics = [
-            'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//AR Luxury Experiences//EN',
+            'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//AR Tours//EN',
             'BEGIN:VEVENT',
             `UID:${STATE.bookingRef}@arluxury.com.au`,
             `DTSTART:${fmt(start)}`,
@@ -2927,7 +2927,7 @@
 
     function shareConfirmation() {
         const exp = STATE.selectedExperience;
-        const subject = `AR Luxury Experiences — Booking ${STATE.bookingRef}`;
+        const subject = `AR Tours — Booking ${STATE.bookingRef}`;
         const body = `Hi!
 
 I've booked us on the ${exp ? exp.name : 'AR Luxury Tour'}!
@@ -2938,7 +2938,7 @@ Time: ${STATE.selectedTime || '—'}
 Passengers: ${STATE.adults} adult(s), ${STATE.children} child(ren)
 Pickup: ${STATE.hotelName || STATE.suburb || 'Melbourne CBD'}
 
-AR Luxury Experiences will contact us within 2 hours to confirm.
+AR Tours will contact us within 2 hours to confirm.
 Phone: 0400 044 004`;
 
         window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
