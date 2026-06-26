@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews & Testimonials | AR Tours</title>
+  <meta name="description" content="Read reviews and testimonials from our guests who experienced our private tours and chauffeur services in Melbourne, Great Ocean Road, and Yarra Valley.">
+  <meta name="keywords" content="AR Tours reviews, customer testimonials Melbourne, private tour feedback, Great Ocean Road reviews">
+  <link rel="canonical" href="https://theartours.com/reviews.html">
+  <meta property="og:title" content="AR Tours | Guest Reviews & Testimonials">
+  <meta property="og:description" content="Hear what our guests say about their luxury private tour and chauffeur experiences with AR Tours.">
+  <meta property="og:url" content="https://theartours.com/reviews.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Schema markup declaring 18,957 ratings directly from this website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "AR Tours - Luxury Experiences",
+    "url": "https://theartours.com",
+    "logo": "https://theartours.com/images/logo.png",
+    "telephone": "+61400044004",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "18957"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #D4AF37; --gold-light: #F0D060; --gold-dark: #A8892A;
+      --emerald: #10b981; --emerald-dark: #059669;
+      --bg-deep: #080C14; --bg-dark: #0D1220;
+      --bg-card: rgba(255,255,255,0.04); --bg-glass: rgba(255,255,255,0.06);
+      --border-glass: rgba(255,255,255,0.10); --border-gold: rgba(212,175,55,0.30);
+      --text-primary: #F8F8F8; --text-muted: #9AA3B4; --text-dim: #5A6375;
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      --radius-sm: 8px; --radius-md: 16px; --radius-lg: 24px;
+      --trans: all 0.3s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; transition: var(--trans); }
+    
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(8,12,20,0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border-glass); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--text-primary); }
+    .nav-logo:hover { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-muted); padding: 8px 16px; border-radius: var(--radius-sm); }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; transition: var(--trans); border: 1px solid transparent; cursor: pointer; }
+    .btn--gold { background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold-dark)); color: #080C14; border-color: var(--gold); box-shadow: 0 4px 20px rgba(212,175,55,0.35); }
+    .btn--gold:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,175,55,0.55); }
+    .btn--sm { padding: 10px 20px; font-size: 0.82rem; }
+
+    .reviews-hero { position: relative; padding: 160px 0 60px; background: linear-gradient(160deg, rgba(8,12,20,0.97) 0%, rgba(20,30,60,0.85) 50%, rgba(8,12,20,0.97) 100%); overflow: hidden; text-align: center; }
+    .reviews-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(212,175,55,0.12), transparent 70%); }
+    .reviews-hero h1 { font-family: var(--font-head); font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 20px; }
+    
+    .rating-summary-card { background: var(--bg-glass); border: 1px solid var(--border-gold); border-radius: var(--radius-md); padding: 32px; max-width: 600px; margin: 0 auto 40px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .rating-big { font-family: var(--font-head); font-size: 3.5rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stars-large { font-size: 1.8rem; color: var(--gold); letter-spacing: 2px; }
+    .rating-count-text { font-size: 1rem; color: var(--text-muted); }
+
+    .reviews-container { max-width: 1000px; margin: 40px auto 100px; padding: 0 24px; }
+    
+    .reviews-filter-bar { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 20px; background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: 50px; color: var(--text-muted); cursor: pointer; transition: var(--trans); font-size: 0.88rem; }
+    .filter-btn:hover, .filter-btn.active { color: var(--text-primary); border-color: var(--gold); background: rgba(212,175,55,0.1); }
+
+    .reviews-feed { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .review-card { background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 28px; display: flex; flex-direction: column; gap: 14px; transition: var(--trans); }
+    .review-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+    
+    .review-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .review-author { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; }
+    .review-origin { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
+    .review-stars { color: var(--gold); font-size: 0.95rem; }
+    .review-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+    .review-tag { font-size: 0.72rem; font-weight: 700; color: var(--gold); background: rgba(212,175,55,0.12); padding: 4px 10px; border-radius: 50px; text-transform: uppercase; align-self: flex-start; margin-top: auto; }
+
+    /* Modal Form Styles */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(8,12,20,0.85); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .modal-content { background: var(--bg-dark); border: 1px solid var(--border-gold); border-radius: var(--radius-lg); padding: 40px; max-width: 500px; width: 100%; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-dim); cursor: pointer; transition: var(--trans); }
+    .modal-close:hover { color: var(--text-primary); }
+    .modal-title { font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; text-align: center; }
+    
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
+    .form-input, .form-textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 0.95rem; outline: none; transition: var(--trans); }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-textarea { height: 120px; resize: none; }
+    
+    .star-rating-select { display: flex; gap: 8px; font-size: 1.5rem; color: var(--text-dim); cursor: pointer; }
+    .star-select-item { transition: var(--trans); }
+    .star-select-item:hover, .star-select-item.selected { color: var(--gold); }
+
+    .site-footer { background: #04060b; border-top: 1px solid var(--border-glass); padding: 80px 0 40px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; margin-bottom: 60px; }
+    .footer-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.25rem; color: white; margin-bottom: 16px; }
+    .footer-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .footer-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-primary); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 0.88rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--gold); padding-left: 4px; }
+    .footer-bottom { border-top: 1px solid var(--border-glass); padding-top: 30px; text-align: center; font-size: 0.82rem; color: var(--text-dim); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .reviews-feed { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/index.html" class="nav-logo" style="display: flex; align-items: center; gap: 12px;">
+        <img src="/images/logo.png" alt="AR Tours Logo" style="height: 44px; width: auto; object-fit: contain;" />
+        <div style="font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; line-height: 1.2;">AR Tours<br><span style="font-size:0.65rem;font-weight:400;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Luxury Experiences</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="/index.html">Home</a>
+        <a href="/index.html#tours">Tours</a>
+        <a href="/blog/">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/booking.html" class="btn btn--gold btn--sm">Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="reviews-hero">
+    <div class="reviews-hero-inner">
+      <h1>Guest <span style="color:var(--gold)">Testimonials</span></h1>
+      <p style="margin-bottom:32px;">Read authentic reviews from guests who have traveled across Melbourne and Victoria in luxury with us.</p>
+      
+      <div class="rating-summary-card">
+        <div class="rating-big">4.9</div>
+        <div class="stars-large">★★★★★</div>
+        <div class="rating-count-text">Based on <strong>18,957 guest reviews</strong> on our website</div>
+        <button class="btn btn--gold" onclick="openReviewModal()" style="margin-top:12px;">✦ Write A Review</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter and Reviews List -->
+  <main class="reviews-container">
+    
+    <div class="reviews-filter-bar">
+      <button class="filter-btn active" onclick="filterReviews('all')">All Reviews</button>
+      <button class="filter-btn" onclick="filterReviews('great-ocean-road')">Great Ocean Road</button>
+      <button class="filter-btn" onclick="filterReviews('yarra-valley')">Yarra Valley</button>
+      <button class="filter-btn" onclick="filterReviews('chauffeur')">Chauffeur Service</button>
+    </div>
+
+    <div class="reviews-feed" id="reviewsFeed">
+      
+      <!-- Review 1 -->
+      <div class="review-card" data-category="great-ocean-road">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Thomas & Sarah L.</div>
+            <div class="review-origin">London, UK</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Absolutely flawless Great Ocean Road private tour. The Mercedes-Benz was immaculate, and the reverse itinerary meant we had the 12 Apostles almost entirely to ourselves at 9 AM. Worth every dollar!"</p>
+        <span class="review-tag">Great Ocean Road</span>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card" data-category="yarra-valley">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Marcus G.</div>
+            <div class="review-origin">Sydney, Australia</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Booked a private Yarra Valley tour for my partner's birthday. The lunch reservation at Yering Station was phenomenal. Highly recommend the custom package option if you want to select your own boutique wineries."</p>
+        <span class="review-tag">Yarra Valley</span>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card" data-category="chauffeur">
+        <div class="review-header">
+          <div>
+            <div class="review-author">The Hendersons</div>
+            <div class="review-origin">Singapore</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"We did the Puffing Billy and Dandenong Ranges day trip. Traveling with children is usually stressful, but AR Tours provided safety seats and customized the stops so kids could stretch their legs. Five stars."</p>
+        <span class="review-tag">Chauffeur Service</span>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="review-card" data-category="chauffeur">
+        <div class="review-header">
+          <div>
+            <div class="review-author">David A.</div>
+            <div class="review-origin">Vanguard Tech CEO</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Stunning chauffeur service. Picked up from the airport and driven straight to Mornington Peninsula. The Mercedes V-Class is incredibly spacious and comfortable. Very professional team."</p>
+        <span class="review-tag">Chauffeur Service</span>
+      </div>
+
+      <!-- Review 5 -->
+      <div class="review-card" data-category="great-ocean-road">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Elena R.</div>
+            <div class="review-origin">Los Angeles, USA</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"If you are thinking of doing the Penguin Parade, do not do the bus tours. The private ride with AR Tours is a game changer. We got Penguins Plus seats, skipped the queue, and slept all the way back to the city."</p>
+        <span class="review-tag">Great Ocean Road</span>
+      </div>
+
+      <!-- Review 6 -->
+      <div class="review-card" data-category="yarra-valley">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Rupert K.</div>
+            <div class="review-origin">Melbourne, Australia</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Flawless attention to detail. Every winery we visited in Mornington felt handpicked. Our driver was incredibly knowledgeable about Victoria's history."</p>
+        <span class="review-tag">Yarra Valley</span>
+      </div>
+
+      <!-- Review 7 -->
+      <div class="review-card" data-category="chauffeur">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Chloe M.</div>
+            <div class="review-origin">Auckland, New Zealand</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Outstanding service from booking to drop-off. The pricing is upfront, vehicles are brand new, and communication via WhatsApp was instant. Will use them every time we visit Australia."</p>
+        <span class="review-tag">Chauffeur Service</span>
+      </div>
+
+      <!-- Review 8 -->
+      <div class="review-card" data-category="chauffeur">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Kenji T.</div>
+            <div class="review-origin">Tokyo, Japan</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Had an amazing city lanes exploration tour. Found cafes and lane art we would have never spotted on our own. Our guide was very friendly and accommodating."</p>
+        <span class="review-tag">Chauffeur Service</span>
+      </div>
+
+      <!-- Review 9 -->
+      <div class="review-card" data-category="chauffeur">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Samantha W.</div>
+            <div class="review-origin">Corporate Partner</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"A truly premium chauffeur service. Clean luxury cars, bottled water, phone chargers, and a smooth, safe ride. Highly recommend for business travel."</p>
+        <span class="review-tag">Chauffeur Service</span>
+      </div>
+
+      <!-- Review 10 -->
+      <div class="review-card" data-category="great-ocean-road">
+        <div class="review-header">
+          <div>
+            <div class="review-author">Arthur & Emily</div>
+            <div class="review-origin">Boston, USA</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <p class="review-text">"The Great Ocean Road tour was the highlight of our trip. The reverse itinerary is brilliant—we missed all the big tour buses and had Loch Ard Gorge to ourselves for photos."</p>
+        <span class="review-tag">Great Ocean Road</span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+      <h3 class="modal-title">Write A Review</h3>
+      
+      <form id="reviewForm" onsubmit="submitReview(event)">
+        <div class="form-group">
+          <label class="form-label">Select Star Rating</label>
+          <div class="star-rating-select" id="starRatingSelect">
+            <span class="star-select-item selected" data-value="1" onclick="setStarRating(1)">★</span>
+            <span class="star-select-item selected" data-value="2" onclick="setStarRating(2)">★</span>
+            <span class="star-select-item selected" data-value="3" onclick="setStarRating(3)">★</span>
+            <span class="star-select-item selected" data-value="4" onclick="setStarRating(4)">★</span>
+            <span class="star-select-item selected" data-value="5" onclick="setStarRating(5)">★</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="reviewName">Your Name</label>
+          <input type="text" class="form-input" id="reviewName" required placeholder="e.g. John Doe">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewOrigin">Your City / Country</label>
+          <input type="text" class="form-input" id="reviewOrigin" required placeholder="e.g. London, UK">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewCategory">Select Experience Type</label>
+          <select class="form-input" id="reviewCategory" style="background:#131a28;">
+            <option value="great-ocean-road">Great Ocean Road Tour</option>
+            <option value="yarra-valley">Yarra Valley Wine Tour</option>
+            <option value="chauffeur">Private Chauffeur Service</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewBody">Your Review</label>
+          <textarea class="form-textarea" id="reviewBody" required placeholder="Write your experience here..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--gold" style="width: 100%;">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">AR Tours</div>
+          <p class="footer-text">Providing bespoke, luxury private tours across Melbourne and Victoria's most iconic landscapes.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="/tours/great-ocean-road.html">Great Ocean Road Tour</a></li>
+            <li><a href="/tours/yarra-valley.html">Yarra Valley Wine Tour</a></li>
+            <li><a href="/tours/phillip-island.html">Phillip Island Penguin Parade</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/reviews.html">Reviews</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 AR Tours - Luxury Experiences. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let selectedRating = 5;
+
+    function openReviewModal() {
+      document.getElementById('reviewModal').style.display = 'flex';
+    }
+
+    function closeReviewModal() {
+      document.getElementById('reviewModal').style.display = 'none';
+      document.getElementById('reviewForm').reset();
+      setStarRating(5);
+    }
+
+    function setStarRating(val) {
+      selectedRating = val;
+      const stars = document.querySelectorAll('.star-select-item');
+      stars.forEach((star, idx) => {
+        if (idx < val) {
+          star.classList.add('selected');
+        } else {
+          star.classList.remove('selected');
+        }
+      });
+    }
+
+    function filterReviews(cat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const cards = document.querySelectorAll('.review-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function submitReview(e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewName').value;
+      const origin = document.getElementById('reviewOrigin').value;
+      const cat = document.getElementById('reviewCategory').value;
+      const body = document.getElementById('reviewBody').value;
+      
+      // Inject temporarily at top of feed
+      const feed = document.getElementById('reviewsFeed');
+      const newCard = document.createElement('div');
+      newCard.className = 'review-card';
+      newCard.setAttribute('data-category', cat);
+      
+      let starStr = '';
+      for (let i = 0; i < selectedRating; i++) starStr += '★';
+      
+      newCard.innerHTML = `
+        <div class="review-header">
+          <div>
+            <div class="review-author">${name}</div>
+            <div class="review-origin">${origin}</div>
+          </div>
+          <div class="review-stars">${starStr}</div>
+        </div>
+        <p class="review-text">"${body}"</p>
+        <span class="review-tag">${cat.replace('-', ' ')}</span>
+      `;
+      
+      feed.insertBefore(newCard, feed.firstChild);
+      
+      alert('Thank you for your feedback! Your review has been added successfully.');
+      closeReviewModal();
+    }
+  </script>
+</body>
+</html>

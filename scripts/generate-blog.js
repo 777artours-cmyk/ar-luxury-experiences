@@ -345,6 +345,7 @@ async function generate() {
             <li><a href="/index.html">Home</a></li>
             <li><a href="/blog/">Blog</a></li>
             <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/reviews.html">Reviews</a></li>
           </ul>
         </div>
       </div>
