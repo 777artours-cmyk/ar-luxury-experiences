@@ -259,9 +259,9 @@ async function generate() {
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/index.html" class="nav-logo">
-        <div class="nav-logo-icon">✦</div>
-        <div>AR Tours<br><span style="font-size:0.65rem;font-weight:400;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Luxury Experiences</span></div>
+      <a href="/index.html" class="nav-logo" style="display: flex; align-items: center; gap: 12px;">
+        <img src="/images/logo.png" alt="AR Tours Logo" style="height: 44px; width: auto; object-fit: contain;" />
+        <div style="font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; line-height: 1.2;">AR Tours<br><span style="font-size:0.65rem;font-weight:400;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Luxury Experiences</span></div>
       </a>
       <div class="nav-links">
         <a href="/index.html">Home</a>
