@@ -45,7 +45,7 @@ const mockSheetBookings = [
 
 // --- AI Persona Prompt Base ---
 const AI_CONTEXT = {
-    voice: "Warm, professional, friendly Australian hospitality voice. Always greets clients politely and finishes answers by reminding them to contact AR Tours Direct or visit theartours.com.",
+    voice: "Warm, professional, friendly Australian hospitality voice. Always greets clients politely and finishes answers by reminding them to contact AR Tours or visit theartours.com.",
     quotes: {
         gor: "Great Ocean Road Reverse Tour is quoted from $149 per seat to $4500 for a premium private custom coach package (Takes 14 hours!). Includes sunset at 12 Apostles.",
         yarra: "Yarra Valley Wine Tour starts at $2500 for private group bookings of up to 12 guests (Takes 7 hours!). Includes gourmet lunch, tastings, and luxury transport.",
@@ -268,7 +268,7 @@ function saveChecklistProgress() {
     showToast("Inspection checklists successfully saved to disk! 💾");
 }
 
-// --- AR Tours Direct Business AI Agent Logic ---
+// --- AR Tours Business AI Agent Logic ---
 function simulateAIResponse(promptText) {
     const text = promptText.toLowerCase();
     
@@ -280,15 +280,15 @@ function simulateAIResponse(promptText) {
     // Pricing queries
     if (text.includes("price") || text.includes("cost") || text.includes("quote") || text.includes("how much")) {
         if (text.includes("ocean") || text.includes("road") || text.includes("gor")) {
-            return `Our iconic Great Ocean Road Reverse Tour (14 hours of pure adventure!) is quoted starting from $149 per seat up to $4,500 for a fully bespoke private coach tour. Let's customize it exactly to your pace! To secure a spot, jump onto www.theartours.com or call AR Tours Direct on 0400 044 004.`;
+            return `Our iconic Great Ocean Road Reverse Tour (14 hours of pure adventure!) is quoted starting from $149 per seat up to $4,500 for a fully bespoke private coach tour. Let's customize it exactly to your pace! To secure a spot, jump onto www.theartours.com or call AR Tours on 0400 044 004.`;
         }
         if (text.includes("wine") || text.includes("yarra")) {
             return `For our premium Yarra Valley Wine Tour, private groups up to 12 guests enjoy a full 7-hour bespoke tour for $2,500. This includes gourmet lunch, gin/wine flights, and door-to-door transit. Hit us up at www.theartours.com or call 0400 044 004 to plan!`;
         }
         if (text.includes("penguin") || text.includes("phillip island")) {
-            return `The Phillip Island Penguin Parade Tour is quoted based on booking size and ticket type (General vs premium viewing). It's a gorgeous 9-hour coastal journey! Call AR Tours Direct on 0400 044 004 or visit www.theartours.com for a direct booking estimate.`;
+            return `The Phillip Island Penguin Parade Tour is quoted based on booking size and ticket type (General vs premium viewing). It's a gorgeous 9-hour coastal journey! Call AR Tours on 0400 044 004 or visit www.theartours.com for a direct booking estimate.`;
         }
-        return `We carry private charters to Victoria's top sights! \n- Great Ocean Road Reverse (14hrs): $149-$4,500\n- Yarra Valley Wine Tour (7hrs): $2,500 (group up to 12)\n- Phillip Island Penguin Parade: Custom quotes. \nCall AR Tours Direct on 0400 044 004 or visit www.theartours.com to lock it in!`;
+        return `We carry private charters to Victoria's top sights! \n- Great Ocean Road Reverse (14hrs): $149-$4,500\n- Yarra Valley Wine Tour (7hrs): $2,500 (group up to 12)\n- Phillip Island Penguin Parade: Custom quotes. \nCall AR Tours on 0400 044 004 or visit www.theartours.com to lock it in!`;
     }
     
     // CPV Regulations
@@ -302,7 +302,7 @@ function simulateAIResponse(promptText) {
     }
 
     // Booking fallback
-    return "No worries at all! For any custom routes or specific dates, it's best to call us directly on 0400 044 004 or visit our online booking portal at www.theartours.com. We'll get you sorted in no time! Cheers, AR Tours Direct.";
+    return "No worries at all! For any custom routes or specific dates, it's best to call us directly on 0400 044 004 or visit our online booking portal at www.theartours.com. We'll get you sorted in no time! Cheers, AR Tours.";
 }
 
 // --- Quick AI Panel Chat ---
@@ -375,14 +375,14 @@ function generateReviewReply() {
     showToast("AI Agent is drafting warm response... ✍️");
     
     setTimeout(() => {
-        const draft = `G'day from AR Tours Direct!
+        const draft = `G'day from AR Tours!
 
 Thank you so much for taking the time to share your feedback! It was an absolute pleasure hosting you and showing you the best of Victoria. We take immense pride in our warm hospitality, and we're thrilled to hear you had such an incredible time on our tour.
 
 If you ever head back down under, we'd love to welcome you back for another unforgettable private tour. See Australia your way!
 
 Warm regards,
-AR Tours Direct
+AR Tours
 AR Tours Australia (www.theartours.com)
 Direct Call: 0400 044 004`;
 

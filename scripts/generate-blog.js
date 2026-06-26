@@ -49,7 +49,7 @@ const topic = topics[dayOfYear % topics.length];
 console.log(`Generating daily blog post for topic: "${topic}"...`);
 
 const prompt = `
-You are a luxury travel content writer for AR Tours Direct (https://theartours.com), a premier private chauffeur and tour company in Melbourne, Victoria, Australia.
+You are a luxury travel content writer for AR Tours (https://theartours.com), a premier private chauffeur and tour company in Melbourne, Victoria, Australia.
 Write a highly engaging, professional, and SEO-optimized blog article about the topic: "${topic}".
 
 Requirements:
@@ -58,7 +58,7 @@ Requirements:
 3. Content: Must be factual about Melbourne/Victoria, recommending landmarks, wineries, cafes, or travel tips.
 4. Internal Links: Naturally include at least one link to our luxury booking page "/booking.html" or appropriate tour page (e.g. "/tours/great-ocean-road.html" or "/tours/yarra-valley.html" or "/tours/mornington-peninsula.html" or "/tours/phillip-island.html" or "/tours/puffing-billy.html" or "/tours/melbourne-discovery.html").
 5. Structure: The article must have headings (h2), detailed paragraphs, bullet points (ul/li), and optionally a tip box or blockquote.
-6. Branding: Use "AR Tours Direct" for the company and highlight the comfort, convenience, and luxury of booking a private chauffeur tour.
+6. Branding: Use "AR Tours" for the company and highlight the comfort, convenience, and luxury of booking a private chauffeur tour.
 `;
 
 const requestBody = {
@@ -111,7 +111,7 @@ async function generate() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${blogData.title} | AR Tours Direct Blog</title>
+  <title>${blogData.title} | AR Tours Blog</title>
   <meta name="description" content="${blogData.metaDescription}">
   <meta name="keywords" content="${blogData.keywords}">
   <link rel="canonical" href="https://theartours.com/blog/${slug}">
@@ -128,8 +128,8 @@ async function generate() {
     "@type": "Article",
     "headline": "${blogData.title}",
     "description": "${blogData.metaDescription}",
-    "author": { "@type": "Organization", "name": "AR Tours Direct", "url": "https://theartours.com" },
-    "publisher": { "@type": "Organization", "name": "AR Tours Direct", "logo": { "@type": "ImageObject", "url": "https://theartours.com/images/logo.png" } },
+    "author": { "@type": "Organization", "name": "AR Tours", "url": "https://theartours.com" },
+    "publisher": { "@type": "Organization", "name": "AR Tours", "logo": { "@type": "ImageObject", "url": "https://theartours.com/images/logo.png" } },
     "datePublished": "${dateIso}",
     "dateModified": "${dateIso}",
     "mainEntityOfPage": "https://theartours.com/blog/${slug}",
@@ -261,7 +261,7 @@ async function generate() {
     <div class="nav-inner">
       <a href="/index.html" class="nav-logo">
         <div class="nav-logo-icon">✦</div>
-        <div>AR Tours Direct<br><span style="font-size:0.65rem;font-weight:400;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Luxury Experiences</span></div>
+        <div>AR Tours<br><span style="font-size:0.65rem;font-weight:400;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Luxury Experiences</span></div>
       </a>
       <div class="nav-links">
         <a href="/index.html">Home</a>
@@ -328,7 +328,7 @@ async function generate() {
     <div class="footer-inner">
       <div class="footer-grid">
         <div>
-          <div class="footer-logo">AR Tours Direct</div>
+          <div class="footer-logo">AR Tours</div>
           <p class="footer-text">Providing bespoke, luxury private tours across Melbourne and Victoria's most iconic landscapes.</p>
         </div>
         <div>
@@ -349,7 +349,7 @@ async function generate() {
         </div>
       </div>
       <div class="footer-bottom">
-        &copy; 2026 AR Tours Direct. All rights reserved. Premium Chauffeur & Custom VIP Tour Experiences.
+        &copy; 2026 AR Tours. All rights reserved. Premium Chauffeur & Custom VIP Tour Experiences.
       </div>
     </div>
   </footer>
