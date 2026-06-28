@@ -19,6 +19,11 @@ jobs:
         with:
           node-version: 18
 
+      - name: Run API Connection Test
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/test-gemini.js
+
       - name: Run Blog Generator Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
