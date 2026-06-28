@@ -68,15 +68,15 @@ const requestBody = {
   generationConfig: {
     responseMimeType: "application/json",
     responseSchema: {
-      type: "OBJECT",
+      type: "object",
       properties: {
-        title: { type: "STRING", description: "The SEO-friendly title of the post" },
-        metaDescription: { type: "STRING", description: "A compelling meta description under 150 characters" },
-        keywords: { type: "STRING", description: "Comma-separated SEO keywords" },
-        category: { type: "STRING", description: "The travel category (e.g. Mornington Peninsula, Yarra Valley, Travel Tips)" },
-        readingTime: { type: "STRING", description: "Estimated reading time (e.g., '6 min read')" },
-        excerpt: { type: "STRING", description: "A short 1-2 sentence excerpt summarizing the post" },
-        bodyHtml: { type: "STRING", description: "The main body content in HTML format, using h2, p, ul, li, blockquote etc." }
+        title: { type: "string", description: "The SEO-friendly title of the post" },
+        metaDescription: { type: "string", description: "A compelling meta description under 150 characters" },
+        keywords: { type: "string", description: "Comma-separated SEO keywords" },
+        category: { type: "string", description: "The travel category (e.g. Mornington Peninsula, Yarra Valley, Travel Tips)" },
+        readingTime: { type: "string", description: "Estimated reading time (e.g., '6 min read')" },
+        excerpt: { type: "string", description: "A short 1-2 sentence excerpt summarizing the post" },
+        bodyHtml: { type: "string", description: "The main body content in HTML format, using h2, p, ul, li, blockquote etc." }
       },
       required: ["title", "metaDescription", "keywords", "category", "readingTime", "excerpt", "bodyHtml"]
     }
