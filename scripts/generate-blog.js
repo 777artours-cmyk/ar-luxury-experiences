@@ -92,6 +92,8 @@ async function generate() {
   });
 
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error(`❌ API Error Details: ${errorText}`);
     throw new Error(`API returned error status: ${response.status} ${response.statusText}`);
   }
 
