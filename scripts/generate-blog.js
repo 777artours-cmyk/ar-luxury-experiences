@@ -84,17 +84,45 @@ const requestBody = {
 };
 
 async function generate() {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(requestBody)
-  });
+  const models = [
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-flash-002",
+    "gemini-1.5-pro",
+    "gemini-pro"
+  ];
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error(`❌ API Error Details: ${errorText}`);
-    throw new Error(`API returned error status: ${response.status} ${response.statusText}`);
+  let response;
+  let success = false;
+  let lastErrorText = "";
+
+  for (const model of models) {
+    console.log(`Attempting generation with model: "${model}"...`);
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    
+    try {
+      response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (response.ok) {
+        success = true;
+        console.log(`✅ Success with model: "${model}"!`);
+        break;
+      } else {
+        lastErrorText = await response.text();
+        console.warn(`⚠️ Model "${model}" failed (Status ${response.status}): ${lastErrorText}`);
+      }
+    } catch (e) {
+      console.warn(`⚠️ Error attempting model "${model}":`, e.message);
+    }
+  }
+
+  if (!success) {
+    console.error(`❌ All models failed. Last error details: ${lastErrorText}`);
+    throw new Error(`API returned error status`);
   }
 
   const data = await response.json();
