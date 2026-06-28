@@ -9,42 +9,99 @@ if (!apiKey) {
 
 const rootDir = path.resolve(__dirname, '..');
 
+// ─── TOPIC POOL ──────────────────────────────────────────────────────────────
+// Every 3rd topic is Great Ocean Road focused for dedicated SEO coverage
 const topics = [
+  // General Melbourne/Victoria
   "Top 5 Wineries in Mornington Peninsula",
+  // Great Ocean Road
+  "The Complete Great Ocean Road Driving Guide: Distances, Times & Must-See Stops",
+  // General
   "A Guide to Puffing Billy Railway for Families",
+  // Great Ocean Road
+  "12 Apostles Facts Every Visitor Should Know Before They Go",
+  // General
   "How to Plan the Ultimate Weekend Escape in Yarra Valley",
+  // Great Ocean Road
+  "Loch Ard Gorge: The Shipwreck Story and How to Explore It",
+  // General
   "Chauffeur Service vs Taxi in Melbourne: A Luxury Comparison",
-  "Best Photo Spots Along the Great Ocean Road",
+  // Great Ocean Road
+  "London Arch Great Ocean Road: History, Facts and Best Viewing Tips",
+  // General
   "Melbourne's Best Hidden Rooftop Bars",
+  // Great Ocean Road
+  "Otway Rainforest Walk: Hidden Gem Along the Great Ocean Road",
+  // General
   "Exploring the Historic Architecture of Melbourne CBD",
+  // Great Ocean Road
+  "Cape Otway Lighthouse: Australia's Oldest Surviving Mainland Lighthouse",
+  // General
   "A Chauffeur's Guide to Melbourne's Best Restaurants",
-  "Visiting the Twelve Apostles: Best Time of Day and Tips",
+  // Great Ocean Road
+  "Best Photo Spots Along the Great Ocean Road: A Photographer's Guide",
+  // General
   "Luxury Wedding Venues in the Yarra Valley",
-  "The History of the Great Ocean Road",
+  // Great Ocean Road
+  "Sunrise vs Sunset at the 12 Apostles: Which Is More Spectacular?",
+  // General
   "Guide to Wine Tasting Etiquette in Australia",
+  // Great Ocean Road
+  "Wildlife You Can Spot Along the Great Ocean Road: Koalas, Kangaroos & More",
+  // General
   "Best Coastal Walks Near Melbourne",
+  // Great Ocean Road
+  "The History of the Great Ocean Road: Built by Returned Soldiers",
+  // General
   "A Day Trip to Mornington Peninsula Hot Springs",
+  // Great Ocean Road
+  "Gibson Steps Beach: Hidden Gem Near the 12 Apostles",
+  // General
   "Wildlife Spotting on Phillip Island: Beyond Penguins",
+  // Great Ocean Road
+  "Apollo Bay to Port Campbell: Best Stops on the Great Ocean Road",
+  // General
   "Top Luxury Hotels in Melbourne for an Unforgettable Stay",
+  // Great Ocean Road
+  "Driving the Great Ocean Road in One Day vs Two Days: What to Expect",
+  // General
   "The Ultimate Melbourne Art Gallery Tour",
+  // Great Ocean Road
+  "Princetown and the Gellibrand River: The Quietest Stop on the Great Ocean Road",
+  // General
   "Exploring Sherbrooke Forest and Dandenong Ranges",
+  // Great Ocean Road
+  "Great Ocean Road in Winter: Why the Off-Season Is Actually Perfect",
+  // General
   "A Local Chauffeur's Favorite Melbourne Coffee Shops",
+  // Great Ocean Road
+  "Private Great Ocean Road Tour vs Self-Drive: The Honest Comparison",
+  // General
   "Bespoke Corporate Event Transport in Melbourne",
+  // Great Ocean Road
+  "Great Ocean Road Food Guide: Best Cafes and Restaurants From Torquay to Warrnambool",
+  // General
   "Best Family Day Trips from Melbourne",
+  // Great Ocean Road
+  "Surf Coast Walk: The Stunning Coastal Trail Near Lorne",
+  // General
   "Romantic Weekend Getaways in Victoria",
+  // Great Ocean Road
+  "Port Campbell National Park: Everything You Need to Know",
+  // General
   "Ultimate Guide to Yarra Valley Gin Distilleries",
-  "St Kilda vs Brighton: Exploring Melbourne's Iconic Beaches",
-  "What to Pack for a Victorian Coastal Road Trip",
-  "A History of Puffing Billy Steam Engine",
-  "Guide to the Best Cellar Doors in Yarra Valley",
-  "Experiencing Melbourne's Laneway Street Art",
-  "Best Scenic Lookouts in the Dandenong Ranges",
-  "Discovering the Healing Waters of Peninsula Hot Springs"
+  // Great Ocean Road
+  "Erskine Falls Lorne: A Complete Visitor Guide",
+  // General
+  "Discovering the Healing Waters of Peninsula Hot Springs",
+  // Great Ocean Road
+  "Twelve Apostles Helicopter Tour: Is It Worth It?",
 ];
 
-// Pick a random topic based on day of year to ensure daily rotation
+// Pick a topic based on today's date to ensure daily rotation without repeats
 const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
 const topic = topics[dayOfYear % topics.length];
+
 
 console.log(`Generating daily blog post for topic: "${topic}"...`);
 
@@ -84,12 +141,14 @@ const requestBody = {
 };
 
 async function generate() {
+  // Try newest models first — Gemini 2.0 is available on all free API keys
   const models = [
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-2.5-flash",
     "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
     "gemini-1.5-flash-002",
     "gemini-1.5-pro",
-    "gemini-pro"
   ];
 
   let response;
