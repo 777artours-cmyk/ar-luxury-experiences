@@ -9,12 +9,9 @@
 //       GROQ_API_KEY       → free key from https://console.groq.com (primary AI)
 //       GEMINI_API_KEY     → Google AI Studio key (backup AI, optional)
 //       GITHUB_TOKEN       → GitHub Personal Access Token (repo write access)
-//       GMB_LOCATION_NAME  → your GMB location name (run findMyGMBLocation() to get it)
-//  5. IMPORTANT: Add GMB OAuth scope:
-//     → Project Settings → Show "appsscript.json" manifest file
-//     → Add to oauthScopes: "https://www.googleapis.com/auth/business.manage"
-//  6. Click Run → generateAndPublishBlog() once to test
-//  7. Set up a daily trigger: Triggers → Add Trigger → generateAndPublishBlog
+//       MAKE_WEBHOOK_URL   → Webhook URL from Make.com or Zapier (for GMB auto-posting)
+//  5. Click Run → generateAndPublishBlog() once to test
+//  6. Set up a daily trigger: Triggers → Add Trigger → generateAndPublishBlog
 //       → Time-driven → Day timer → 11pm to midnight
 // =============================================================================
 
@@ -141,106 +138,53 @@ function generateAndPublishBlog() {
 }
 
 // =============================================================================
-//  GOOGLE MY BUSINESS AUTO-POST
+//  GOOGLE MY BUSINESS WEBHOOK TRIGGER
 // =============================================================================
 /**
- * Posts today's blog summary as a Google My Business update.
- * Uses the logged-in Google account's OAuth token automatically.
- * REQUIRES: appsscript.json oauthScopes includes
- *   "https://www.googleapis.com/auth/business.manage"
+ * Sends a webhook payload containing the blog post details to Make.com/Zapier.
+ * This triggers a workflow to auto-post the blog update to Google Business Profile.
  */
 function postToGoogleMyBusiness(blogData, blogUrl) {
-  var scriptProps   = PropertiesService.getScriptProperties();
-  var locationName  = scriptProps.getProperty("GMB_LOCATION_NAME");
+  var scriptProps = PropertiesService.getScriptProperties();
+  var webhookUrl  = scriptProps.getProperty("MAKE_WEBHOOK_URL");
 
-  if (!locationName) {
-    throw new Error("Missing Script Property: GMB_LOCATION_NAME. Run findMyGMBLocation() to get it.");
+  if (!webhookUrl) {
+    Logger.log("Skipping GMB auto-post: MAKE_WEBHOOK_URL script property is not set.");
+    return;
   }
 
-  // Strip HTML tags from bodyHtml to get plain text excerpt
+  // Strip HTML tags from bodyHtml to get plain text
   var plainText = blogData.bodyHtml
-    ? blogData.bodyHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().substring(0, 400)
+    ? blogData.bodyHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
     : blogData.excerpt || "";
 
-  var postText = blogData.title + "\n\n" + plainText + "...\n\nRead the full article → " + blogUrl
-    + "\n\n📞 Book direct: 0400 044 004 | theartours.com";
+  // Shorten plain text for the post excerpt
+  if (plainText.length > 500) {
+    plainText = plainText.substring(0, 497) + "...";
+  }
 
-  // Trim to GMB max 1500 chars
-  if (postText.length > 1500) postText = postText.substring(0, 1497) + "...";
-
-  var token    = ScriptApp.getOAuthToken();
-  var apiUrl   = "https://mybusiness.googleapis.com/v4/" + locationName + "/localPosts";
-  var payload  = {
-    topicType: "STANDARD",
-    summary: postText,
-    callToAction: {
-      actionType: "BOOK",
-      url: "https://theartours.com/booking.html?utm_source=gmb&utm_medium=post&utm_campaign=daily-blog"
-    }
+  var payload = {
+    title: blogData.title,
+    excerpt: blogData.excerpt || "",
+    summary: plainText,
+    url: blogUrl,
+    phone: "0400 044 004",
+    website: "https://theartours.com"
   };
-  var options  = {
+
+  var options = {
     method: "post",
     contentType: "application/json",
-    headers: { "Authorization": "Bearer " + token },
     payload: JSON.stringify(payload),
     muteHttpExceptions: true
   };
 
-  var resp = UrlFetchApp.fetch(apiUrl, options);
+  var resp = UrlFetchApp.fetch(webhookUrl, options);
   var code = resp.getResponseCode();
-  if (code !== 200) {
-    throw new Error("GMB API returned " + code + ": " + resp.getContentText());
-  }
-  Logger.log("GMB post created: " + JSON.parse(resp.getContentText()).name);
-}
-
-/**
- * Run this ONE TIME to find your GMB Location Name.
- * It logs all locations associated with your Google account.
- * Copy the location name (format: accounts/XXXXX/locations/XXXXX)
- * and save it as the GMB_LOCATION_NAME Script Property.
- */
-function findMyGMBLocation() {
-  var token = ScriptApp.getOAuthToken();
-
-  // Step 1: Get accounts using the NEW Account Management API
-  var accResp = UrlFetchApp.fetch(
-    "https://mybusinessaccountmanagement.googleapis.com/v1/accounts",
-    { headers: { "Authorization": "Bearer " + token }, muteHttpExceptions: true }
-  );
-  Logger.log("=== ACCOUNTS RESPONSE ===");
-  Logger.log(accResp.getContentText());
-
-  try {
-    var accounts = JSON.parse(accResp.getContentText()).accounts || [];
-    if (accounts.length === 0) {
-      Logger.log("No accounts found. Make sure you are logged into the correct Google account.");
-      return;
-    }
-
-    accounts.forEach(function(acc) {
-      Logger.log("Account: " + acc.name + " (" + acc.accountName + ")");
-
-      // Step 2: Get locations using the NEW Business Information API
-      var locResp = UrlFetchApp.fetch(
-        "https://mybusinessbusinessinformation.googleapis.com/v1/" + acc.name + "/locations?readMask=name,title,storefrontAddress",
-        { headers: { "Authorization": "Bearer " + token }, muteHttpExceptions: true }
-      );
-      Logger.log("=== LOCATIONS for " + acc.name + " ===");
-      Logger.log(locResp.getContentText());
-
-      try {
-        var locations = JSON.parse(locResp.getContentText()).locations || [];
-        locations.forEach(function(loc) {
-          Logger.log("✅ LOCATION NAME TO COPY: " + loc.name + " | Title: " + loc.title);
-          Logger.log("👉 Save this as GMB_LOCATION_NAME in Script Properties: " + loc.name);
-        });
-      } catch(e) {
-        Logger.log("Could not parse locations: " + e.message);
-      }
-    });
-  } catch(e) {
-    Logger.log("Error parsing accounts: " + e.message);
+  if (code >= 200 && code < 300) {
+    Logger.log("Successfully sent webhook payload to Make.com! Status: " + code);
+  } else {
+    throw new Error("Webhook endpoint returned status " + code + ": " + resp.getContentText());
   }
 }
 
@@ -347,6 +291,14 @@ function generateWithGemini(apiKey, topic) {
 function buildBlogHtml(d, slug, dateStr, dateIso) {
   return '<!DOCTYPE html>\n'
     + '<html lang="en">\n<head>\n'
+    + '  <!-- Google tag (gtag.js) -->\n'
+    + '  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EV2D1P64V9"></script>\n'
+    + '  <script>\n'
+    + '    window.dataLayer = window.dataLayer || [];\n'
+    + '    function gtag(){dataLayer.push(arguments);}\n'
+    + '    gtag(\'js\', new Date());\n'
+    + '    gtag(\'config\', \'G-EV2D1P64V9\');\n'
+    + '  </script>\n'
     + '  <meta charset="UTF-8">\n'
     + '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
     + '  <title>' + d.title + ' | AR Tours Blog</title>\n'
