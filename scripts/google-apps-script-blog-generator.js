@@ -113,11 +113,12 @@ function generateWithGemini(apiKey, topic) {
   var prompt = "You are a luxury travel content writer for AR Tours (https://theartours.com), "
     + "a premier private chauffeur and tour company in Melbourne, Victoria, Australia. "
     + "Write a highly engaging, professional, and SEO-optimized blog article about: \"" + topic + "\". "
-    + "Requirements: 800+ words. Sophisticated tone. Factual about Melbourne/Victoria. "
-    + "Include at least one internal link to /booking.html or a tour page like /tours/great-ocean-road.html. "
-    + "Use h2 headings, paragraphs, bullet points. End with a book-now CTA. "
-    + "Return ONLY valid JSON (no markdown code fences) with fields: "
-    + "title, metaDescription, keywords, category, readingTime, excerpt, bodyHtml.";
+    + "IMPORTANT: Keep the total response under 3000 words. "
+    + "Requirements: 700-900 words in bodyHtml. Sophisticated tone. Factual about Melbourne/Victoria. "
+    + "Include at least one internal link to /booking.html or /tours/great-ocean-road.html. "
+    + "Use h2 headings, paragraphs, bullet points. End with a short book-now CTA paragraph. "
+    + "Return ONLY valid JSON with NO markdown code fences, NO backticks, starting with { and ending with }. "
+    + "Fields required: title, metaDescription (max 150 chars), keywords, category, readingTime, excerpt (1-2 sentences), bodyHtml.";
 
   var lastError = "";
   for (var i = 0; i < GEMINI_MODELS.length; i++) {
@@ -125,14 +126,30 @@ function generateWithGemini(apiKey, topic) {
     Logger.log("Trying model: " + model);
     try {
       var url     = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
-      var payload = { contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.8, maxOutputTokens: 4096 } };
+      var payload = { contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.7, maxOutputTokens: 8192 } };
       var options = { method: "post", contentType: "application/json", payload: JSON.stringify(payload), muteHttpExceptions: true };
       var resp    = UrlFetchApp.fetch(url, options);
       var code    = resp.getResponseCode();
+
+      // Rate limit — wait 35 seconds and retry this same model once
+      if (code === 429) {
+        Logger.log("Rate limited on " + model + " — waiting 35 seconds and retrying...");
+        Utilities.sleep(35000);
+        resp = UrlFetchApp.fetch(url, options);
+        code = resp.getResponseCode();
+      }
+
       if (code === 200) {
         var data    = JSON.parse(resp.getContentText());
         var rawText = data.candidates[0].content.parts[0].text;
-        rawText = rawText.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+        // Strip any markdown fences
+        rawText = rawText.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
+        // Extract only the JSON object portion
+        var jsonStart = rawText.indexOf("{");
+        var jsonEnd   = rawText.lastIndexOf("}");
+        if (jsonStart !== -1 && jsonEnd !== -1) {
+          rawText = rawText.substring(jsonStart, jsonEnd + 1);
+        }
         var blogData = JSON.parse(rawText);
         Logger.log("Success with model: " + model);
         return blogData;

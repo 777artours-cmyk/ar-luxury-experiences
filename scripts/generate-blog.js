@@ -109,13 +109,16 @@ const prompt = `
 You are a luxury travel content writer for AR Tours (https://theartours.com), a premier private chauffeur and tour company in Melbourne, Victoria, Australia.
 Write a highly engaging, professional, and SEO-optimized blog article about the topic: "${topic}".
 
-Requirements:
-1. Word count: 800+ words.
-2. Tone: Sophisticated, premium, welcoming, and local-expert.
-3. Content: Must be factual about Melbourne/Victoria, recommending landmarks, wineries, cafes, or travel tips.
-4. Internal Links: Naturally include at least one link to our luxury booking page "/booking.html" or appropriate tour page (e.g. "/tours/great-ocean-road.html" or "/tours/yarra-valley.html" or "/tours/mornington-peninsula.html" or "/tours/phillip-island.html" or "/tours/puffing-billy.html" or "/tours/melbourne-discovery.html").
-5. Structure: The article must have headings (h2), detailed paragraphs, bullet points (ul/li), and optionally a tip box or blockquote.
-6. Branding: Use "AR Tours" for the company and highlight the comfort, convenience, and luxury of booking a private chauffeur tour.
+IMPORTANT: Keep total response under 3000 words. Return ONLY valid JSON with NO markdown fences, NO backticks, starting with { and ending with }.
+
+Required JSON fields:
+- title: SEO-friendly title
+- metaDescription: compelling description under 150 characters
+- keywords: comma-separated SEO keywords
+- category: travel category (e.g. Great Ocean Road, Yarra Valley, Travel Tips)
+- readingTime: estimated reading time (e.g. "6 min read")
+- excerpt: 1-2 sentence summary
+- bodyHtml: 700-900 word article in HTML using h2, p, ul, li tags. Include one link to /booking.html or /tours/great-ocean-road.html. Mention AR Tours naturally.
 `;
 
 const requestBody = {
@@ -123,33 +126,23 @@ const requestBody = {
     parts: [{ text: prompt }]
   }],
   generationConfig: {
-    responseMimeType: "application/json",
-    responseSchema: {
-      type: "object",
-      properties: {
-        title: { type: "string", description: "The SEO-friendly title of the post" },
-        metaDescription: { type: "string", description: "A compelling meta description under 150 characters" },
-        keywords: { type: "string", description: "Comma-separated SEO keywords" },
-        category: { type: "string", description: "The travel category (e.g. Mornington Peninsula, Yarra Valley, Travel Tips)" },
-        readingTime: { type: "string", description: "Estimated reading time (e.g., '6 min read')" },
-        excerpt: { type: "string", description: "A short 1-2 sentence excerpt summarizing the post" },
-        bodyHtml: { type: "string", description: "The main body content in HTML format, using h2, p, ul, li, blockquote etc." }
-      },
-      required: ["title", "metaDescription", "keywords", "category", "readingTime", "excerpt", "bodyHtml"]
-    }
+    temperature: 0.7,
+    maxOutputTokens: 8192
   }
 };
 
 async function generate() {
   // Try newest models first — Gemini 2.0 is available on all free API keys
   const models = [
+    "gemini-2.5-flash",
     "gemini-2.0-flash",
     "gemini-2.0-flash-lite",
-    "gemini-2.5-flash",
     "gemini-1.5-flash",
     "gemini-1.5-flash-002",
     "gemini-1.5-pro",
   ];
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   let response;
   let success = false;
@@ -158,13 +151,22 @@ async function generate() {
   for (const model of models) {
     console.log(`Attempting generation with model: "${model}"...`);
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-    
+
     try {
-      response = await fetch(url, {
+      const makeRequest = () => fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
       });
+
+      response = await makeRequest();
+
+      // 429 rate limit — wait 35 seconds and retry once
+      if (response.status === 429) {
+        console.warn(`⚠️ Rate limited on "${model}" — waiting 35s and retrying...`);
+        await sleep(35000);
+        response = await makeRequest();
+      }
 
       if (response.ok) {
         success = true;
@@ -172,7 +174,7 @@ async function generate() {
         break;
       } else {
         lastErrorText = await response.text();
-        console.warn(`⚠️ Model "${model}" failed (Status ${response.status}): ${lastErrorText}`);
+        console.warn(`⚠️ Model "${model}" failed (Status ${response.status})`);
       }
     } catch (e) {
       console.warn(`⚠️ Error attempting model "${model}":`, e.message);
@@ -180,12 +182,18 @@ async function generate() {
   }
 
   if (!success) {
-    console.error(`❌ All models failed. Last error details: ${lastErrorText}`);
+    console.error(`❌ All models failed. Last error: ${lastErrorText}`);
     throw new Error(`API returned error status`);
   }
 
   const data = await response.json();
-  const rawText = data.candidates[0].content.parts[0].text;
+  let rawText = data.candidates[0].content.parts[0].text;
+  // Strip markdown fences if present
+  rawText = rawText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '').trim();
+  // Extract only the JSON object portion
+  const jsonStart = rawText.indexOf('{');
+  const jsonEnd   = rawText.lastIndexOf('}');
+  if (jsonStart !== -1 && jsonEnd !== -1) rawText = rawText.substring(jsonStart, jsonEnd + 1);
   const blogData = JSON.parse(rawText);
 
   // Slugify title
