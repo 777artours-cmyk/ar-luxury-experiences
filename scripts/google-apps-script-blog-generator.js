@@ -5,9 +5,10 @@
 //  1. Go to https://script.google.com → New Project
 //  2. Paste this entire script into the editor
 //  3. Click the gear icon (Project Settings) → Script Properties
-//  4. Add these two properties:
-//       GEMINI_API_KEY   → your Google AI Studio API key
-//       GITHUB_TOKEN     → your GitHub Personal Access Token (repo write access)
+//  4. Add these properties:
+//       GROQ_API_KEY     → free key from https://console.groq.com (primary AI)
+//       GEMINI_API_KEY   → Google AI Studio key (backup AI, optional)
+//       GITHUB_TOKEN     → GitHub Personal Access Token (repo write access)
 //  5. Click Run → generateAndPublishBlog() once to test
 //  6. Set up a daily trigger: Triggers → Add Trigger → generateAndPublishBlog
 //       → Time-driven → Day timer → 11pm to midnight
@@ -63,12 +64,18 @@ const TOPICS = [
   "Twelve Apostles Helicopter Tour: Is It Worth It?",
 ];
 
+// Groq free models — very fast, generous free limits (14,400 req/day)
+const GROQ_MODELS = [
+  "llama-3.3-70b-versatile",
+  "llama3-70b-8192",
+  "gemma2-9b-it",
+];
+
+// Gemini models as fallback
 const GEMINI_MODELS = [
   "gemini-2.0-flash",
-  "gemini-2.0-flash-lite",
   "gemini-2.5-flash",
-  "gemini-1.5-flash",
-  "gemini-1.5-flash-002",
+  "gemini-2.0-flash-lite",
 ];
 
 // =============================================================================
@@ -76,18 +83,32 @@ const GEMINI_MODELS = [
 // =============================================================================
 function generateAndPublishBlog() {
   var scriptProps = PropertiesService.getScriptProperties();
+  var groqKey     = scriptProps.getProperty("GROQ_API_KEY");
   var geminiKey   = scriptProps.getProperty("GEMINI_API_KEY");
   var githubToken = scriptProps.getProperty("GITHUB_TOKEN");
 
-  if (!geminiKey)   throw new Error("Missing Script Property: GEMINI_API_KEY");
   if (!githubToken) throw new Error("Missing Script Property: GITHUB_TOKEN");
+  if (!groqKey && !geminiKey) throw new Error("Missing at least one AI key: GROQ_API_KEY or GEMINI_API_KEY");
 
   var dayOfYear = getDayOfYear();
   var topic     = TOPICS[dayOfYear % TOPICS.length];
   Logger.log("Today's topic: " + topic);
 
-  var blogData  = generateWithGemini(geminiKey, topic);
-  Logger.log("Content generated: " + blogData.title);
+  // Try Groq first (free, fast, generous limits), then fall back to Gemini
+  var blogData = null;
+  if (groqKey) {
+    try {
+      blogData = generateWithGroq(groqKey, topic);
+      Logger.log("Content generated via Groq: " + blogData.title);
+    } catch (e) {
+      Logger.log("Groq failed: " + e.message + " — trying Gemini...");
+    }
+  }
+  if (!blogData && geminiKey) {
+    blogData = generateWithGemini(geminiKey, topic);
+    Logger.log("Content generated via Gemini: " + blogData.title);
+  }
+  if (!blogData) throw new Error("All AI providers failed.");
 
   var slug    = slugify(topic) + ".html";
   var dateStr = Utilities.formatDate(new Date(), "Australia/Melbourne", "MMMM d, yyyy");
@@ -107,59 +128,96 @@ function generateAndPublishBlog() {
 }
 
 // =============================================================================
-//  GEMINI CONTENT GENERATION
+//  GROQ CONTENT GENERATION (Primary — free, fast)
 // =============================================================================
-function generateWithGemini(apiKey, topic) {
+function generateWithGroq(apiKey, topic) {
   var prompt = "You are a luxury travel content writer for AR Tours (https://theartours.com), "
     + "a premier private chauffeur and tour company in Melbourne, Victoria, Australia. "
     + "Write a highly engaging, professional, and SEO-optimized blog article about: \"" + topic + "\". "
-    + "IMPORTANT: Keep the total response under 3000 words. "
     + "Requirements: 700-900 words in bodyHtml. Sophisticated tone. Factual about Melbourne/Victoria. "
-    + "Include at least one internal link to /booking.html or /tours/great-ocean-road.html. "
-    + "Use h2 headings, paragraphs, bullet points. End with a short book-now CTA paragraph. "
-    + "Return ONLY valid JSON with NO markdown code fences, NO backticks, starting with { and ending with }. "
-    + "Fields required: title, metaDescription (max 150 chars), keywords, category, readingTime, excerpt (1-2 sentences), bodyHtml.";
+    + "Include one internal link to /booking.html or /tours/great-ocean-road.html. "
+    + "Use h2 headings, paragraphs, bullet points. End with a short call to action. "
+    + "Return ONLY valid JSON starting with { and ending with }, with NO markdown fences, NO backticks. "
+    + "Fields: title, metaDescription (max 150 chars), keywords, category, readingTime, excerpt (1-2 sentences), bodyHtml.";
+
+  var lastError = "";
+  for (var i = 0; i < GROQ_MODELS.length; i++) {
+    var model = GROQ_MODELS[i];
+    Logger.log("Trying Groq model: " + model);
+    try {
+      var url     = "https://api.groq.com/openai/v1/chat/completions";
+      var payload = {
+        model: model,
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+        max_tokens: 4096,
+        response_format: { type: "json_object" }
+      };
+      var options = {
+        method: "post",
+        contentType: "application/json",
+        headers: { "Authorization": "Bearer " + apiKey },
+        payload: JSON.stringify(payload),
+        muteHttpExceptions: true
+      };
+      var resp = UrlFetchApp.fetch(url, options);
+      var code = resp.getResponseCode();
+      if (code === 200) {
+        var data    = JSON.parse(resp.getContentText());
+        var rawText = data.choices[0].message.content;
+        var jsonStart = rawText.indexOf("{");
+        var jsonEnd   = rawText.lastIndexOf("}");
+        if (jsonStart !== -1 && jsonEnd !== -1) rawText = rawText.substring(jsonStart, jsonEnd + 1);
+        var blogData = JSON.parse(rawText);
+        Logger.log("Groq success with model: " + model);
+        return blogData;
+      } else {
+        lastError = resp.getContentText();
+        Logger.log("Groq model " + model + " returned " + code + ": " + lastError);
+      }
+    } catch (e) {
+      lastError = e.message;
+      Logger.log("Groq model " + model + " threw: " + e.message);
+    }
+  }
+  throw new Error("All Groq models failed. Last error: " + lastError);
+}
+
+// =============================================================================
+//  GEMINI CONTENT GENERATION (Backup)
+// =============================================================================
+function generateWithGemini(apiKey, topic) {
+  var prompt = "You are a luxury travel content writer for AR Tours (https://theartours.com). "
+    + "Write a blog article about: \"" + topic + "\". "
+    + "Return ONLY valid JSON starting with { and ending with }, NO markdown. "
+    + "Fields: title, metaDescription, keywords, category, readingTime, excerpt, bodyHtml (700 words, h2/p/ul tags).";
 
   var lastError = "";
   for (var i = 0; i < GEMINI_MODELS.length; i++) {
     var model = GEMINI_MODELS[i];
-    Logger.log("Trying model: " + model);
+    Logger.log("Trying Gemini model: " + model);
     try {
       var url     = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
       var payload = { contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.7, maxOutputTokens: 8192 } };
       var options = { method: "post", contentType: "application/json", payload: JSON.stringify(payload), muteHttpExceptions: true };
       var resp    = UrlFetchApp.fetch(url, options);
       var code    = resp.getResponseCode();
-
-      // Rate limit — wait 35 seconds and retry this same model once
-      if (code === 429) {
-        Logger.log("Rate limited on " + model + " — waiting 35 seconds and retrying...");
-        Utilities.sleep(35000);
-        resp = UrlFetchApp.fetch(url, options);
-        code = resp.getResponseCode();
-      }
-
+      if (code === 429) { Utilities.sleep(35000); resp = UrlFetchApp.fetch(url, options); code = resp.getResponseCode(); }
       if (code === 200) {
         var data    = JSON.parse(resp.getContentText());
         var rawText = data.candidates[0].content.parts[0].text;
-        // Strip any markdown fences
         rawText = rawText.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
-        // Extract only the JSON object portion
         var jsonStart = rawText.indexOf("{");
         var jsonEnd   = rawText.lastIndexOf("}");
-        if (jsonStart !== -1 && jsonEnd !== -1) {
-          rawText = rawText.substring(jsonStart, jsonEnd + 1);
-        }
-        var blogData = JSON.parse(rawText);
-        Logger.log("Success with model: " + model);
-        return blogData;
+        if (jsonStart !== -1 && jsonEnd !== -1) rawText = rawText.substring(jsonStart, jsonEnd + 1);
+        return JSON.parse(rawText);
       } else {
         lastError = resp.getContentText();
-        Logger.log("Model " + model + " returned " + code);
+        Logger.log("Gemini model " + model + " returned " + code);
       }
     } catch (e) {
       lastError = e.message;
-      Logger.log("Model " + model + " threw: " + e.message);
+      Logger.log("Gemini model " + model + " threw: " + e.message);
     }
   }
   throw new Error("All Gemini models failed. Last error: " + lastError);
