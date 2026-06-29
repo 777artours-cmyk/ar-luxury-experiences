@@ -6,11 +6,15 @@
 //  2. Paste this entire script into the editor
 //  3. Click the gear icon (Project Settings) → Script Properties
 //  4. Add these properties:
-//       GROQ_API_KEY     → free key from https://console.groq.com (primary AI)
-//       GEMINI_API_KEY   → Google AI Studio key (backup AI, optional)
-//       GITHUB_TOKEN     → GitHub Personal Access Token (repo write access)
-//  5. Click Run → generateAndPublishBlog() once to test
-//  6. Set up a daily trigger: Triggers → Add Trigger → generateAndPublishBlog
+//       GROQ_API_KEY       → free key from https://console.groq.com (primary AI)
+//       GEMINI_API_KEY     → Google AI Studio key (backup AI, optional)
+//       GITHUB_TOKEN       → GitHub Personal Access Token (repo write access)
+//       GMB_LOCATION_NAME  → your GMB location name (run findMyGMBLocation() to get it)
+//  5. IMPORTANT: Add GMB OAuth scope:
+//     → Project Settings → Show "appsscript.json" manifest file
+//     → Add to oauthScopes: "https://www.googleapis.com/auth/business.manage"
+//  6. Click Run → generateAndPublishBlog() once to test
+//  7. Set up a daily trigger: Triggers → Add Trigger → generateAndPublishBlog
 //       → Time-driven → Day timer → 11pm to midnight
 // =============================================================================
 
@@ -114,6 +118,7 @@ function generateAndPublishBlog() {
   var dateStr = Utilities.formatDate(new Date(), "Australia/Melbourne", "MMMM d, yyyy");
   var dateIso = Utilities.formatDate(new Date(), "Australia/Melbourne", "yyyy-MM-dd");
   var html    = buildBlogHtml(blogData, slug, dateStr, dateIso);
+  var blogUrl = "https://theartours.com/blog/" + slug;
 
   pushFileToGitHub(githubToken, "blog/" + slug, html, "auto: add daily blog - " + blogData.title);
   Logger.log("Blog pushed to GitHub: blog/" + slug);
@@ -124,7 +129,97 @@ function generateAndPublishBlog() {
   updateBlogIndex(githubToken, blogData, slug, dateStr);
   Logger.log("Blog index updated");
 
+  // Auto-post to Google My Business
+  try {
+    postToGoogleMyBusiness(blogData, blogUrl);
+    Logger.log("Posted to Google My Business!");
+  } catch (e) {
+    Logger.log("GMB post failed (non-critical): " + e.message);
+  }
+
   Logger.log("Daily blog generation complete!");
+}
+
+// =============================================================================
+//  GOOGLE MY BUSINESS AUTO-POST
+// =============================================================================
+/**
+ * Posts today's blog summary as a Google My Business update.
+ * Uses the logged-in Google account's OAuth token automatically.
+ * REQUIRES: appsscript.json oauthScopes includes
+ *   "https://www.googleapis.com/auth/business.manage"
+ */
+function postToGoogleMyBusiness(blogData, blogUrl) {
+  var scriptProps   = PropertiesService.getScriptProperties();
+  var locationName  = scriptProps.getProperty("GMB_LOCATION_NAME");
+
+  if (!locationName) {
+    throw new Error("Missing Script Property: GMB_LOCATION_NAME. Run findMyGMBLocation() to get it.");
+  }
+
+  // Strip HTML tags from bodyHtml to get plain text excerpt
+  var plainText = blogData.bodyHtml
+    ? blogData.bodyHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().substring(0, 400)
+    : blogData.excerpt || "";
+
+  var postText = blogData.title + "\n\n" + plainText + "...\n\nRead the full article → " + blogUrl
+    + "\n\n📞 Book direct: 0400 044 004 | theartours.com";
+
+  // Trim to GMB max 1500 chars
+  if (postText.length > 1500) postText = postText.substring(0, 1497) + "...";
+
+  var token    = ScriptApp.getOAuthToken();
+  var apiUrl   = "https://mybusiness.googleapis.com/v4/" + locationName + "/localPosts";
+  var payload  = {
+    topicType: "STANDARD",
+    summary: postText,
+    callToAction: {
+      actionType: "BOOK",
+      url: "https://theartours.com/booking.html?utm_source=gmb&utm_medium=post&utm_campaign=daily-blog"
+    }
+  };
+  var options  = {
+    method: "post",
+    contentType: "application/json",
+    headers: { "Authorization": "Bearer " + token },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
+
+  var resp = UrlFetchApp.fetch(apiUrl, options);
+  var code = resp.getResponseCode();
+  if (code !== 200) {
+    throw new Error("GMB API returned " + code + ": " + resp.getContentText());
+  }
+  Logger.log("GMB post created: " + JSON.parse(resp.getContentText()).name);
+}
+
+/**
+ * Run this ONE TIME to find your GMB Location Name.
+ * It logs all locations associated with your Google account.
+ * Copy the location name (format: accounts/XXXXX/locations/XXXXX)
+ * and save it as the GMB_LOCATION_NAME Script Property.
+ */
+function findMyGMBLocation() {
+  var token  = ScriptApp.getOAuthToken();
+  var resp   = UrlFetchApp.fetch("https://mybusiness.googleapis.com/v4/accounts", {
+    headers: { "Authorization": "Bearer " + token },
+    muteHttpExceptions: true
+  });
+  Logger.log("Accounts: " + resp.getContentText());
+
+  try {
+    var accounts = JSON.parse(resp.getContentText()).accounts || [];
+    accounts.forEach(function(acc) {
+      var locResp = UrlFetchApp.fetch("https://mybusiness.googleapis.com/v4/" + acc.name + "/locations", {
+        headers: { "Authorization": "Bearer " + token },
+        muteHttpExceptions: true
+      });
+      Logger.log("Locations for " + acc.name + ": " + locResp.getContentText());
+    });
+  } catch(e) {
+    Logger.log("Error: " + e.message);
+  }
 }
 
 // =============================================================================
