@@ -201,26 +201,49 @@ function postToGoogleMyBusiness(blogData, blogUrl) {
  * and save it as the GMB_LOCATION_NAME Script Property.
  */
 function findMyGMBLocation() {
-  var token  = ScriptApp.getOAuthToken();
-  var resp   = UrlFetchApp.fetch("https://mybusiness.googleapis.com/v4/accounts", {
-    headers: { "Authorization": "Bearer " + token },
-    muteHttpExceptions: true
-  });
-  Logger.log("Accounts: " + resp.getContentText());
+  var token = ScriptApp.getOAuthToken();
+
+  // Step 1: Get accounts using the NEW Account Management API
+  var accResp = UrlFetchApp.fetch(
+    "https://mybusinessaccountmanagement.googleapis.com/v1/accounts",
+    { headers: { "Authorization": "Bearer " + token }, muteHttpExceptions: true }
+  );
+  Logger.log("=== ACCOUNTS RESPONSE ===");
+  Logger.log(accResp.getContentText());
 
   try {
-    var accounts = JSON.parse(resp.getContentText()).accounts || [];
+    var accounts = JSON.parse(accResp.getContentText()).accounts || [];
+    if (accounts.length === 0) {
+      Logger.log("No accounts found. Make sure you are logged into the correct Google account.");
+      return;
+    }
+
     accounts.forEach(function(acc) {
-      var locResp = UrlFetchApp.fetch("https://mybusiness.googleapis.com/v4/" + acc.name + "/locations", {
-        headers: { "Authorization": "Bearer " + token },
-        muteHttpExceptions: true
-      });
-      Logger.log("Locations for " + acc.name + ": " + locResp.getContentText());
+      Logger.log("Account: " + acc.name + " (" + acc.accountName + ")");
+
+      // Step 2: Get locations using the NEW Business Information API
+      var locResp = UrlFetchApp.fetch(
+        "https://mybusinessbusinessinformation.googleapis.com/v1/" + acc.name + "/locations?readMask=name,title,storefrontAddress",
+        { headers: { "Authorization": "Bearer " + token }, muteHttpExceptions: true }
+      );
+      Logger.log("=== LOCATIONS for " + acc.name + " ===");
+      Logger.log(locResp.getContentText());
+
+      try {
+        var locations = JSON.parse(locResp.getContentText()).locations || [];
+        locations.forEach(function(loc) {
+          Logger.log("✅ LOCATION NAME TO COPY: " + loc.name + " | Title: " + loc.title);
+          Logger.log("👉 Save this as GMB_LOCATION_NAME in Script Properties: " + loc.name);
+        });
+      } catch(e) {
+        Logger.log("Could not parse locations: " + e.message);
+      }
     });
   } catch(e) {
-    Logger.log("Error: " + e.message);
+    Logger.log("Error parsing accounts: " + e.message);
   }
 }
+
 
 // =============================================================================
 //  GROQ CONTENT GENERATION (Primary — free, fast)
