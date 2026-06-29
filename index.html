@@ -1035,10 +1035,46 @@
           and exceptional service. Every detail crafted for the discerning traveller.
         </p>
 
-        <div class="hero-ctas">
+        <div class="hero-ctas" style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center;">
           <a href="booking.html" class="btn btn--gold" id="hero-book-btn">
             ✦ Book Your Experience
           </a>
+
+          <!-- Bokun Widget Code -->
+          <script type="text/javascript" src="https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=0e82a4fe-5f5a-4462-896b-ac91df6a2e0a" async></script>
+          <style>
+            #bokun_bf1bfb39_35e5_4589_83af_36a04578fe6c {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              padding: 14px 28px;
+              background: #408C3D;
+              border-radius: 8px;
+              box-shadow: none;
+              font-family: 'Plus Jakarta Sans', sans-serif;
+              font-weight: 700;
+              font-size: 0.95rem;
+              letter-spacing: 0.02em;
+              text-decoration: none;
+              text-align: center;
+              color: #FFFFFF;
+              border: none;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              height: 48px;
+            }
+            #bokun_bf1bfb39_35e5_4589_83af_36a04578fe6c:hover {
+              background: #285726;
+              transform: translateY(-2px);
+            }
+            #bokun_bf1bfb39_35e5_4589_83af_36a04578fe6c:active {
+              background: #30682e;
+            }
+          </style>
+          <button class="bokunButton" disabled id="bokun_bf1bfb39_35e5_4589_83af_36a04578fe6c" data-src="https://widgets.bokun.io/online-sales/0e82a4fe-5f5a-4462-896b-ac91df6a2e0a/experience/1212073?partialView=1" data-testid="widget-book-button">
+            Book now (OTA Rates)
+          </button>
+
           <a href="tel:0400044004" class="btn btn--ghost" id="hero-quote-btn">
             📞 Request Custom Quote
           </a>
