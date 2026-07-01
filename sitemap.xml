@@ -150,4 +150,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://theartours.com/blog/sunrise-vs-sunset-at-the-12-apostles-which-is-more-spectacular.html</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
 </urlset>
