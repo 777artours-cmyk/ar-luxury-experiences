@@ -240,4 +240,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://theartours.com/blog/driving-the-great-ocean-road-in-one-day-vs-two-days-what-to-expect.html</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
 </urlset>
