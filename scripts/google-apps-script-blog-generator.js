@@ -169,7 +169,10 @@ function postToGoogleMyBusiness(blogData, blogUrl) {
     summary: plainText,
     url: blogUrl,
     phone: "0400 044 004",
-    website: "https://theartours.com"
+    website: "https://theartours.com",
+    category: blogData.category || "Melbourne",
+    fact1: blogData.fact1 || "Built by over 3,000 returned soldiers.",
+    fact2: blogData.fact2 || "The world's largest war memorial."
   };
 
   var options = {
@@ -200,7 +203,9 @@ function generateWithGroq(apiKey, topic) {
     + "Include one internal link to /booking.html or /tours/great-ocean-road.html. "
     + "Use h2 headings, paragraphs, bullet points. End with a short call to action. "
     + "Return ONLY valid JSON starting with { and ending with }, with NO markdown fences, NO backticks. "
-    + "Fields: title, metaDescription (max 150 chars), keywords, category, readingTime, excerpt (1-2 sentences), bodyHtml.";
+    + "Fields: title, metaDescription (max 150 chars), keywords, category, readingTime, excerpt (1-2 sentences), bodyHtml, "
+    + "fact1 (one highly interesting, surprising historical or natural fact about this attraction, under 120 chars), "
+    + "fact2 (a second different interesting historical or natural fact about this attraction, under 120 chars).";
 
   var lastError = "";
   for (var i = 0; i < GROQ_MODELS.length; i++) {
@@ -252,7 +257,8 @@ function generateWithGemini(apiKey, topic) {
   var prompt = "You are a luxury travel content writer for AR Tours (https://theartours.com). "
     + "Write a blog article about: \"" + topic + "\". "
     + "Return ONLY valid JSON starting with { and ending with }, NO markdown. "
-    + "Fields: title, metaDescription, keywords, category, readingTime, excerpt, bodyHtml (700 words, h2/p/ul tags).";
+    + "Fields: title, metaDescription, keywords, category, readingTime, excerpt, bodyHtml (700 words, h2/p/ul tags), "
+    + "fact1 (one short interesting fact), fact2 (second short interesting fact).";
 
   var lastError = "";
   for (var i = 0; i < GEMINI_MODELS.length; i++) {
