@@ -138,6 +138,49 @@ function generateAndPublishBlog() {
 }
 
 // =============================================================================
+//  INSTAGRAM ONLY ENTRY POINT — run this multiple times a day
+// =============================================================================
+function generateAndPublishInstagramOnly() {
+  var scriptProps = PropertiesService.getScriptProperties();
+  var groqKey     = scriptProps.getProperty("GROQ_API_KEY");
+  var geminiKey   = scriptProps.getProperty("GEMINI_API_KEY");
+
+  if (!groqKey && !geminiKey) throw new Error("Missing at least one AI key: GROQ_API_KEY or GEMINI_API_KEY");
+
+  // Pick a completely random topic for Instagram variety
+  var randomIndex = Math.floor(Math.random() * TOPICS.length);
+  var topic       = TOPICS[randomIndex];
+  Logger.log("Instagram Topic: " + topic);
+
+  // Try Groq first (free, fast, generous limits), then fall back to Gemini
+  var blogData = null;
+  if (groqKey) {
+    try {
+      blogData = generateWithGroq(groqKey, topic);
+      Logger.log("Content generated via Groq: " + blogData.title);
+    } catch (e) {
+      Logger.log("Groq failed: " + e.message + " — trying Gemini...");
+    }
+  }
+  if (!blogData && geminiKey) {
+    blogData = generateWithGemini(geminiKey, topic);
+    Logger.log("Content generated via Gemini: " + blogData.title);
+  }
+  if (!blogData) throw new Error("All AI providers failed.");
+
+  // We are not creating a blog page, so just link back to the homepage in the caption
+  var fallbackUrl = "https://theartours.com";
+
+  // Auto-post to Instagram via Make.com
+  try {
+    postToInstagram(blogData, fallbackUrl);
+    Logger.log("Successfully sent to Instagram via Make.com!");
+  } catch (e) {
+    Logger.log("Instagram post failed: " + e.message);
+  }
+}
+
+// =============================================================================
 //  INSTAGRAM GOD MODE — Pixabay + HCTI + Make.com
 // =============================================================================
 var PIXABAY_KEY = "56739186-0450f8e82ea53617ffff2d890";
