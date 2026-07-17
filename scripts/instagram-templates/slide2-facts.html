@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow: hidden;
+    position: relative;
+    background: #080C14;
+  }
+
+  /* Subtle grid pattern overlay */
+  .grid-pattern {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+  }
+
+  /* Gold accent lines */
+  .accent-line-top {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #D4AF37, #F0D060, #D4AF37);
+    z-index: 2;
+  }
+
+  .accent-line-bottom {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #D4AF37, #F0D060, #D4AF37);
+    z-index: 2;
+  }
+
+  /* Content container */
+  .content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 55px;
+  }
+
+  /* Top section */
+  .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #D4AF37, #F0D060);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #080C14;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+  }
+
+  .logo-subtext {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .slide-indicator {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Middle section — the facts */
+  .facts-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+  }
+
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    width: fit-content;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #D4AF37;
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title span {
+    color: #D4AF37;
+  }
+
+  /* Fact cards */
+  .fact-card {
+    background: rgba(212, 175, 55, 0.06);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 20px;
+    padding: 36px 40px;
+    position: relative;
+  }
+
+  .fact-number {
+    position: absolute;
+    top: -18px;
+    left: 36px;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #D4AF37, #F0D060);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+    color: #080C14;
+  }
+
+  .fact-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    color: #F8F8F8;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* History section */
+  .history-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid rgba(212, 175, 55, 0.4);
+    border-radius: 0 16px 16px 0;
+    padding: 30px 36px;
+  }
+
+  .history-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    margin-bottom: 12px;
+  }
+
+  .history-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* Bottom contact bar */
+  .contact-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .contact-item {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+  }
+
+  .contact-item strong {
+    color: #D4AF37;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+  <div class="grid-pattern"></div>
+  <div class="accent-line-top"></div>
+  <div class="accent-line-bottom"></div>
+
+  <div class="content">
+    <!-- Top section -->
+    <div class="top-section">
+      <div class="logo-container">
+        <div class="logo-icon">AR</div>
+        <div>
+          <div class="logo-text">AR Tours</div>
+          <div class="logo-subtext">Luxury Experiences</div>
+        </div>
+      </div>
+      <div class="slide-indicator">2 / 2</div>
+    </div>
+
+    <!-- Facts section -->
+    <div class="facts-section">
+      <div class="section-header">
+        <div class="section-tag">Fascinating Facts</div>
+        <div class="section-title">Did You <span>Know?</span></div>
+      </div>
+
+      <div class="fact-card">
+        <div class="fact-number">1</div>
+        <div class="fact-text">{{FACT1}}</div>
+      </div>
+
+      <div class="fact-card">
+        <div class="fact-number">2</div>
+        <div class="fact-text">{{FACT2}}</div>
+      </div>
+
+      <div class="history-section">
+        <div class="history-label">Historical Background</div>
+        <div class="history-text">{{HISTORY}}</div>
+      </div>
+    </div>
+
+    <!-- Bottom contact bar -->
+    <div class="contact-bar">
+      <div class="contact-item"><strong>P</strong> 0400 044 004</div>
+      <div class="contact-item"><strong>W</strong> www.theartours.com</div>
+      <div class="contact-item"><strong>E</strong> tours@theartours.com</div>
+    </div>
+  </div>
+
+</body>
+</html>

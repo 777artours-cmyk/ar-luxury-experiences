@@ -126,30 +126,30 @@ function generateAndPublishBlog() {
   updateBlogIndex(githubToken, blogData, slug, dateStr);
   Logger.log("Blog index updated");
 
-  // Auto-post to Google My Business
+  // Auto-post to Instagram via Make.com
   try {
-    postToGoogleMyBusiness(blogData, blogUrl);
-    Logger.log("Posted to Google My Business!");
+    postToInstagram(blogData, blogUrl);
+    Logger.log("Posted to Instagram via Make.com!");
   } catch (e) {
-    Logger.log("GMB post failed (non-critical): " + e.message);
+    Logger.log("Instagram post failed (non-critical): " + e.message);
   }
 
   Logger.log("Daily blog generation complete!");
 }
 
 // =============================================================================
-//  GOOGLE MY BUSINESS WEBHOOK TRIGGER
+//  INSTAGRAM AUTOMATION WEBHOOK (Make.com)
 // =============================================================================
 /**
- * Sends a webhook payload containing the blog post details to Make.com/Zapier.
- * This triggers a workflow to auto-post the blog update to Google Business Profile.
+ * Sends enriched blog data to Make.com webhook.
+ * Make.com uses this to: fetch attraction photo → generate branded slides → post to Instagram.
  */
-function postToGoogleMyBusiness(blogData, blogUrl) {
+function postToInstagram(blogData, blogUrl) {
   var scriptProps = PropertiesService.getScriptProperties();
   var webhookUrl  = scriptProps.getProperty("MAKE_WEBHOOK_URL");
 
   if (!webhookUrl) {
-    Logger.log("Skipping GMB auto-post: MAKE_WEBHOOK_URL script property is not set.");
+    Logger.log("Skipping Instagram auto-post: MAKE_WEBHOOK_URL script property is not set.");
     return;
   }
 
@@ -157,22 +157,19 @@ function postToGoogleMyBusiness(blogData, blogUrl) {
   var plainText = blogData.bodyHtml
     ? blogData.bodyHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
     : blogData.excerpt || "";
-
-  // Shorten plain text for the post excerpt
-  if (plainText.length > 500) {
-    plainText = plainText.substring(0, 497) + "...";
-  }
+  if (plainText.length > 500) plainText = plainText.substring(0, 497) + "...";
 
   var payload = {
-    title: blogData.title,
-    excerpt: blogData.excerpt || "",
-    summary: plainText,
-    url: blogUrl,
-    phone: "0400 044 004",
-    website: "https://theartours.com",
-    category: blogData.category || "Melbourne",
-    fact1: blogData.fact1 || "Built by over 3,000 returned soldiers.",
-    fact2: blogData.fact2 || "The world's largest war memorial."
+    title:             blogData.title,
+    excerpt:           blogData.excerpt || "",
+    summary:           plainText,
+    url:               blogUrl,
+    category:          blogData.category || "Melbourne",
+    fact1:             blogData.fact1 || "The Great Ocean Road is the world's largest war memorial.",
+    fact2:             blogData.fact2 || "It was built by over 3,000 returned soldiers after WWI.",
+    history:           blogData.history || "This iconic landmark has a rich and fascinating history.",
+    image_search:      blogData.image_search || "great ocean road australia scenic",
+    instagram_caption: blogData.instagram_caption || blogData.title + "\n\n" + (blogData.excerpt || "") + "\n\nRead the full guide: " + blogUrl + "\n\n#artours #melbourne #greatoceanroad #luxurytours #privatetour #visitmelbourne #visitvictoria #australia"
   };
 
   var options = {
@@ -185,9 +182,9 @@ function postToGoogleMyBusiness(blogData, blogUrl) {
   var resp = UrlFetchApp.fetch(webhookUrl, options);
   var code = resp.getResponseCode();
   if (code >= 200 && code < 300) {
-    Logger.log("Successfully sent webhook payload to Make.com! Status: " + code);
+    Logger.log("Successfully sent to Make.com for Instagram posting! Status: " + code);
   } else {
-    throw new Error("Webhook endpoint returned status " + code + ": " + resp.getContentText());
+    throw new Error("Webhook returned status " + code + ": " + resp.getContentText());
   }
 }
 
@@ -196,16 +193,19 @@ function postToGoogleMyBusiness(blogData, blogUrl) {
 //  GROQ CONTENT GENERATION (Primary — free, fast)
 // =============================================================================
 function generateWithGroq(apiKey, topic) {
-  var prompt = "You are a luxury travel content writer for AR Tours (https://theartours.com), "
+  var prompt = "You are a luxury travel content writer AND researcher for AR Tours (https://theartours.com), "
     + "a premier private chauffeur and tour company in Melbourne, Victoria, Australia. "
     + "Write a highly engaging, professional, and SEO-optimized blog article about: \"" + topic + "\". "
     + "Requirements: 700-900 words in bodyHtml. Sophisticated tone. Factual about Melbourne/Victoria. "
     + "Include one internal link to /booking.html or /tours/great-ocean-road.html. "
     + "Use h2 headings, paragraphs, bullet points. End with a short call to action. "
     + "Return ONLY valid JSON starting with { and ending with }, with NO markdown fences, NO backticks. "
-    + "Fields: title, metaDescription (max 150 chars), keywords, category, readingTime, excerpt (1-2 sentences), bodyHtml, "
-    + "fact1 (one highly interesting, surprising historical or natural fact about this attraction, under 120 chars), "
-    + "fact2 (a second different interesting historical or natural fact about this attraction, under 120 chars).";
+    + "Fields: title, metaDescription (max 150 chars), keywords, category (e.g. Great Ocean Road, Yarra Valley, Melbourne, Phillip Island), readingTime, excerpt (1-2 sentences), bodyHtml, "
+    + "fact1 (one highly interesting, surprising, well-researched historical or natural fact about this specific attraction, under 120 chars), "
+    + "fact2 (a second completely different interesting fact about this specific attraction, under 120 chars), "
+    + "history (one paragraph of 2-3 sentences about the real historical background of this attraction — be factually accurate), "
+    + "image_search (a specific 3-5 word Pixabay search query to find a real photo of this exact attraction e.g. 'twelve apostles great ocean road' or 'yarra valley vineyard'), "
+    + "instagram_caption (a ready-to-post Instagram caption: include the title, a short teaser, a call to action to visit theartours.com, and 8-10 relevant hashtags like #greatoceanroad #melbourne #luxurytour #privatetour #visitmelbourne #visitvictoria #australia #artours).";
 
   var lastError = "";
   for (var i = 0; i < GROQ_MODELS.length; i++) {
@@ -258,7 +258,10 @@ function generateWithGemini(apiKey, topic) {
     + "Write a blog article about: \"" + topic + "\". "
     + "Return ONLY valid JSON starting with { and ending with }, NO markdown. "
     + "Fields: title, metaDescription, keywords, category, readingTime, excerpt, bodyHtml (700 words, h2/p/ul tags), "
-    + "fact1 (one short interesting fact), fact2 (second short interesting fact).";
+    + "fact1 (one short interesting fact under 120 chars), fact2 (second short interesting fact under 120 chars), "
+    + "history (2-3 sentences of historical background), "
+    + "image_search (3-5 word Pixabay search query for this attraction), "
+    + "instagram_caption (ready-to-post caption with hashtags).";
 
   var lastError = "";
   for (var i = 0; i < GEMINI_MODELS.length; i++) {
