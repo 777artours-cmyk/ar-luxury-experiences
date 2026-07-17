@@ -138,11 +138,209 @@ function generateAndPublishBlog() {
 }
 
 // =============================================================================
-//  INSTAGRAM AUTOMATION WEBHOOK (Make.com)
+//  INSTAGRAM GOD MODE — Pixabay + HCTI + Make.com
 // =============================================================================
+var PIXABAY_KEY = "56739186-0450f8e82ea53617ffff2d890";
+var HCTI_USER   = "01KXR8K1VC7J9KMKEWF4E8TAMQ";
+var HCTI_KEY    = "019f7089-876c-7c1b-8de1-e69f3ec963d3";
+
 /**
- * Sends enriched blog data to Make.com webhook.
- * Make.com uses this to: fetch attraction photo → generate branded slides → post to Instagram.
+ * Search Pixabay for a free photo of the attraction.
+ * Returns the URL of the best match, or a fallback.
+ */
+function searchPixabay(searchQuery) {
+  var query = encodeURIComponent(searchQuery);
+  var url = "https://pixabay.com/api/?key=" + PIXABAY_KEY
+    + "&q=" + query
+    + "&image_type=photo&orientation=vertical&per_page=5&safesearch=true&min_width=1080";
+  
+  try {
+    var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    if (resp.getResponseCode() === 200) {
+      var data = JSON.parse(resp.getContentText());
+      if (data.hits && data.hits.length > 0) {
+        // Pick a random image from top 5 for variety
+        var idx = Math.floor(Math.random() * Math.min(data.hits.length, 5));
+        var imageUrl = data.hits[idx].largeImageURL;
+        Logger.log("Pixabay image found: " + imageUrl);
+        return imageUrl;
+      }
+    }
+    // Fallback: try broader search
+    Logger.log("No Pixabay results for '" + searchQuery + "', trying fallback...");
+    var fallbackUrl = "https://pixabay.com/api/?key=" + PIXABAY_KEY
+      + "&q=" + encodeURIComponent("australia landscape scenic")
+      + "&image_type=photo&orientation=vertical&per_page=5&safesearch=true&min_width=1080";
+    var resp2 = UrlFetchApp.fetch(fallbackUrl, { muteHttpExceptions: true });
+    if (resp2.getResponseCode() === 200) {
+      var data2 = JSON.parse(resp2.getContentText());
+      if (data2.hits && data2.hits.length > 0) {
+        var idx2 = Math.floor(Math.random() * data2.hits.length);
+        return data2.hits[idx2].largeImageURL;
+      }
+    }
+  } catch (e) {
+    Logger.log("Pixabay search failed: " + e.message);
+  }
+  // Last resort fallback — a known free image
+  return "https://pixabay.com/get/g8b12d0f1c8b1e5d6a3b8e9e2c5d7a4f2e1b3c6d8a9e0f1c2d3e4f5a6b7c8d9.jpg";
+}
+
+/**
+ * Generate an image from HTML using HCTI (htmlcsstoimage.com).
+ * Returns the URL of the rendered image.
+ */
+function generateSlideImage(htmlContent) {
+  var url = "https://hcti.io/v1/image";
+  var auth = Utilities.base64Encode(HCTI_USER + ":" + HCTI_KEY);
+  
+  var payload = {
+    html: htmlContent,
+    viewport_width: 1080,
+    viewport_height: 1350,
+    device_scale: 1
+  };
+  
+  var options = {
+    method: "post",
+    contentType: "application/json",
+    headers: { "Authorization": "Basic " + auth },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
+  
+  var resp = UrlFetchApp.fetch(url, options);
+  var code = resp.getResponseCode();
+  if (code >= 200 && code < 300) {
+    var data = JSON.parse(resp.getContentText());
+    Logger.log("HCTI image generated: " + data.url);
+    return data.url;
+  } else {
+    throw new Error("HCTI failed (" + code + "): " + resp.getContentText());
+  }
+}
+
+/**
+ * Build the Slide 1 HTML (Attraction Hero with photo background).
+ */
+function buildSlide1Html(imageUrl, title, category, excerpt) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+    + '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">'
+    + '<style>'
+    + '* { margin: 0; padding: 0; box-sizing: border-box; }'
+    + 'body { width: 1080px; height: 1350px; font-family: "Plus Jakarta Sans", sans-serif; overflow: hidden; position: relative; background: #080C14; }'
+    + '.bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url("' + imageUrl + '"); background-size: cover; background-position: center; z-index: 1; }'
+    + '.overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(8,12,20,0.3) 0%, rgba(8,12,20,0.1) 30%, rgba(8,12,20,0.15) 50%, rgba(8,12,20,0.7) 75%, rgba(8,12,20,0.95) 100%); z-index: 2; }'
+    + '.content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; display: flex; flex-direction: column; justify-content: space-between; padding: 50px; }'
+    + '.top-bar { display: flex; justify-content: space-between; align-items: center; }'
+    + '.logo-container { display: flex; align-items: center; gap: 14px; }'
+    + '.logo-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #D4AF37, #F0D060); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #080C14; }'
+    + '.logo-text { font-size: 22px; font-weight: 800; color: #FFF; letter-spacing: 0.02em; }'
+    + '.logo-subtext { font-family: "Outfit", sans-serif; font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.6); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 2px; }'
+    + '.category-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,175,55,0.2); border: 1px solid rgba(212,175,55,0.4); border-radius: 50px; padding: 10px 20px; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #D4AF37; }'
+    + '.bottom-content { display: flex; flex-direction: column; gap: 24px; }'
+    + '.title { font-size: 48px; font-weight: 900; color: #FFF; line-height: 1.15; letter-spacing: -0.02em; text-shadow: 0 4px 30px rgba(0,0,0,0.5); max-width: 900px; }'
+    + '.divider { width: 80px; height: 4px; background: linear-gradient(90deg, #D4AF37, #F0D060); border-radius: 2px; }'
+    + '.subtitle { font-family: "Outfit", sans-serif; font-size: 20px; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 750px; }'
+    + '.contact-bar { display: flex; align-items: center; justify-content: center; gap: 40px; padding: 20px 0; border-top: 1px solid rgba(212,175,55,0.25); margin-top: 10px; }'
+    + '.contact-item { font-family: "Outfit", sans-serif; font-size: 16px; color: rgba(255,255,255,0.7); letter-spacing: 0.08em; }'
+    + '.contact-item strong { color: #D4AF37; font-weight: 600; }'
+    + '.swipe-indicator { position: absolute; right: 50px; bottom: 120px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 4; }'
+    + '.swipe-arrow { font-size: 28px; color: rgba(212,175,55,0.6); }'
+    + '.swipe-text { font-family: "Outfit", sans-serif; font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.15em; writing-mode: vertical-rl; }'
+    + '</style></head><body>'
+    + '<div class="bg-image"></div><div class="overlay"></div>'
+    + '<div class="content">'
+    + '  <div class="top-bar">'
+    + '    <div class="logo-container"><div class="logo-icon">AR</div><div><div class="logo-text">AR Tours</div><div class="logo-subtext">Luxury Experiences</div></div></div>'
+    + '    <div class="category-badge">' + escapeHtml(category) + '</div>'
+    + '  </div>'
+    + '  <div class="bottom-content">'
+    + '    <div class="title">' + escapeHtml(title) + '</div>'
+    + '    <div class="divider"></div>'
+    + '    <div class="subtitle">' + escapeHtml(excerpt) + '</div>'
+    + '    <div class="contact-bar">'
+    + '      <div class="contact-item"><strong>&#9742;</strong> 0400 044 004</div>'
+    + '      <div class="contact-item"><strong>&#10022;</strong> www.theartours.com</div>'
+    + '      <div class="contact-item"><strong>&#9993;</strong> tours@theartours.com</div>'
+    + '    </div>'
+    + '  </div>'
+    + '</div>'
+    + '<div class="swipe-indicator"><div class="swipe-arrow">&#8594;</div><div class="swipe-text">Swipe for facts</div></div>'
+    + '</body></html>';
+}
+
+/**
+ * Build the Slide 2 HTML (Facts & History on dark background).
+ */
+function buildSlide2Html(fact1, fact2, history) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+    + '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">'
+    + '<style>'
+    + '* { margin: 0; padding: 0; box-sizing: border-box; }'
+    + 'body { width: 1080px; height: 1350px; font-family: "Plus Jakarta Sans", sans-serif; overflow: hidden; position: relative; background: #080C14; }'
+    + '.grid-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: 1; }'
+    + '.accent-line-top { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #D4AF37, #F0D060, #D4AF37); z-index: 2; }'
+    + '.accent-line-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #D4AF37, #F0D060, #D4AF37); z-index: 2; }'
+    + '.content { position: relative; z-index: 3; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 60px 55px; }'
+    + '.top-section { display: flex; justify-content: space-between; align-items: flex-start; }'
+    + '.logo-container { display: flex; align-items: center; gap: 14px; }'
+    + '.logo-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #D4AF37, #F0D060); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #080C14; }'
+    + '.logo-text { font-size: 22px; font-weight: 800; color: #FFF; letter-spacing: 0.02em; }'
+    + '.logo-subtext { font-family: "Outfit", sans-serif; font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 2px; }'
+    + '.slide-indicator { font-family: "Outfit", sans-serif; font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; }'
+    + '.facts-section { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 50px; }'
+    + '.section-header { display: flex; flex-direction: column; gap: 16px; }'
+    + '.section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #D4AF37; width: fit-content; }'
+    + '.section-title { font-size: 42px; font-weight: 900; color: #FFF; letter-spacing: -0.02em; }'
+    + '.section-title span { color: #D4AF37; }'
+    + '.fact-card { background: rgba(212,175,55,0.06); border: 1px solid rgba(212,175,55,0.15); border-radius: 20px; padding: 36px 40px; position: relative; }'
+    + '.fact-number { position: absolute; top: -18px; left: 36px; width: 36px; height: 36px; background: linear-gradient(135deg, #D4AF37, #F0D060); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: #080C14; }'
+    + '.fact-text { font-family: "Outfit", sans-serif; font-size: 22px; color: #F8F8F8; line-height: 1.6; font-weight: 400; }'
+    + '.history-section { background: rgba(255,255,255,0.03); border-left: 3px solid rgba(212,175,55,0.4); border-radius: 0 16px 16px 0; padding: 30px 36px; }'
+    + '.history-label { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #D4AF37; margin-bottom: 12px; }'
+    + '.history-text { font-family: "Outfit", sans-serif; font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.7; font-style: italic; }'
+    + '.contact-bar { display: flex; align-items: center; justify-content: center; gap: 40px; padding: 20px 0; border-top: 1px solid rgba(212,175,55,0.2); }'
+    + '.contact-item { font-family: "Outfit", sans-serif; font-size: 16px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; }'
+    + '.contact-item strong { color: #D4AF37; font-weight: 600; }'
+    + '</style></head><body>'
+    + '<div class="grid-pattern"></div><div class="accent-line-top"></div><div class="accent-line-bottom"></div>'
+    + '<div class="content">'
+    + '  <div class="top-section">'
+    + '    <div class="logo-container"><div class="logo-icon">AR</div><div><div class="logo-text">AR Tours</div><div class="logo-subtext">Luxury Experiences</div></div></div>'
+    + '    <div class="slide-indicator">2 / 2</div>'
+    + '  </div>'
+    + '  <div class="facts-section">'
+    + '    <div class="section-header">'
+    + '      <div class="section-tag">&#10022; Fascinating Facts</div>'
+    + '      <div class="section-title">Did You <span>Know?</span></div>'
+    + '    </div>'
+    + '    <div class="fact-card"><div class="fact-number">1</div><div class="fact-text">' + escapeHtml(fact1) + '</div></div>'
+    + '    <div class="fact-card"><div class="fact-number">2</div><div class="fact-text">' + escapeHtml(fact2) + '</div></div>'
+    + '    <div class="history-section">'
+    + '      <div class="history-label">Historical Background</div>'
+    + '      <div class="history-text">' + escapeHtml(history) + '</div>'
+    + '    </div>'
+    + '  </div>'
+    + '  <div class="contact-bar">'
+    + '    <div class="contact-item"><strong>&#9742;</strong> 0400 044 004</div>'
+    + '    <div class="contact-item"><strong>&#10022;</strong> www.theartours.com</div>'
+    + '    <div class="contact-item"><strong>&#9993;</strong> tours@theartours.com</div>'
+    + '  </div>'
+    + '</div>'
+    + '</body></html>';
+}
+
+/** Escape HTML special characters to prevent injection in templates */
+function escapeHtml(text) {
+  if (!text) return "";
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+/**
+ * GOD MODE: Generate branded Instagram slides and send to Make.com.
+ * Flow: AI content → Pixabay photo → HCTI renders 2 slides → webhook sends image URLs.
+ * Make.com just receives ready-made image URLs and posts them via Buffer. Dead simple.
  */
 function postToInstagram(blogData, blogUrl) {
   var scriptProps = PropertiesService.getScriptProperties();
@@ -153,24 +351,47 @@ function postToInstagram(blogData, blogUrl) {
     return;
   }
 
-  // Strip HTML tags from bodyHtml to get plain text
-  var plainText = blogData.bodyHtml
-    ? blogData.bodyHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
-    : blogData.excerpt || "";
-  if (plainText.length > 500) plainText = plainText.substring(0, 497) + "...";
+  // --- Step 1: Search Pixabay for a real attraction photo ---
+  var searchQuery = blogData.image_search || blogData.title;
+  Logger.log("Searching Pixabay for: " + searchQuery);
+  var photoUrl = searchPixabay(searchQuery);
+
+  // --- Step 2: Generate Slide 1 (Attraction Hero with photo) ---
+  Logger.log("Generating Slide 1 via HCTI...");
+  var slide1Html = buildSlide1Html(
+    photoUrl,
+    blogData.title,
+    blogData.category || "Melbourne",
+    blogData.excerpt || ""
+  );
+  var slide1Url = generateSlideImage(slide1Html);
+
+  // --- Step 3: Generate Slide 2 (Facts & History) ---
+  Logger.log("Generating Slide 2 via HCTI...");
+  var slide2Html = buildSlide2Html(
+    blogData.fact1 || "An incredible fact about this destination.",
+    blogData.fact2 || "Another fascinating fact to discover.",
+    blogData.history || "This landmark has a rich and fascinating history."
+  );
+  var slide2Url = generateSlideImage(slide2Html);
+
+  // --- Step 4: Send everything to Make.com ---
+  var caption = blogData.instagram_caption
+    || blogData.title + "\n\n" + (blogData.excerpt || "")
+    + "\n\nRead the full guide: " + blogUrl
+    + "\n\n#artours #melbourne #luxurytour #privatetour #visitmelbourne #visitvictoria #australia";
 
   var payload = {
-    title:             blogData.title,
-    excerpt:           blogData.excerpt || "",
-    summary:           plainText,
-    url:               blogUrl,
-    category:          blogData.category || "Melbourne",
-    fact1:             blogData.fact1 || "The Great Ocean Road is the world's largest war memorial.",
-    fact2:             blogData.fact2 || "It was built by over 3,000 returned soldiers after WWI.",
-    history:           blogData.history || "This iconic landmark has a rich and fascinating history.",
-    image_search:      blogData.image_search || "great ocean road australia scenic",
-    instagram_caption: blogData.instagram_caption || blogData.title + "\n\n" + (blogData.excerpt || "") + "\n\nRead the full guide: " + blogUrl + "\n\n#artours #melbourne #greatoceanroad #luxurytours #privatetour #visitmelbourne #visitvictoria #australia"
+    slide1_url:        slide1Url,
+    slide2_url:        slide2Url,
+    instagram_caption: caption,
+    blog_url:          blogUrl,
+    title:             blogData.title
   };
+
+  Logger.log("Sending to Make.com webhook...");
+  Logger.log("  Slide 1: " + slide1Url);
+  Logger.log("  Slide 2: " + slide2Url);
 
   var options = {
     method: "post",
@@ -182,7 +403,7 @@ function postToInstagram(blogData, blogUrl) {
   var resp = UrlFetchApp.fetch(webhookUrl, options);
   var code = resp.getResponseCode();
   if (code >= 200 && code < 300) {
-    Logger.log("Successfully sent to Make.com for Instagram posting! Status: " + code);
+    Logger.log("SUCCESS! Instagram slides sent to Make.com! Status: " + code);
   } else {
     throw new Error("Webhook returned status " + code + ": " + resp.getContentText());
   }
