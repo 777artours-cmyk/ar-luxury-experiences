@@ -181,11 +181,108 @@ function generateAndPublishInstagramOnly() {
 }
 
 // =============================================================================
-//  INSTAGRAM GOD MODE — Pixabay + HCTI + Make.com
+//  INSTAGRAM GOD MODE — Pixabay + HCTI + Zernio (Direct Carousel Posting)
 // =============================================================================
 var PIXABAY_KEY = "56739186-0450f8e82ea53617ffff2d890";
 var HCTI_USER   = "01KXR8K1VC7J9KMKEWF4E8TAMQ";
 var HCTI_KEY    = "019f7089-876c-7c1b-8de1-e69f3ec963d3";
+var ZERNIO_KEY  = "sk_c35011228cc118662411540d03f3fba7b9aa53442721adedf2961ea5e7c57e9f";
+
+/**
+ * Helper: Find your Zernio Instagram account ID.
+ * Run this function ONCE from Apps Script to get your account ID,
+ * then save it as ZERNIO_ACCOUNT_ID in Script Properties.
+ */
+function findZernioAccountId() {
+  var resp = UrlFetchApp.fetch("https://zernio.com/api/v1/profiles", {
+    headers: { "Authorization": "Bearer " + ZERNIO_KEY },
+    muteHttpExceptions: true
+  });
+  Logger.log("=== ZERNIO PROFILES ===");
+  Logger.log(resp.getContentText());
+  Logger.log("Look for your Instagram account ID above (e.g. acc_xxxxx).");
+  Logger.log("Save it as ZERNIO_ACCOUNT_ID in Script Properties.");
+}
+
+/**
+ * Post a carousel (2 slides) directly to Instagram via Zernio API.
+ * No Make.com. No Buffer. Just Apps Script → Zernio → Instagram.
+ */
+function postToInstagram(blogData, blogUrl) {
+  var scriptProps = PropertiesService.getScriptProperties();
+  var zernioAccountId = scriptProps.getProperty("ZERNIO_ACCOUNT_ID");
+
+  if (!zernioAccountId) {
+    Logger.log("ZERNIO_ACCOUNT_ID not set. Run findZernioAccountId() first to discover it.");
+    return;
+  }
+
+  // --- Step 1: Search Pixabay for a real attraction photo ---
+  var searchQuery = blogData.image_search || blogData.title;
+  Logger.log("Searching Pixabay for: " + searchQuery);
+  var photoUrl = searchPixabay(searchQuery);
+
+  // --- Step 2: Generate Slide 1 (Attraction Hero with photo) ---
+  Logger.log("Generating Slide 1 via HCTI...");
+  var slide1Html = buildSlide1Html(
+    photoUrl,
+    blogData.title,
+    blogData.category || "Melbourne",
+    blogData.excerpt || ""
+  );
+  var slide1Url = generateSlideImage(slide1Html);
+
+  // --- Step 3: Generate Slide 2 (Facts & History) ---
+  Logger.log("Generating Slide 2 via HCTI...");
+  var slide2Html = buildSlide2Html(
+    blogData.fact1 || "An incredible fact about this destination.",
+    blogData.fact2 || "Another fascinating fact to discover.",
+    blogData.history || "This landmark has a rich and fascinating history."
+  );
+  var slide2Url = generateSlideImage(slide2Html);
+
+  // --- Step 4: Post carousel directly to Instagram via Zernio ---
+  var caption = blogData.instagram_caption
+    || blogData.title + "\n\n" + (blogData.excerpt || "")
+    + "\n\nRead the full guide: " + blogUrl
+    + "\n\n#artours #melbourne #luxurytour #privatetour #visitmelbourne #visitvictoria #australia";
+
+  var zernioPayload = {
+    content: caption,
+    platforms: [
+      {
+        platform: "instagram",
+        accountId: zernioAccountId
+      }
+    ],
+    mediaItems: [
+      { type: "image", url: slide1Url },
+      { type: "image", url: slide2Url }
+    ],
+    publishNow: true
+  };
+
+  Logger.log("Posting carousel to Instagram via Zernio...");
+  Logger.log("  Slide 1: " + slide1Url);
+  Logger.log("  Slide 2: " + slide2Url);
+
+  var options = {
+    method: "post",
+    contentType: "application/json",
+    headers: { "Authorization": "Bearer " + ZERNIO_KEY },
+    payload: JSON.stringify(zernioPayload),
+    muteHttpExceptions: true
+  };
+
+  var resp = UrlFetchApp.fetch("https://zernio.com/api/v1/posts", options);
+  var code = resp.getResponseCode();
+  if (code >= 200 && code < 300) {
+    Logger.log("SUCCESS! Carousel posted to Instagram via Zernio! Status: " + code);
+    Logger.log("Response: " + resp.getContentText());
+  } else {
+    throw new Error("Zernio failed (" + code + "): " + resp.getContentText());
+  }
+}
 
 /**
  * Search Pixabay for a free photo of the attraction.
@@ -202,14 +299,12 @@ function searchPixabay(searchQuery) {
     if (resp.getResponseCode() === 200) {
       var data = JSON.parse(resp.getContentText());
       if (data.hits && data.hits.length > 0) {
-        // Pick a random image from top 5 for variety
         var idx = Math.floor(Math.random() * Math.min(data.hits.length, 5));
         var imageUrl = data.hits[idx].largeImageURL;
         Logger.log("Pixabay image found: " + imageUrl);
         return imageUrl;
       }
     }
-    // Fallback: try broader search
     Logger.log("No Pixabay results for '" + searchQuery + "', trying fallback...");
     var fallbackUrl = "https://pixabay.com/api/?key=" + PIXABAY_KEY
       + "&q=" + encodeURIComponent("australia landscape scenic")
@@ -225,7 +320,6 @@ function searchPixabay(searchQuery) {
   } catch (e) {
     Logger.log("Pixabay search failed: " + e.message);
   }
-  // Last resort fallback — a known free image
   return "https://pixabay.com/get/g8b12d0f1c8b1e5d6a3b8e9e2c5d7a4f2e1b3c6d8a9e0f1c2d3e4f5a6b7c8d9.jpg";
 }
 
