@@ -876,4 +876,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://theartours.com/blog/private-great-ocean-road-tour-vs-self-drive-the-honest-comparison.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
 </urlset>
