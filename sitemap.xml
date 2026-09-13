@@ -990,4 +990,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://theartours.com/blog/new-wildlife-discoveries-or-seasonal-animal-movements-in-victoria.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
 </urlset>
